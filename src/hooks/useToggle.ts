@@ -5,7 +5,7 @@ export default function useToggle(
 ): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {
   const [value, setValue] = useState(defaultValue)
 
-  const onToggle = useCallback(() => setValue((prev) => !prev), [])
+  const toggle = useCallback(() => setValue((prev) => !prev), [])
 
-  return [value, onToggle, setValue]
+  return [value, toggle, setValue]
 }
