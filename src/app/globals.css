@@ -2,32 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+html {
+  font-size: 14px;
+  @screen md {
+    font-size: 16px;
   }
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* BlockNote Editor */
+.bn-container
+  .bn-block-content.bn-is-empty.bn-has-anchor
+  .bn-inline-content:before {
+  content: '텍스트를 입력해 주세요.';
+}
+.bn-container .bn-toolbar .mantine-ActionIcon-root[data-test='nestBlock'],
+.bn-container .bn-toolbar .mantine-ActionIcon-root[data-test='unnestBlock'] {
+  display: none;
+}
+.mantine-ActionIcon-loader {
+  display: none;
+}
+html {
+  color-scheme: light !important;
 }
 
+@layer base {
+  h1 {
+    @apply text-3xl font-semibold;
+  }
+  h2 {
+    @apply text-2xl font-semibold;
+  }
+  h3 {
+    @apply text-xl font-semibold;
+  }
+  * {
+    @apply focus:outline-none;
+  }
+  textarea {
+    @apply resize-none;
+  }
+  [contenteditable='true']:empty:before,
+  [data-empty='true']:empty:before {
+    content: attr(title);
+    @apply text-gray-500;
+  }
+}
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .title {
+    @apply text-2xl font-semibold;
+  }
+  .subtitle1 {
+    @apply text-xl font-medium;
+  }
+  .subtitle2 {
+    @apply text-lg font-medium;
+  }
+  .body1 {
+    @apply text-base font-normal;
+  }
+  .body2 {
+    @apply text-sm font-normal;
   }
 }
