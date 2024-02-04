@@ -14,11 +14,18 @@ html {
     font-size: 16px;
   }
 }
+.react-grid-layout img {
+  width: inherit;
+  height: inherit;
+}
 /* BlockNote Editor */
 .bn-container
   .bn-block-content.bn-is-empty.bn-has-anchor
   .bn-inline-content:before {
   content: '텍스트를 입력해 주세요.';
+}
+.bn-container .bn-editor {
+  padding-inline: 0.75rem;
 }
 .bn-container .bn-toolbar .mantine-ActionIcon-root[data-test='nestBlock'],
 .bn-container .bn-toolbar .mantine-ActionIcon-root[data-test='unnestBlock'] {

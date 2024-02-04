@@ -4,44 +4,69 @@
 
 import TextEditor from '@/components/TextEditor'
 import Toolbar from '@/components/Toolbar'
+import { ToolType } from '@/types'
 import { useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
+import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
+import { v4 as uuidv4 } from 'uuid'
 
 type UserData = {
-  id: number
+  id: string
   name: string
   bio: string
   thumbnail: string
-  github: string[]
-  title: string[]
-  content: string[]
-  imageUrl: string[]
+  details: DetailType[]
+}
+
+type DetailType = {
+  id: string
+  type: ToolType
+  value: any // TODO: 타입 변경
 }
 
 const USERDATA: UserData = {
-  id: 1,
+  id: '1',
   name: '소르비',
   bio: '❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다.',
   thumbnail: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
-  github: [],
-  title: [],
-  content: [],
-  imageUrl: [],
+  details: [],
+}
+
+const ResponsiveGridLayout = WidthProvider(Responsive)
+
+const renderDetail = (detail: DetailType) => {
+  switch (detail.type) {
+    case 'github':
+      return (
+        <GitHubCalendar username={detail.value.githubId} colorScheme="light" />
+      )
+    case 'content':
+      return <TextEditor content={detail.value} />
+    case 'image':
+      return <img src={detail.value.imageUrl} alt={`image_${detail.id}`} />
+    default:
+      return null
+  }
 }
 
 export default function UserPage({ params }: { params: { userId: string } }) {
   const [data, setData] = useState<UserData>(USERDATA)
+  const [layouts, setLayouts] = useState<Layouts>()
 
-  const handleAdd = (name: string, value?: string) => {
-    if (name === 'github' && value) {
-      setData({ ...data, github: [...data.github, value] })
-    } else if (name === 'title') {
-      setData({ ...data, title: [...data.title, ''] })
-    } else if (name === 'content') {
-      setData({ ...data, content: [...data.content, ''] })
-    } else if (name === 'imageUrl' && value) {
-      setData({ ...data, imageUrl: [...data.imageUrl, value] })
-    }
+  const handleAdd = (name: ToolType, value?: string) => {
+    const id = uuidv4()
+
+    setData({
+      ...data,
+      details: [
+        ...data.details,
+        {
+          id,
+          type: name,
+          value,
+        },
+      ],
+    })
   }
 
   console.log(params.userId)
@@ -50,7 +75,7 @@ export default function UserPage({ params }: { params: { userId: string } }) {
     <div className="relative">
       <Toolbar onAdd={handleAdd} />
       <div className="flex">
-        <div className="flex w-full">
+        <div className="flex w-full md:flex-row flex-col">
           <div className="flex flex-col gap-8 px-8 py-16 w-80">
             <button type="button">
               {data.thumbnail ? (
@@ -84,26 +109,22 @@ export default function UserPage({ params }: { params: { userId: string } }) {
               </h3>
             </div>
           </div>
-          <div className="w-full px-8 py-16">
-            {data.github.map((username) => (
-              <GitHubCalendar username={username} colorScheme="light" />
-            ))}
-            {data.title.map((title) => (
-              <h2
-                className="break-all"
-                contentEditable="true"
-                title="제목을 입력해주세요."
-                suppressContentEditableWarning
-              >
-                {title}
-              </h2>
-            ))}
-            {data.content.map((content) => (
-              <TextEditor content={content} />
-            ))}
-            {data.imageUrl.map((url) => (
-              <img src={url} alt="image_" />
-            ))}
+          <div className="w-full max-w-screen-xl px-8 py-16">
+            <ResponsiveGridLayout
+              breakpoints={{ lg: 1024, sm: 768, xxs: 0 }}
+              cols={{ lg: 6, sm: 4, xxs: 2 }}
+              rowHeight={160}
+              layouts={layouts}
+              verticalCompact
+              compactType={null}
+              onLayoutChange={(_, currentLayout) => {
+                setLayouts(currentLayout)
+              }}
+            >
+              {data.details.map((detail) => (
+                <div key={detail.id}>{renderDetail(detail)}</div>
+              ))}
+            </ResponsiveGridLayout>
           </div>
         </div>
       </div>

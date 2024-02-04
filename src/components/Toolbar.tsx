@@ -4,9 +4,10 @@ import { FaGithub } from 'react-icons/fa'
 import { FaCirclePlus, FaImage } from 'react-icons/fa6'
 import { MdOutlineTitle } from 'react-icons/md'
 import useOutsideClick from '@/hooks/useOutsideClick'
+import { ToolType } from '@/types'
 
 interface ToolbarProps {
-  onAdd: (name: string, value?: string) => void
+  onAdd: (name: ToolType, value?: any) => void
 }
 
 function Toolbar({ onAdd }: ToolbarProps) {
@@ -26,7 +27,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
       console.log('please press your github id') // TODO: need modal
       return
     }
-    onAdd('github', githubIdRef.current.value)
+    onAdd('github', { githubId: githubIdRef.current.value })
     setActive('')
     setIsOpen(false)
   }
@@ -44,7 +45,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
 
     if (file) {
       const imageUrl = await uploadImage(file)
-      onAdd('imageUrl', imageUrl)
+      onAdd('image', { imageUrl })
     }
   }
 
