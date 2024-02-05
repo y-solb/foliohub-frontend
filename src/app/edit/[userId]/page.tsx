@@ -2,13 +2,15 @@
 
 'use client'
 
+import 'react-grid-layout/css/styles.css'
 import TextEditor from '@/components/TextEditor'
 import Toolbar from '@/components/Toolbar'
 import { ToolType } from '@/types'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
+import { FaAngleRight } from 'react-icons/fa6'
 
 type UserData = {
   id: string
@@ -29,7 +31,15 @@ const USERDATA: UserData = {
   name: '소르비',
   bio: '❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다.',
   thumbnail: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
-  details: [],
+  details: [
+    {
+      id: '123',
+      type: 'image',
+      value: {
+        imageUrl: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
+      },
+    },
+  ],
 }
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
@@ -48,6 +58,19 @@ const renderDetail = (detail: DetailType) => {
       return null
   }
 }
+
+const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
+  return (
+    <div
+      ref={ref}
+      className="absolute bottom-1 right-1 cursor-se-resize resize-handler"
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...props}
+    >
+      <FaAngleRight size="24" className="text-gray-200 rotate-45" />
+    </div>
+  )
+})
 
 export default function UserPage({ params }: { params: { userId: string } }) {
   const [data, setData] = useState<UserData>(USERDATA)
@@ -113,16 +136,20 @@ export default function UserPage({ params }: { params: { userId: string } }) {
             <ResponsiveGridLayout
               breakpoints={{ lg: 1024, sm: 768, xxs: 0 }}
               cols={{ lg: 6, sm: 4, xxs: 2 }}
-              rowHeight={160}
+              rowHeight={164}
               layouts={layouts}
               verticalCompact
               compactType={null}
+              draggableCancel=".resize-handler"
+              resizeHandle={<ResizeHandler />}
               onLayoutChange={(_, currentLayout) => {
                 setLayouts(currentLayout)
               }}
             >
               {data.details.map((detail) => (
-                <div key={detail.id}>{renderDetail(detail)}</div>
+                <div key={detail.id} className="rounded-2xl overflow-hidden">
+                  {renderDetail(detail)}
+                </div>
               ))}
             </ResponsiveGridLayout>
           </div>
