@@ -3,14 +3,13 @@
 'use client'
 
 import 'react-grid-layout/css/styles.css'
-import TextEditor from '@/components/TextEditor'
 import Toolbar from '@/components/Toolbar'
-import { ToolType } from '@/types'
+import { DetailType, ToolType } from '@/types'
 import React, { useState } from 'react'
-import GitHubCalendar from 'react-github-calendar'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import { FaAngleRight } from 'react-icons/fa6'
+import GridItem from '@/components/GridItem'
 
 type UserData = {
   id: string
@@ -18,12 +17,6 @@ type UserData = {
   bio: string
   thumbnail: string
   details: DetailType[]
-}
-
-type DetailType = {
-  id: string
-  type: ToolType
-  value: any // TODO: 타입 변경
 }
 
 const USERDATA: UserData = {
@@ -44,21 +37,6 @@ const USERDATA: UserData = {
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
-const renderDetail = (detail: DetailType) => {
-  switch (detail.type) {
-    case 'github':
-      return (
-        <GitHubCalendar username={detail.value.githubId} colorScheme="light" />
-      )
-    case 'content':
-      return <TextEditor content={detail.value} />
-    case 'image':
-      return <img src={detail.value.imageUrl} alt={`image_${detail.id}`} />
-    default:
-      return null
-  }
-}
-
 const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
@@ -74,7 +52,11 @@ const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
 
 export default function UserPage({ params }: { params: { userId: string } }) {
   const [data, setData] = useState<UserData>(USERDATA)
-  const [layouts, setLayouts] = useState<Layouts>()
+  const [layouts, setLayouts] = useState<Layouts>({
+    lg: [],
+    sm: [],
+    xxs: [],
+  })
 
   const handleAdd = (name: ToolType, value?: string) => {
     const id = uuidv4()
@@ -92,6 +74,18 @@ export default function UserPage({ params }: { params: { userId: string } }) {
     })
   }
 
+  const handleDelete = (id: string) => {
+    setData({
+      ...data,
+      details: data.details.filter((detail) => detail.id !== id),
+    })
+
+    setLayouts({
+      lg: layouts?.lg.filter((layout) => layout.i !== id),
+      sm: layouts?.sm.filter((layout) => layout.i !== id),
+      xxs: layouts?.xxs.filter((layout) => layout.i !== id),
+    })
+  }
   console.log(params.userId)
 
   return (
@@ -147,8 +141,12 @@ export default function UserPage({ params }: { params: { userId: string } }) {
               }}
             >
               {data.details.map((detail) => (
-                <div key={detail.id} className="rounded-2xl overflow-hidden">
-                  {renderDetail(detail)}
+                <div key={detail.id} className="flex">
+                  <GridItem
+                    detail={detail}
+                    key={detail.id}
+                    onDelete={handleDelete}
+                  />
                 </div>
               ))}
             </ResponsiveGridLayout>
@@ -158,7 +156,7 @@ export default function UserPage({ params }: { params: { userId: string } }) {
       <button
         type="button"
         className="bg-red-100 h-40"
-        onClick={() => console.log(data)}
+        onClick={() => console.log('data', data, 'layouts', layouts)}
       >
         저장하기
       </button>

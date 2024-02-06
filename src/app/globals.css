@@ -14,10 +14,6 @@ html {
     font-size: 16px;
   }
 }
-.react-grid-layout img {
-  width: inherit;
-  height: inherit;
-}
 /* BlockNote Editor */
 .bn-container
   .bn-block-content.bn-is-empty.bn-has-anchor
