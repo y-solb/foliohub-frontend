@@ -18,7 +18,7 @@ type UserData = {
   thumbnail: string
   details: DetailType[]
 }
-
+const PREVENT_DRAG_DEFAULTS = ['.resize-handler', '.detail-toolbar']
 const USERDATA: UserData = {
   id: '1',
   name: '소르비',
@@ -30,6 +30,14 @@ const USERDATA: UserData = {
       type: 'image',
       value: {
         imageUrl: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
+      },
+    },
+    {
+      id: '1223',
+      type: 'image',
+      value: {
+        imageUrl:
+          'https://res.cloudinary.com/dkxn96rs9/image/upload/v1707230068/jpjtwqkxs5dcmoket5wr.png',
       },
     },
   ],
@@ -54,10 +62,9 @@ export default function UserPage({ params }: { params: { userId: string } }) {
   const [data, setData] = useState<UserData>(USERDATA)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],
-    sm: [],
-    xxs: [],
+    md: [],
   })
-
+  const [rowHeight, setRowHeight] = useState(168)
   const handleAdd = (name: ToolType, value?: string) => {
     const id = uuidv4()
 
@@ -128,16 +135,19 @@ export default function UserPage({ params }: { params: { userId: string } }) {
           </div>
           <div className="w-full max-w-screen-xl px-8 py-16">
             <ResponsiveGridLayout
-              breakpoints={{ lg: 1024, sm: 768, xxs: 0 }}
-              cols={{ lg: 6, sm: 4, xxs: 2 }}
-              rowHeight={164}
+              breakpoints={{ lg: 769, md: 768 }}
+              cols={{ lg: 6, md: 2 }}
+              rowHeight={rowHeight}
               layouts={layouts}
               verticalCompact
               compactType={null}
-              draggableCancel=".resize-handler"
+              draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
               resizeHandle={<ResizeHandler />}
               onLayoutChange={(_, currentLayout) => {
                 setLayouts(currentLayout)
+              }}
+              onWidthChange={(wid, _, cols) => {
+                setRowHeight((wid * 1) / cols)
               }}
             >
               {data.details.map((detail) => (
