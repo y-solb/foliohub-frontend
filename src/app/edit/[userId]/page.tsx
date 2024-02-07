@@ -58,7 +58,7 @@ const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
   )
 })
 
-export default function UserPage({ params }: { params: { userId: string } }) {
+export default function EditPage({ params }: { params: { userId: string } }) {
   const [data, setData] = useState<UserData>(USERDATA)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],
