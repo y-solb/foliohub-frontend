@@ -21,7 +21,7 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
   const { value, id } = detail
 
   const calculateContributions = (contributions: Activity[]) => {
-    return contributions.slice(-(7 * 7 * width + (new Date().getDay() + 1)))
+    return contributions.slice(-(7 * 6 * width + new Date().getDay()))
   }
 
   return (
@@ -34,7 +34,7 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
         setIsOpen(false)
       }}
     >
-      <div className="relative flex flex-1 rounded-2xl overflow-hidden p-1 justify-center items-center">
+      <div className="github-calendar-wrapper relative flex flex-1 rounded-2xl overflow-hidden justify-center items-center p-1">
         <GitHubCalendar
           username={value.githubId}
           transformData={calculateContributions}
