@@ -48,6 +48,13 @@ const USERDATA: UserData = {
           'https://res.cloudinary.com/dkxn96rs9/image/upload/v1707230068/jpjtwqkxs5dcmoket5wr.png',
       },
     },
+    {
+      id: '1224',
+      type: 'github',
+      value: {
+        githubId: 'y-solb',
+      },
+    },
   ],
 }
 
@@ -100,6 +107,22 @@ export default function EditPage({ params }: { params: { userId: string } }) {
         },
       ],
     })
+    if (name === 'github') {
+      setLayouts({
+        ...layouts,
+        [breakpoint]: [
+          ...layouts[breakpoint],
+          {
+            i: id,
+            x: 0,
+            y: 0,
+            w: 1,
+            h: 1,
+            maxH: 1,
+          },
+        ],
+      })
+    }
   }
 
   const handleUpdate = (updatedDetail: DetailType) => {
