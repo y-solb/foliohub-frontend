@@ -39,6 +39,8 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
           username={value.githubId}
           transformData={calculateContributions}
           colorScheme="light"
+          throwOnError={false}
+          errorMessage="GitHub를 불러오는 도중 문제가 발생했습니다. 문제가 지속되는 경우 GitHub 계정을 올바르게 입력했는지 확인해 주세요."
           blockRadius={4}
           blockSize={12}
           hideColorLegend
