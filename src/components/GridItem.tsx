@@ -17,7 +17,6 @@ function GridItem({ detail, layout, onUpdate, onDelete }: GridItemProps) {
         <GithubItem
           detail={detail}
           width={layout?.w ?? 1}
-          onUpdate={onUpdate}
           onDelete={onDelete}
         />
       )
