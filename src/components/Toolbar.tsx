@@ -50,7 +50,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
   }
 
   return (
-    <div className="absolute top-5 left-1/2 rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white">
+    <div className="absolute top-5 left-1/2 rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white z-50">
       <ul className="flex gap-2">
         <li>
           <button
@@ -89,24 +89,28 @@ function Toolbar({ onAdd }: ToolbarProps) {
             </div>
           )}
         </li>
-        <button
-          type="button"
-          className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
-          aria-label="content"
-          onClick={() => {
-            onAdd('content')
-          }}
-        >
-          <MdOutlineTitle size={24} />
-        </button>
-        <button
-          type="button"
-          className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
-          aria-label="image"
-          onClick={handleClickInputRef}
-        >
-          <FaImage size={24} />
-        </button>
+        <li>
+          <button
+            type="button"
+            className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
+            aria-label="content"
+            onClick={() => {
+              onAdd('content')
+            }}
+          >
+            <MdOutlineTitle size={24} />
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
+            aria-label="image"
+            onClick={handleClickInputRef}
+          >
+            <FaImage size={24} />
+          </button>
+        </li>
       </ul>
       <input
         type="file"
