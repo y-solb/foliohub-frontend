@@ -146,8 +146,8 @@ export default function EditPage({ params }: { params: { userId: string } }) {
               onLayoutChange={(_, currentLayout) => {
                 setLayouts(currentLayout)
               }}
-              onWidthChange={(wid, _, cols) => {
-                setRowHeight((wid * 1) / cols)
+              onWidthChange={(width, margin, cols) => {
+                setRowHeight((width - (cols + 1) * margin[0]) / cols)
               }}
             >
               {data.details.map((detail) => (
