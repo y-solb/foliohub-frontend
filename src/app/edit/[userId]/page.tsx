@@ -5,11 +5,14 @@
 import 'react-grid-layout/css/styles.css'
 import Toolbar from '@/components/Toolbar'
 import { DetailType, ToolType } from '@/types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import { FaAngleRight } from 'react-icons/fa6'
 import GridItem from '@/components/GridItem'
+
+const LG_BREAKPOINT = 769
+const MD_BREAKPOINT = 768
 
 type UserData = {
   id: string
@@ -18,7 +21,12 @@ type UserData = {
   thumbnail: string
   details: DetailType[]
 }
-const PREVENT_DRAG_DEFAULTS = ['.resize-handler', '.detail-toolbar']
+
+const PREVENT_DRAG_DEFAULTS = [
+  '.resize-handler',
+  '.detail-toolbar',
+  '.image-link',
+]
 const USERDATA: UserData = {
   id: '1',
   name: '소르비',
@@ -49,7 +57,7 @@ const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (
     <div
       ref={ref}
-      className="absolute bottom-1 right-1 cursor-se-resize resize-handler"
+      className="resize-handler absolute bottom-1 right-1 cursor-se-resize"
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...props}
     >
@@ -64,7 +72,20 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     lg: [],
     md: [],
   })
-  const [rowHeight, setRowHeight] = useState(168)
+  const [breakpoint, setBreakpoint] = useState('')
+  const [rowHeight, setRowHeight] = useState(168) // TODO: 처음에 렌더링 시 계산되도록 변경 필요
+
+  useEffect(() => {
+    const windowWidth = window.innerWidth
+
+    if (windowWidth >= LG_BREAKPOINT) {
+      setBreakpoint('lg')
+    } else if (windowWidth >= MD_BREAKPOINT) {
+      setBreakpoint('md')
+    }
+  }, [])
+
+  // TODO name을 type으로 변경하기
   const handleAdd = (name: ToolType, value?: string) => {
     const id = uuidv4()
 
@@ -78,6 +99,15 @@ export default function EditPage({ params }: { params: { userId: string } }) {
           value,
         },
       ],
+    })
+  }
+
+  const handleUpdate = (updatedDetail: DetailType) => {
+    setData({
+      ...data,
+      details: data.details.map((detail) =>
+        detail.id === updatedDetail.id ? updatedDetail : detail,
+      ),
     })
   }
 
@@ -135,7 +165,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
           </div>
           <div className="w-full max-w-screen-xl px-8 py-16">
             <ResponsiveGridLayout
-              breakpoints={{ lg: 769, md: 768 }}
+              breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
               cols={{ lg: 6, md: 2 }}
               rowHeight={rowHeight}
               layouts={layouts}
@@ -143,6 +173,9 @@ export default function EditPage({ params }: { params: { userId: string } }) {
               compactType={null}
               draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
               resizeHandle={<ResizeHandler />}
+              onBreakpointChange={(newBreakpoint) => {
+                setBreakpoint(newBreakpoint)
+              }}
               onLayoutChange={(_, currentLayout) => {
                 setLayouts(currentLayout)
               }}
@@ -154,7 +187,11 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                 <div key={detail.id} className="flex">
                   <GridItem
                     detail={detail}
+                    layout={layouts[breakpoint]?.find(
+                      (layout) => layout.i === detail.id,
+                    )}
                     key={detail.id}
+                    onUpdate={handleUpdate}
                     onDelete={handleDelete}
                   />
                 </div>

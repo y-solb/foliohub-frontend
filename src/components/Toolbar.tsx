@@ -45,7 +45,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
 
     if (file) {
       const imageUrl = await uploadImage(file)
-      onAdd('image', { imageUrl })
+      onAdd('image', { imageUrl, link: '' })
     }
   }
 
