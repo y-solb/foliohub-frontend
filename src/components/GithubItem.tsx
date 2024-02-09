@@ -21,8 +21,10 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
   const { value, id } = detail
 
   const calculateContributions = (contributions: Activity[]) => {
-    const currentDate = new Date(contributions[contributions.length - 1].date)
-    return contributions.slice(-(7 * 6 * width + currentDate.getDay() + 1)) // TODO: 계산법 수정하기
+    const lastDate = new Date(contributions[contributions.length - 1].date)
+    return contributions.slice(
+      -(7 * 6 * width + (lastDate.getDay() + 1) + 7 * 2 * (width - 1)),
+    )
   }
 
   return (
@@ -35,15 +37,16 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
         setIsOpen(false)
       }}
     >
-      <div className="github-calendar-wrapper relative flex flex-1 rounded-2xl overflow-hidden justify-center items-center p-1">
+      <div className="github-calendar-wrapper relative flex flex-1 rounded-2xl overflow-hidden p-1 justify-center items-center">
         <GitHubCalendar
           username={value.githubId}
           transformData={calculateContributions}
           colorScheme="light"
           throwOnError={false}
           errorMessage="GitHub를 불러오는 도중 문제가 발생했습니다. 문제가 지속되는 경우 GitHub 계정을 올바르게 입력했는지 확인해 주세요."
-          blockRadius={4}
-          blockSize={12}
+          blockRadius={2}
+          blockMargin={2}
+          blockSize={6}
           hideColorLegend
           hideMonthLabels
           hideTotalCount
