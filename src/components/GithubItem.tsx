@@ -21,7 +21,8 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
   const { value, id } = detail
 
   const calculateContributions = (contributions: Activity[]) => {
-    return contributions.slice(-(7 * 6 * width + new Date().getDay()))
+    const currentDate = new Date(contributions[contributions.length - 1].date)
+    return contributions.slice(-(7 * 6 * width + currentDate.getDay() + 1)) // TODO: 계산법 수정하기
   }
 
   return (
