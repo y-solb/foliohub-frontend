@@ -14,6 +14,93 @@ html {
     font-size: 16px;
   }
 }
+/* react-grid-layout */
+.react-resizable-hide .resize-handler {
+  display: none;
+}
+/* react-quill*/
+#textEditor.quill {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 1rem;
+}
+#textEditor .ql-container.ql-snow {
+  border-radius: 1rem;
+  border: none;
+}
+#textEditor .ql-snow .ql-tooltip::before,
+#textEditor .ql-snow .ql-tooltip[data-mode='link']::before {
+  content: '';
+  margin: 0px;
+}
+#textEditor .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+  content: '저장';
+}
+#textEditor .ql-snow .ql-tooltip a.ql-action::after {
+  content: '편집';
+}
+#textEditor .ql-snow .ql-tooltip a.ql-remove::before {
+  content: '삭제';
+}
+#textEditor .ql-snow .ql-tooltip,
+#textEditor .ql-snow .ql-tooltip input[type='text'],
+#toolbar.ql-toolbar.ql-snow,
+#toolbar.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  border: 1px solid rgb(243 244 246);
+}
+#textEditor .ql-snow .ql-tooltip input[type='text'] {
+  border-radius: 0.5rem;
+}
+#textEditor .ql-snow .ql-tooltip {
+  border-radius: 1rem;
+}
+#textEditor .ql-snow a {
+  color: #6b7280;
+}
+#toolbar.ql-toolbar.ql-snow {
+  width: 412px;
+}
+#toolbar.ql-snow .ql-picker-options,
+#toolbar.ql-snow .ql-color-picker .ql-picker-item {
+  border-radius: 0.5rem;
+}
+#toolbar.ql-snow .ql-color-picker .ql-picker-item:hover {
+  background-color: rgb(229 231 235);
+}
+#toolbar.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  border: none;
+  border-radius: 0.5rem;
+  background-color: rgb(229 231 235);
+}
+#toolbar.ql-toolbar .ql-active {
+  color: #000;
+  border-radius: 0.5rem;
+  background-color: rgb(229 231 235);
+}
+#toolbar.ql-toolbar .ql-stroke {
+  fill: none;
+  stroke: #000;
+}
+#toolbar.ql-toolbar .ql-fill {
+  fill: #000;
+  stroke: none;
+}
+#toolbar.ql-toolbar .ql-picker {
+  color: #000;
+}
+#toolbar.ql-toolbar.ql-snow .ql-formats {
+  margin-right: 0.5rem;
+}
+#toolbar.ql-toolbar.ql-snow .ql-formats:last-child {
+  margin-right: 0;
+}
+#toolbar.ql-snow .ql-picker.ql-header {
+  width: 82px;
+}
+#toolbar.ql-snow .ql-picker.ql-header .ql-picker-item[data-value]::before {
+  font-size: 0.8rem;
+}
+/* react-github-calendar */
 .react-activity-calendar {
   width: 100%;
   height: 100%;

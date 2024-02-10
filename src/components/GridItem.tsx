@@ -2,15 +2,23 @@ import { DetailType } from '@/types'
 import { Layout } from 'react-grid-layout'
 import ImageItem from './ImageItem'
 import GithubItem from './GithubItem'
+import TextItem from './TextItem'
 
 interface GridItemProps {
   detail: DetailType
   layout: Layout | undefined
   onUpdate: (updatedDetail: DetailType) => void
   onDelete: (id: string) => void
+  onChangeEditMode: () => void
 }
 
-function GridItem({ detail, layout, onUpdate, onDelete }: GridItemProps) {
+function GridItem({
+  detail,
+  layout,
+  onUpdate,
+  onDelete,
+  onChangeEditMode,
+}: GridItemProps) {
   switch (detail.type) {
     case 'github':
       return (
@@ -20,8 +28,14 @@ function GridItem({ detail, layout, onUpdate, onDelete }: GridItemProps) {
           onDelete={onDelete}
         />
       )
-    // case 'content':
-    //   return <TextEditor content={value} />
+    case 'content':
+      return (
+        <TextItem
+          detail={detail}
+          onDelete={onDelete}
+          onChangeEditMode={onChangeEditMode}
+        />
+      )
     case 'image':
       return (
         <ImageItem detail={detail} onUpdate={onUpdate} onDelete={onDelete} />

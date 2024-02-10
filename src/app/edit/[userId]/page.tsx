@@ -81,6 +81,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
   })
   const [breakpoint, setBreakpoint] = useState('')
   const [rowHeight, setRowHeight] = useState(168) // TODO: 처음에 렌더링 시 계산되도록 변경 필요
+  const [isEditMode, setIsEditMode] = useState(false)
 
   useEffect(() => {
     const windowWidth = window.innerWidth
@@ -146,6 +147,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       xxs: layouts?.xxs.filter((layout) => layout.i !== id),
     })
   }
+
   console.log(params.userId)
 
   return (
@@ -194,6 +196,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
               layouts={layouts}
               verticalCompact
               compactType={null}
+              isDraggable={!isEditMode}
               draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
               resizeHandle={<ResizeHandler />}
               onBreakpointChange={(newBreakpoint) => {
@@ -216,6 +219,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                     key={detail.id}
                     onUpdate={handleUpdate}
                     onDelete={handleDelete}
+                    onChangeEditMode={() => setIsEditMode((pre) => !pre)}
                   />
                 </div>
               ))}
