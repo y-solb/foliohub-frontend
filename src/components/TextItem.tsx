@@ -23,7 +23,7 @@ function TextItem({ detail, onDelete, onChangeEditMode }: TextItemProps) {
 
   const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] = useOutsideClick(
     () => {
-      console.log('close')
+      onChangeEditMode()
     },
   )
 
