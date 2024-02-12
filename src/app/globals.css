@@ -14,10 +14,17 @@ html {
     font-size: 16px;
   }
 }
-
 /* react-grid-layout */
 .react-resizable-hide .resize-handler {
   display: none;
+}
+.react-grid-item.react-grid-placeholder {
+  box-shadow:
+    inset -6px -6px 10px rgba(255, 255, 255, 0.45),
+    inset 6px 6px 10px rgba(94, 104, 121, 0.3);
+  border-radius: 1rem;
+  border: 1px solid rgb(243 244 246);
+  background-color: rgb(229 231 235) !important;
 }
 /* react-quill*/
 #textEditor.quill {
