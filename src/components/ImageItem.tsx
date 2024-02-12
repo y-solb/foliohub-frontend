@@ -19,6 +19,7 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
   const linkRef = useRef<HTMLInputElement | null>(null)
   const imageRef = useRef<HTMLInputElement | null>(null)
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick(() => {
+    setIsOpen(false)
     setActive('')
   })
 
@@ -62,11 +63,13 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
 
   return (
     <div
+      ref={outRef}
       className="relative flex flex-1"
       onMouseEnter={() => {
         setIsOpen(true)
       }}
       onMouseLeave={() => {
+        if (isOpenTool) return
         setIsOpen(false)
         setIsOpenTool(false)
         setActive('')
@@ -113,10 +116,7 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
               <RxLink2 size={24} />
             </button>
             {isOpenTool && (
-              <div
-                ref={outRef}
-                className="flex rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white absolute -bottom-16 left-0"
-              >
+              <div className="flex rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white absolute -bottom-16 left-0">
                 <input
                   type="text"
                   ref={linkRef}
