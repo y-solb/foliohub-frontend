@@ -69,8 +69,12 @@ html {
   font-style: normal;
   color: #6b7280;
 }
+#textEditor .ql-editor ol,
+#textEditor .ql-editor ul {
+  padding-left: 0;
+}
 #toolbar.ql-toolbar.ql-snow {
-  width: 412px;
+  width: 422px;
 }
 #toolbar.ql-snow .ql-picker-options,
 #toolbar.ql-snow .ql-color-picker .ql-picker-item {
@@ -83,11 +87,15 @@ html {
   border: none;
   border-radius: 0.5rem;
   background-color: rgb(229 231 235);
+  color: #000;
 }
 #toolbar.ql-toolbar .ql-active {
   color: #000;
   border-radius: 0.5rem;
   background-color: rgb(229 231 235);
+}
+#toolbar.ql-snow.ql-toolbar button:not(:last-child) {
+  margin-right: 2px;
 }
 #toolbar.ql-toolbar .ql-stroke {
   fill: none;
