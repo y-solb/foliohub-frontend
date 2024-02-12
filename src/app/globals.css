@@ -132,22 +132,6 @@ html {
   padding: 1rem;
   border-radius: 1rem;
 }
-/* BlockNote Editor */
-.bn-container
-  .bn-block-content.bn-is-empty.bn-has-anchor
-  .bn-inline-content:before {
-  content: '텍스트를 입력해 주세요.';
-}
-.bn-container .bn-editor {
-  padding-inline: 0.75rem;
-}
-.bn-container .bn-toolbar .mantine-ActionIcon-root[data-test='nestBlock'],
-.bn-container .bn-toolbar .mantine-ActionIcon-root[data-test='unnestBlock'] {
-  display: none;
-}
-.mantine-ActionIcon-loader {
-  display: none;
-}
 html {
   color-scheme: light !important;
 }
