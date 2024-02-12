@@ -14,6 +14,7 @@ html {
     font-size: 16px;
   }
 }
+
 /* react-grid-layout */
 .react-resizable-hide .resize-handler {
   display: none;
@@ -55,6 +56,10 @@ html {
   border-radius: 1rem;
 }
 #textEditor .ql-snow a {
+  color: #6b7280;
+}
+#textEditor .ql-editor.ql-blank::before {
+  font-style: normal;
   color: #6b7280;
 }
 #toolbar.ql-toolbar.ql-snow {

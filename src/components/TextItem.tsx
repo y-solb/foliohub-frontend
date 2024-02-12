@@ -53,7 +53,7 @@ function TextItem({ detail, onDelete, onChangeEditMode }: TextItemProps) {
             theme="snow"
             value={content}
             onChange={setValue}
-            placeholder="write something^^"
+            placeholder="내용을 입력해 주세요."
             formats={formats}
           />
         ) : (
