@@ -12,11 +12,17 @@ const EditorToolbar = dynamic(() => import('./EditorToolbar'), { ssr: false })
 
 interface TextItemProps {
   detail: DetailType
+  onUpdate: (updatedDetail: DetailType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
 }
 
-function TextItem({ detail, onDelete, onChangeEditMode }: TextItemProps) {
+function TextItem({
+  detail,
+  onUpdate,
+  onDelete,
+  onChangeEditMode,
+}: TextItemProps) {
   const { value, id } = detail
 
   const [isOpen, setIsOpen] = useState(false)
@@ -25,6 +31,10 @@ function TextItem({ detail, onDelete, onChangeEditMode }: TextItemProps) {
   const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] = useOutsideClick(
     () => {
       onChangeEditMode()
+      onUpdate({
+        ...detail,
+        value: content,
+      })
     },
   )
 
@@ -58,7 +68,10 @@ function TextItem({ detail, onDelete, onChangeEditMode }: TextItemProps) {
             formats={formats}
           />
         ) : (
-          <div>{value}</div>
+          <div
+            className="flex flex-col flex-1 p-4 bg-white"
+            dangerouslySetInnerHTML={{ __html: value }}
+          />
         )}
       </div>
 

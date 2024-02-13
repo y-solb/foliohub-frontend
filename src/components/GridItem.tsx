@@ -32,6 +32,7 @@ function GridItem({
       return (
         <TextItem
           detail={detail}
+          onUpdate={onUpdate}
           onDelete={onDelete}
           onChangeEditMode={onChangeEditMode}
         />
