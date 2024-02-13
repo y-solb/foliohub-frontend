@@ -3,7 +3,7 @@
 'use client'
 
 import 'react-grid-layout/css/styles.css'
-import Toolbar from '@/components/Toolbar'
+import Toolbar from '@/components/toolbar/Toolbar'
 import { DetailType, ToolType } from '@/types'
 import React, { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
