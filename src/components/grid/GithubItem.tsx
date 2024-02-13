@@ -16,7 +16,7 @@ interface GithubItemProps {
 }
 
 function GithubItem({ detail, width, onDelete }: GithubItemProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenControl, setIsOpenControl] = useState(false)
 
   const { value, id } = detail
 
@@ -31,10 +31,10 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
     <div
       className="relative flex flex-1"
       onMouseEnter={() => {
-        setIsOpen(true)
+        setIsOpenControl(true)
       }}
       onMouseLeave={() => {
-        setIsOpen(false)
+        setIsOpenControl(false)
       }}
     >
       <div className="github-calendar-wrapper relative flex flex-1 rounded-2xl overflow-hidden p-1 justify-center items-center">
@@ -52,8 +52,8 @@ function GithubItem({ detail, width, onDelete }: GithubItemProps) {
           hideTotalCount
         />
       </div>
-      {isOpen && (
-        <div className="detail-toolbar z-10">
+      {isOpenControl && (
+        <div className="control-wrapper">
           <DeleteGridItemButton
             onDelete={() => {
               onDelete(id)

@@ -27,7 +27,7 @@ function TextItem({
 }: TextItemProps) {
   const { value, id } = detail
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value)
 
   const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] = useOutsideClick(
@@ -40,7 +40,8 @@ function TextItem({
     },
   )
 
-  const handelChangeEdit = () => {
+  const handleChangeEdit = () => {
+    setIsOpenControl(false)
     setIsEditorToolbarOpen(!isEditorToolbarOpen)
     onChangeEditMode()
   }
@@ -50,10 +51,10 @@ function TextItem({
       ref={outRef}
       className="relative flex flex-1 max-w-full"
       onMouseEnter={() => {
-        setIsOpen(true)
+        setIsOpenControl(true)
       }}
       onMouseLeave={() => {
-        setIsOpen(false)
+        setIsOpenControl(false)
       }}
     >
       <div
@@ -77,8 +78,8 @@ function TextItem({
         )}
       </div>
 
-      {isOpen && !isEditorToolbarOpen && (
-        <div className="detail-toolbar z-10">
+      {isOpenControl && (
+        <div className="control-wrapper">
           <DeleteGridItemButton
             onDelete={() => {
               onDelete(id)
@@ -90,7 +91,7 @@ function TextItem({
               name="edit"
               aria-label="edit-text"
               className="p-1 rounded-lg hover:bg-gray-200"
-              onClick={handelChangeEdit}
+              onClick={handleChangeEdit}
             >
               <RxLink2 size={24} />
             </button>

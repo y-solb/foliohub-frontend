@@ -14,12 +14,12 @@ interface ImageItemProps {
 }
 
 function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const linkRef = useRef<HTMLInputElement | null>(null)
   const imageRef = useRef<HTMLInputElement | null>(null)
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick(() => {
-    setIsOpen(false)
+    setIsOpenControl(false)
     setActive('')
   })
 
@@ -66,11 +66,11 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
       ref={outRef}
       className="relative flex flex-1"
       onMouseEnter={() => {
-        setIsOpen(true)
+        setIsOpenControl(true)
       }}
       onMouseLeave={() => {
         if (isOpenTool) return
-        setIsOpen(false)
+        setIsOpenControl(false)
         setIsOpenTool(false)
         setActive('')
       }}
@@ -89,8 +89,8 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
           </a>
         )}
       </div>
-      {isOpen && (
-        <div className="detail-toolbar z-10">
+      {isOpenControl && (
+        <div className="control-wrapper">
           <DeleteGridItemButton
             onDelete={() => {
               onDelete(id)
@@ -110,7 +110,7 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
               <RxLink2 size={24} />
             </button>
             {isOpenTool && (
-              <div className="absolute -bottom-16 left-0 toolbar-wrapper flex ">
+              <div className="absolute -bottom-16 left-0 toolbar-wrapper flex">
                 <input
                   type="text"
                   ref={linkRef}

@@ -24,7 +24,7 @@ type UserData = {
 
 const PREVENT_DRAG_DEFAULTS = [
   '.resize-handler',
-  '.detail-toolbar',
+  '.control-wrapper',
   '.image-link',
 ]
 const USERDATA: UserData = {
