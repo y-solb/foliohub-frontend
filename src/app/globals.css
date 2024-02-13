@@ -68,12 +68,24 @@ html {
   padding: 1rem;
 }
 #textEditor .ql-editor.ql-blank::before {
+  font-size: 1rem;
+  line-height: 1.5rem;
   font-style: normal;
   color: #6b7280;
 }
 #textEditor .ql-editor ol,
 #textEditor .ql-editor ul {
   padding-left: 0;
+}
+#textEditor .ql-snow .ql-editor h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 600;
+}
+#textEditor .ql-snow .ql-editor h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
 }
 #toolbar.ql-toolbar.ql-snow {
   width: 422px;
@@ -178,6 +190,7 @@ html {
   .subtitle2 {
     @apply text-lg font-medium;
   }
+  #textEditor .ql-snow .ql-editor p,
   .body1 {
     @apply text-base font-normal;
   }
