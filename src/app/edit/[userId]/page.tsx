@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import { FaAngleRight } from 'react-icons/fa6'
-import GridItem from '@/components/GridItem'
+import GridItem from '@/components/grid/GridItem'
 
 const LG_BREAKPOINT = 769
 const MD_BREAKPOINT = 768

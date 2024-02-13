@@ -5,10 +5,10 @@ import dynamic from 'next/dynamic' // Next.js에서 동적으로 컴포넌트를
 import 'react-quill/dist/quill.snow.css'
 import { RxLink2 } from 'react-icons/rx'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { modules, formats } from './EditorToolbar'
+import { modules, formats } from '../EditorToolbar'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }) // Next.js에서 ReactQuill을 동적으로 가져오도록 설정
-const EditorToolbar = dynamic(() => import('./EditorToolbar'), { ssr: false })
+const EditorToolbar = dynamic(() => import('../EditorToolbar'), { ssr: false })
 
 interface TextItemProps {
   detail: DetailType
