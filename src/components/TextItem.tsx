@@ -62,7 +62,7 @@ function TextItem({ detail, onDelete, onChangeEditMode }: TextItemProps) {
       </div>
 
       {isOpen && !isEditorToolbarOpen && (
-        <div className="detail-toolbar">
+        <div className="detail-toolbar z-10">
           <button
             type="button"
             aria-label="delete-grid-item"
