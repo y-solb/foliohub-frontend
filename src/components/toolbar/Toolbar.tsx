@@ -1,10 +1,10 @@
-import uploadImage from '@/lib/uploadImage'
 import React, { useRef, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
-import { FaCirclePlus, FaImage } from 'react-icons/fa6'
+import { FaCirclePlus } from 'react-icons/fa6'
 import { MdOutlineTitle } from 'react-icons/md'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
+import ImageUploadButton from '../common/ImageUploadButton'
 
 interface ToolbarProps {
   onAdd: (name: ToolType, value?: any) => void
@@ -13,7 +13,6 @@ interface ToolbarProps {
 function Toolbar({ onAdd }: ToolbarProps) {
   const [activeTab, setActive] = useState('')
   const githubIdRef = useRef<HTMLInputElement | null>(null)
-  const imageRef = useRef<HTMLInputElement | null>(null)
 
   const [isOpen, setIsOpen, outRef] = useOutsideClick(() => {
     setActive('')
@@ -32,21 +31,8 @@ function Toolbar({ onAdd }: ToolbarProps) {
     setIsOpen(false)
   }
 
-  const handleClickInputRef = () => {
-    if (!imageRef.current) {
-      return
-    }
-    imageRef.current.click()
-  }
-
-  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-
-    if (file) {
-      const imageUrl = await uploadImage(file)
-      onAdd('image', { imageUrl, link: '' })
-    }
+  const handleUploadImage = (imageUrl: string) => {
+    onAdd('image', { imageUrl, link: '' })
   }
 
   return (
@@ -102,23 +88,9 @@ function Toolbar({ onAdd }: ToolbarProps) {
           </button>
         </li>
         <li>
-          <button
-            type="button"
-            className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
-            aria-label="image"
-            onClick={handleClickInputRef}
-          >
-            <FaImage size={24} />
-          </button>
+          <ImageUploadButton onUpload={handleUploadImage} />
         </li>
       </ul>
-      <input
-        type="file"
-        accept="image/*"
-        ref={imageRef}
-        className="hidden"
-        onChange={handleUploadImage}
-      />
     </div>
   )
 }

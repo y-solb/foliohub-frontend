@@ -1,11 +1,10 @@
 import { DetailType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRef, useState } from 'react'
-import uploadImage from '@/lib/uploadImage'
 import { RxLink2 } from 'react-icons/rx'
-import { LuImagePlus } from 'react-icons/lu'
 import { FaCirclePlus } from 'react-icons/fa6'
 import DeleteGridItemButton from '../DeleteGridItemButton'
+import ImageUploadButton from '../common/ImageUploadButton'
 
 interface ImageItemProps {
   detail: DetailType
@@ -17,7 +16,6 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const linkRef = useRef<HTMLInputElement | null>(null)
-  const imageRef = useRef<HTMLInputElement | null>(null)
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick(() => {
     setIsOpenControl(false)
     setActive('')
@@ -41,24 +39,11 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
     setActive('')
   }
 
-  const handleClickInputRef = () => {
-    if (!imageRef.current) {
-      return
-    }
-    imageRef.current.click()
-  }
-
-  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-
-    if (file) {
-      const imageUrl = await uploadImage(file)
-      onUpdate({
-        ...detail,
-        value: { imageUrl, link: '' },
-      })
-    }
+  const handleUploadImage = (imageUrl: string) => {
+    onUpdate({
+      ...detail,
+      value: { ...detail.value, imageUrl },
+    })
   }
 
   return (
@@ -130,21 +115,7 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
                 </button>
               </div>
             )}
-            <button
-              type="button"
-              aria-label="change-image"
-              className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
-              onClick={handleClickInputRef}
-            >
-              <LuImagePlus size={24} />
-            </button>
-            <input
-              type="file"
-              accept="image/*"
-              ref={imageRef}
-              className="hidden"
-              onChange={handleUploadImage}
-            />
+            <ImageUploadButton onUpload={handleUploadImage} />
           </div>
         </div>
       )}
