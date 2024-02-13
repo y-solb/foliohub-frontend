@@ -32,6 +32,9 @@ html {
   max-width: 100%;
   border-radius: 1rem;
 }
+#textEditor .ql-container {
+  font-family: 'Noto Sans KR';
+}
 #textEditor .ql-container.ql-snow {
   border-radius: 1rem;
   border: none;
@@ -88,7 +91,7 @@ html {
   font-weight: 600;
 }
 #toolbar.ql-toolbar.ql-snow {
-  width: 422px;
+  width: 430px;
 }
 #toolbar.ql-snow .ql-picker-options,
 #toolbar.ql-snow .ql-color-picker .ql-picker-item {
@@ -123,9 +126,6 @@ html {
   color: #000;
 }
 #toolbar.ql-toolbar.ql-snow .ql-formats {
-  margin-right: 0.5rem;
-}
-#toolbar.ql-toolbar.ql-snow .ql-formats:last-child {
   margin-right: 0;
 }
 #toolbar.ql-snow .ql-picker.ql-header {
@@ -198,7 +198,7 @@ html {
     @apply text-sm font-normal;
   }
   .toolbar-wrapper {
-    @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white;
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white flex gap-2;
   }
   .control-wrapper {
     @apply z-10;

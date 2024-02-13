@@ -29,7 +29,11 @@ const config: Config = {
         },
       },
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        'noto-sans-kr': ['var(--noto_sans_kr)'],
+      },
+    },
   },
   plugins: [],
 }
