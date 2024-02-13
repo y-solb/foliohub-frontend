@@ -143,8 +143,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
 
     setLayouts({
       lg: layouts?.lg.filter((layout) => layout.i !== id),
-      sm: layouts?.sm.filter((layout) => layout.i !== id),
-      xxs: layouts?.xxs.filter((layout) => layout.i !== id),
+      md: layouts?.md.filter((layout) => layout.i !== id),
     })
   }
 

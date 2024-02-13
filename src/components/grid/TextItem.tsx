@@ -1,4 +1,3 @@
-import { FiMinus } from 'react-icons/fi'
 import { useState } from 'react'
 import { DetailType } from '@/types'
 import dynamic from 'next/dynamic' // Next.js에서 동적으로 컴포넌트를 가져오기 위해 필요한 모듈
@@ -6,6 +5,7 @@ import 'react-quill/dist/quill.snow.css'
 import { RxLink2 } from 'react-icons/rx'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { modules, formats } from '../toolbar/EditorToolbar'
+import DeleteGridItemButton from '../DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }) // Next.js에서 ReactQuill을 동적으로 가져오도록 설정
 const EditorToolbar = dynamic(() => import('../toolbar/EditorToolbar'), {
@@ -79,16 +79,11 @@ function TextItem({
 
       {isOpen && !isEditorToolbarOpen && (
         <div className="detail-toolbar z-10">
-          <button
-            type="button"
-            aria-label="delete-grid-item"
-            className="absolute -top-4 left-0 transform -translate-x-1/2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1"
-            onClick={() => {
+          <DeleteGridItemButton
+            onDelete={() => {
               onDelete(id)
             }}
-          >
-            <FiMinus size={20} />
-          </button>
+          />
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
             <button
               type="button"
