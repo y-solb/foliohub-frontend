@@ -30,15 +30,14 @@ function TextItem({
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value)
 
-  const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] = useOutsideClick(
-    () => {
+  const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] =
+    useOutsideClick<HTMLDivElement>(() => {
       onChangeEditMode()
       onUpdate({
         ...detail,
         value: content,
       })
-    },
-  )
+    })
 
   const handleChangeEdit = () => {
     setIsOpenControl(false)
@@ -51,6 +50,7 @@ function TextItem({
       ref={outRef}
       className="relative flex flex-1 max-w-full"
       onMouseEnter={() => {
+        if (isEditorToolbarOpen) return
         setIsOpenControl(true)
       }}
       onMouseLeave={() => {
