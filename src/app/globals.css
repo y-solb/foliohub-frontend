@@ -51,19 +51,21 @@ html {
   content: '삭제';
 }
 #textEditor .ql-snow .ql-tooltip,
-#textEditor .ql-snow .ql-tooltip input[type='text'],
 #toolbar.ql-toolbar.ql-snow,
 #toolbar.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
   border: 1px solid rgb(243 244 246);
 }
 #textEditor .ql-snow .ql-tooltip input[type='text'] {
-  border-radius: 0.5rem;
+  border: none;
 }
 #textEditor .ql-snow .ql-tooltip {
   border-radius: 1rem;
 }
 #textEditor .ql-snow a {
   color: #6b7280;
+}
+#textEditor .ql-editor {
+  padding: 1rem;
 }
 #textEditor .ql-editor.ql-blank::before {
   font-style: normal;

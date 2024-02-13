@@ -219,7 +219,9 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                     key={detail.id}
                     onUpdate={handleUpdate}
                     onDelete={handleDelete}
-                    onChangeEditMode={() => setIsEditMode((pre) => !pre)}
+                    onChangeEditMode={() => {
+                      setIsEditMode((pre) => !pre)
+                    }}
                   />
                 </div>
               ))}
