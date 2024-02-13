@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 
-export default function useOutsideClick(
+export default function useOutsideClick<T extends HTMLElement = HTMLElement>(
   callback: () => void,
   defaultValue = false,
 ): [
   boolean,
   React.Dispatch<React.SetStateAction<boolean>>,
-  React.RefObject<HTMLDivElement>,
+  React.RefObject<T>,
 ] {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<T>(null)
   const [isOpen, setIsOpen] = useState(defaultValue)
 
   useEffect(() => {
