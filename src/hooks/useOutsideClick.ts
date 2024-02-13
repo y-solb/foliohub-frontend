@@ -13,7 +13,11 @@ export default function useOutsideClick(
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      if (
+        isOpen &&
+        ref.current &&
+        !ref.current.contains(event.target as Node)
+      ) {
         callback()
         setIsOpen(false)
       }
@@ -24,7 +28,7 @@ export default function useOutsideClick(
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [callback])
+  }, [isOpen, callback])
 
   return [isOpen, setIsOpen, ref]
 }
