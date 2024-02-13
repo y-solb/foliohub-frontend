@@ -10,7 +10,7 @@ const SnowTheme = Quill.import('themes/snow')
 class SnowThemeFix extends SnowTheme {
   extendToolbar(toolbar: unknown) {
     super.extendToolbar(toolbar)
-    this.tooltip.textbox.dataset.link = 'link를 넣어주세요.' // you can set the placeholder to whatever you want here
+    this.tooltip.textbox.dataset.link = 'link를 넣어주세요.'
   }
 }
 
@@ -41,7 +41,7 @@ export function QuillToolbar() {
   return (
     <div
       id="toolbar"
-      className="absolute -top-12 left-1/2 transform -translate-x-1/2 -translate-y rounded-2xl border border-solid border-gray-100 bg-white shadow-md p-3"
+      className="absolute -top-12 left-1/2 transform -translate-x-1/2 -translate-y toolbar-wrapper"
     >
       <span className="ql-formats">
         {/* <select className="ql-size" defaultValue="medium">

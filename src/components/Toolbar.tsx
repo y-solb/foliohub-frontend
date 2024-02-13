@@ -50,7 +50,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
   }
 
   return (
-    <div className="absolute top-5 left-1/2 rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white z-50">
+    <div className="absolute top-5 left-1/2 toolbar-wrapper z-50">
       <ul className="flex gap-2">
         <li>
           <button
@@ -68,7 +68,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
           {isOpen && (
             <div
               ref={outRef}
-              className="flex rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white absolute -bottom-16 left-0"
+              className=" absolute -bottom-16 left-0  toolbar-wrapper flex"
             >
               <input
                 type="text"

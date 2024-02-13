@@ -87,7 +87,7 @@ function TextItem({
           >
             <FiMinus size={20} />
           </button>
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex rounded-2xl border border-solid border-gray-100 bg-white shadow-md p-3">
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
             <button
               type="button"
               name="edit"

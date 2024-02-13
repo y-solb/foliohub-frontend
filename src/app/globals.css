@@ -180,7 +180,7 @@ html {
     @apply text-gray-500;
   }
 }
-@layer utilities {
+@layer components {
   .title {
     @apply text-2xl font-semibold;
   }
@@ -196,5 +196,8 @@ html {
   }
   .body2 {
     @apply text-sm font-normal;
+  }
+  .toolbar-wrapper {
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white;
   }
 }

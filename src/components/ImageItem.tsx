@@ -102,7 +102,7 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
             <FiMinus size={20} />
           </button>
 
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex rounded-2xl border border-solid border-gray-100 bg-white shadow-md p-3">
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
             <button
               type="button"
               name="link"
@@ -116,7 +116,7 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
               <RxLink2 size={24} />
             </button>
             {isOpenTool && (
-              <div className="flex rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white absolute -bottom-16 left-0">
+              <div className="absolute -bottom-16 left-0 toolbar-wrapper flex ">
                 <input
                   type="text"
                   ref={linkRef}
