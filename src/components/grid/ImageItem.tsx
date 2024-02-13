@@ -1,10 +1,10 @@
 import { DetailType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
-import { FaCirclePlus } from 'react-icons/fa6'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import ImageUploadButton from '../common/ImageUploadButton'
+import InputToolbar from '../toolbar/InputToolbar'
 
 interface ImageItemProps {
   detail: DetailType
@@ -15,25 +15,19 @@ interface ImageItemProps {
 function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
-  const linkRef = useRef<HTMLInputElement | null>(null)
-  const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick(() => {
-    setIsOpenControl(false)
-    setActive('')
-  })
+  const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
+    () => {
+      setIsOpenControl(false)
+      setActive('')
+    },
+  )
 
   const { value, id } = detail
 
-  const handleUpdateImageLink = () => {
-    if (!linkRef.current) {
-      return
-    }
-    if (!linkRef.current.value) {
-      console.log('please press your --') // TODO: need modal
-      return
-    }
+  const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
       ...detail,
-      value: { ...detail.value, link: linkRef.current.value },
+      value: { ...detail.value, link: inputValue },
     })
     setIsOpenTool(false)
     setActive('')
@@ -95,25 +89,11 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
               <RxLink2 size={24} />
             </button>
             {isOpenTool && (
-              <div className="absolute -bottom-16 left-0 toolbar-wrapper flex">
-                <input
-                  type="text"
-                  ref={linkRef}
-                  defaultValue={value.link}
-                  onKeyUp={(e) => {
-                    if (e.key === 'Enter') {
-                      handleUpdateImageLink()
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  aria-label="add-image-link"
-                  onClick={handleUpdateImageLink}
-                >
-                  <FaCirclePlus size={24} />
-                </button>
-              </div>
+              <InputToolbar
+                defaultValue={value.link}
+                buttonLabel="add-image-link"
+                onAdd={handleUpdateImageLink}
+              />
             )}
             <ImageUploadButton onUpload={handleUploadImage} />
           </div>
