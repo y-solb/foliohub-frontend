@@ -1,16 +1,35 @@
 import { useState } from 'react'
 import { DetailType } from '@/types'
-import dynamic from 'next/dynamic' // Next.js에서 동적으로 컴포넌트를 가져오기 위해 필요한 모듈
+import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
 import { RxLink2 } from 'react-icons/rx'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { modules, formats } from '../toolbar/EditorToolbar'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false }) // Next.js에서 ReactQuill을 동적으로 가져오도록 설정
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const EditorToolbar = dynamic(() => import('../toolbar/EditorToolbar'), {
   ssr: false,
 })
+
+const modules = {
+  toolbar: {
+    container: '#toolbar',
+  },
+}
+
+const formats = [
+  'header',
+  'bold',
+  'italic',
+  'underline',
+  'align',
+  'strike',
+  'background',
+  'list',
+  'bullet',
+  'link',
+  'color',
+]
 
 interface TextItemProps {
   detail: DetailType

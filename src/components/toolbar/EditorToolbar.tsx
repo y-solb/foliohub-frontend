@@ -1,10 +1,6 @@
 import React from 'react'
 import { Quill } from 'react-quill'
 
-// const Size = Quill.import('formats/size')
-// Size.whitelist = ['extra-small', 'small', 'medium', 'large']
-// Quill.register(Size, true)
-
 const SnowTheme = Quill.import('themes/snow')
 
 class SnowThemeFix extends SnowTheme {
@@ -16,27 +12,6 @@ class SnowThemeFix extends SnowTheme {
 
 Quill.register('themes/snow', SnowThemeFix, true)
 
-export const modules = {
-  toolbar: {
-    container: '#toolbar',
-  },
-}
-
-export const formats = [
-  'header',
-  // 'size',
-  'bold',
-  'italic',
-  'underline',
-  'align',
-  'strike',
-  'background',
-  'list',
-  'bullet',
-  'link',
-  'color',
-]
-
 export function QuillToolbar() {
   return (
     <div
@@ -44,12 +19,6 @@ export function QuillToolbar() {
       className="absolute -top-12 left-1/2 transform -translate-x-1/2 -translate-y toolbar-wrapper"
     >
       <span className="ql-formats">
-        {/* <select className="ql-size" defaultValue="medium">
-          <option value="extra-small">Size 1</option>
-          <option value="small">Size 2</option>
-          <option value="medium">Size 3</option>
-          <option value="large">Size 4</option>
-        </select> */}
         <select className="ql-header" defaultValue="3">
           <option value="1">Title</option>
           <option value="2">SubTitle</option>
