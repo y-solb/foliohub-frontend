@@ -77,7 +77,7 @@ function TextItem({
       }}
     >
       <div
-        className={`relative flex flex-1 rounded-2xl ${isEditorToolbarOpen ? '' : 'overflow-hidden'} border border-solid border-gray-100 shadow-md max-w-full`}
+        className={`relative flex flex-1 ${isEditorToolbarOpen ? '' : 'overflow-hidden'} grid-item-wrapper max-w-full`}
       >
         {isEditorToolbarOpen ? (
           <ReactQuill
