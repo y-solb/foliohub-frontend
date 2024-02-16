@@ -11,8 +11,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { FaAngleRight } from 'react-icons/fa6'
 import GridItem from '@/components/grid/GridItem'
 
-const LG_BREAKPOINT = 769
-const MD_BREAKPOINT = 768
+const LG_BREAKPOINT = 842
+const MD_BREAKPOINT = 841
 
 type UserData = {
   id: string
@@ -53,6 +53,34 @@ const USERDATA: UserData = {
       type: 'github',
       value: {
         githubId: 'y-solb',
+      },
+    },
+    {
+      id: '1244',
+      type: 'link',
+      value: {
+        url: 'https://www.instagram.com/p/C3Kj-rlyvXv/?img_index=1',
+      },
+    },
+    {
+      id: '12448',
+      type: 'link',
+      value: {
+        url: 'https://www.instagram.com/solb_climb_account/',
+      },
+    },
+    {
+      id: '124484',
+      type: 'link',
+      value: {
+        url: 'https://sollogging.tistory.com/',
+      },
+    },
+    {
+      id: '124489',
+      type: 'link',
+      value: {
+        url: 'https://sollogging.tistory.com/75',
       },
     },
   ],
