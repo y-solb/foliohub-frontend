@@ -3,6 +3,7 @@ import { Layout } from 'react-grid-layout'
 import ImageItem from './ImageItem'
 import GithubItem from './GithubItem'
 import TextItem from './TextItem'
+import LinkItem from './LinkItem'
 
 interface GridItemProps {
   detail: DetailType
@@ -40,6 +41,16 @@ function GridItem({
     case 'image':
       return (
         <ImageItem detail={detail} onUpdate={onUpdate} onDelete={onDelete} />
+      )
+    case 'link':
+      return (
+        <LinkItem
+          detail={detail}
+          width={layout?.w ?? 1}
+          height={layout?.h ?? 1}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
+        />
       )
     default:
       return null

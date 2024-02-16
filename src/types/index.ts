@@ -1,4 +1,4 @@
-export type ToolType = 'github' | 'content' | 'image'
+export type ToolType = 'github' | 'content' | 'image' | 'link'
 
 export type DetailType = {
   id: string

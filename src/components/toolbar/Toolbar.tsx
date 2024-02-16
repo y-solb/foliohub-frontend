@@ -3,6 +3,7 @@ import { FaGithub } from 'react-icons/fa'
 import { MdOutlineTitle } from 'react-icons/md'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
+import { RxLink2 } from 'react-icons/rx'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from './InputToolbar'
 
@@ -16,8 +17,18 @@ function Toolbar({ onAdd }: ToolbarProps) {
     setActive('')
   })
 
+  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsOpen(true)
+    setActive((e.currentTarget as HTMLButtonElement).name)
+  }
+
   const handleAddGithubId = (inputValue: string) => {
-    onAdd('github', { githubId: inputValue })
+    if (activeTab === 'github') {
+      onAdd('github', { githubId: inputValue })
+    } else if (activeTab === 'link') {
+      onAdd('link', { url: inputValue })
+    }
+
     setActive('')
     setIsOpen(false)
   }
@@ -33,20 +44,10 @@ function Toolbar({ onAdd }: ToolbarProps) {
         name="github"
         className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'github' ? 'bg-gray-200' : ''}`}
         aria-label="github"
-        onClick={(e) => {
-          setIsOpen(true)
-          setActive((e.currentTarget as HTMLButtonElement).name)
-        }}
+        onClick={handleActiveTab}
       >
         <FaGithub size={24} />
       </button>
-      {isOpen && (
-        <InputToolbar
-          defaultValue=""
-          buttonLabel="add-githubId"
-          onAdd={handleAddGithubId}
-        />
-      )}
       <button
         type="button"
         className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
@@ -58,6 +59,23 @@ function Toolbar({ onAdd }: ToolbarProps) {
         <MdOutlineTitle size={24} />
       </button>
       <ImageUploadButton onUpload={handleUploadImage} />
+
+      <button
+        type="button"
+        name="link"
+        className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'link' ? 'bg-gray-200' : ''}`}
+        aria-label="link"
+        onClick={handleActiveTab}
+      >
+        <RxLink2 size={24} />
+      </button>
+      {isOpen && (
+        <InputToolbar
+          defaultValue=""
+          buttonLabel="add-input"
+          onAdd={handleAddGithubId}
+        />
+      )}
     </div>
   )
 }

@@ -197,10 +197,43 @@ html {
   .body2 {
     @apply text-sm font-normal;
   }
+  .body3 {
+    @apply text-xs font-normal;
+  }
+  .grid-item-wrapper {
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white shadow-md;
+  }
   .toolbar-wrapper {
     @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white flex gap-2;
   }
   .control-wrapper {
     @apply z-10;
+  }
+  .ellipsis2 {
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
+  }
+  .ellipsis3 {
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
+  }
+  .ellipsis5 {
+    display: -webkit-box;
+    word-wrap: break-word;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
   }
 }
