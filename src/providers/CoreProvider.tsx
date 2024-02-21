@@ -1,3 +1,4 @@
+import ReactQueryProvider from './ReactQueryProvider'
 import RecoilProvider from './RecoilProvider'
 
 function CoreProvider({
@@ -5,7 +6,11 @@ function CoreProvider({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <RecoilProvider>{children}</RecoilProvider>
+  return (
+    <ReactQueryProvider>
+      <RecoilProvider>{children}</RecoilProvider>
+    </ReactQueryProvider>
+  )
 }
 
 export default CoreProvider
