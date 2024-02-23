@@ -8,8 +8,8 @@ const config: Config = {
   ],
   theme: {
     animation: {
-      fadeIn: 'fadeIn 1s ease-out',
-      fadeOut: 'fadeOut 1s ease-out',
+      fadeIn: 'fadeIn 0.2s ease-out',
+      fadeOut: 'fadeOut 0.2s ease-out',
     },
     keyframes: {
       fadeIn: {
