@@ -1,3 +1,4 @@
+import AuthModal from '@/components/AuthModal'
 import ReactQueryProvider from './ReactQueryProvider'
 import RecoilProvider from './RecoilProvider'
 
@@ -8,7 +9,10 @@ function CoreProvider({
 }>) {
   return (
     <ReactQueryProvider>
-      <RecoilProvider>{children}</RecoilProvider>
+      <RecoilProvider>
+        {children}
+        <AuthModal />
+      </RecoilProvider>
     </ReactQueryProvider>
   )
 }
