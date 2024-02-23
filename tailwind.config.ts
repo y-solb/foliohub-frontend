@@ -32,6 +32,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         'noto-sans-kr': ['var(--noto_sans_kr)'],
+        'noto-sans': ['var(--noto_sans)'],
       },
     },
   },

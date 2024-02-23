@@ -1,12 +1,18 @@
 import type { Metadata } from 'next'
-import { Noto_Sans_KR } from 'next/font/google'
+import { Noto_Sans_KR, Noto_Sans } from 'next/font/google'
 import './globals.css'
 import CoreProvider from '@/providers/CoreProvider'
 
-const noto = Noto_Sans_KR({
+const notoKr = Noto_Sans_KR({
   weight: ['400', '500', '600'],
   subsets: ['latin'],
   variable: '--noto_sans_kr',
+})
+
+const noto = Noto_Sans({
+  weight: ['400', '500', '600'],
+  subsets: ['latin'],
+  variable: '--noto_sans',
 })
 
 export const metadata: Metadata = {
@@ -22,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={noto.className}>
+      <body className={`${notoKr.className} ${noto.className}`}>
         <CoreProvider>{children}</CoreProvider>
       </body>
     </html>
