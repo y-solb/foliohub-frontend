@@ -25,7 +25,7 @@ function BaseLayout() {
   return (
     <div>
       <p>BaseLayout</p>
-      <p>user:{authInfo ? authInfo.username : '비회원'}</p>
+      <p>user:{authInfo ? authInfo.userId : '비회원'}</p>
       <button type="button" onClick={() => refetch}>
         api 요청
       </button>

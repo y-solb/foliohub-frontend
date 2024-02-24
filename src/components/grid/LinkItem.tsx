@@ -1,4 +1,4 @@
-import { DetailType } from '@/types'
+import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useEffect, useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
@@ -8,10 +8,10 @@ import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface LinkItemProps {
-  detail: DetailType
+  detail: AssetType
   width: number
   height: number
-  onUpdate: (updatedDetail: DetailType) => void
+  onUpdate: (updatedDetail: AssetType) => void
   onDelete: (id: string) => void
 }
 
@@ -40,7 +40,7 @@ function LinkItem({
   const fetchData = async () => {
     try {
       const { data } = await axios.get('http://localhost:3001/v1/metadata', {
-        params: { url: value.url },
+        params: { link: value.link },
       })
       setInfo(data)
     } catch (error) {
@@ -133,7 +133,7 @@ function LinkItem({
             </button>
             {isOpenTool && (
               <InputToolbar
-                defaultValue={value.url}
+                defaultValue={value.link}
                 buttonLabel="add-image-link"
                 onAdd={handleUpdateImageLink}
               />

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DetailType } from '@/types'
+import { AssetType } from '@/types'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
 import { RxLink2 } from 'react-icons/rx'
@@ -32,8 +32,8 @@ const formats = [
 ]
 
 interface TextItemProps {
-  detail: DetailType
-  onUpdate: (updatedDetail: DetailType) => void
+  detail: AssetType
+  onUpdate: (updatedDetail: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
 }
@@ -47,14 +47,14 @@ function TextItem({
   const { value, id } = detail
 
   const [isOpenControl, setIsOpenControl] = useState(false)
-  const [content, setValue] = useState(value)
+  const [content, setValue] = useState(value.content)
 
   const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
       onChangeEditMode()
       onUpdate({
         ...detail,
-        value: content,
+        value: { content },
       })
     })
 
@@ -92,7 +92,7 @@ function TextItem({
         ) : (
           <div
             className="flex flex-col flex-1 p-4 bg-white"
-            dangerouslySetInnerHTML={{ __html: value }}
+            dangerouslySetInnerHTML={{ __html: value.content }}
           />
         )}
       </div>

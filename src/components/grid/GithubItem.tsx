@@ -1,4 +1,4 @@
-import { DetailType } from '@/types'
+import { AssetType } from '@/types'
 import { useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import DeleteGridItemButton from '../DeleteGridItemButton'
@@ -10,7 +10,7 @@ type Activity = {
 }
 
 interface GithubItemProps {
-  detail: DetailType
+  detail: AssetType
   width: number
   onDelete: (id: string) => void
 }

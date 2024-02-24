@@ -1,4 +1,4 @@
-import { DetailType } from '@/types'
+import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
@@ -7,8 +7,8 @@ import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface ImageItemProps {
-  detail: DetailType
-  onUpdate: (updatedDetail: DetailType) => void
+  detail: AssetType
+  onUpdate: (updatedDetail: AssetType) => void
   onDelete: (id: string) => void
 }
 

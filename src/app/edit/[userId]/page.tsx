@@ -4,22 +4,23 @@
 
 import 'react-grid-layout/css/styles.css'
 import Toolbar from '@/components/toolbar/Toolbar'
-import { DetailType, ToolType } from '@/types'
+import { AssetType, ToolType } from '@/types'
 import React, { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import { FaAngleRight } from 'react-icons/fa6'
 import GridItem from '@/components/grid/GridItem'
+import httpClient from '@/lib/httpClient'
 
 const LG_BREAKPOINT = 842
 const MD_BREAKPOINT = 841
 
 type UserData = {
   id: string
-  name: string
-  bio: string
+  displayName: string
+  shortBio: string
   thumbnail: string
-  details: DetailType[]
+  assets: AssetType[]
 }
 
 const PREVENT_DRAG_DEFAULTS = [
@@ -29,10 +30,11 @@ const PREVENT_DRAG_DEFAULTS = [
 ]
 const USERDATA: UserData = {
   id: '1',
-  name: '소르비',
-  bio: '❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다.',
+  displayName: '소르비',
+  shortBio:
+    '❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다.',
   thumbnail: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
-  details: [
+  assets: [
     {
       id: '123',
       type: 'image',
@@ -59,28 +61,28 @@ const USERDATA: UserData = {
       id: '1244',
       type: 'link',
       value: {
-        url: 'https://www.instagram.com/p/C3Kj-rlyvXv/?img_index=1',
+        link: 'https://www.instagram.com/p/C3Kj-rlyvXv/?img_index=1',
       },
     },
     {
       id: '12448',
       type: 'link',
       value: {
-        url: 'https://www.instagram.com/solb_climb_account/',
+        link: 'https://www.instagram.com/solb_climb_account/',
       },
     },
     {
       id: '124484',
       type: 'link',
       value: {
-        url: 'https://sollogging.tistory.com/',
+        link: 'https://sollogging.tistory.com/',
       },
     },
     {
       id: '124489',
       type: 'link',
       value: {
-        url: 'https://sollogging.tistory.com/75',
+        link: 'https://sollogging.tistory.com/75',
       },
     },
   ],
@@ -127,20 +129,31 @@ export default function EditPage({ params }: { params: { userId: string } }) {
 
     setData({
       ...data,
-      details: [
-        ...data.details,
+      assets: [
+        ...data.assets,
         {
           id,
           type: name,
+          command: 'save',
           value,
         },
       ],
     })
     if (name === 'github') {
       setLayouts({
-        ...layouts,
-        [breakpoint]: [
-          ...layouts[breakpoint],
+        lg: [
+          ...layouts.lg,
+          {
+            i: id,
+            x: 0,
+            y: 0,
+            w: 1,
+            h: 1,
+            maxH: 1,
+          },
+        ],
+        md: [
+          ...layouts.md,
           {
             i: id,
             x: 0,
@@ -154,11 +167,16 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     }
   }
 
-  const handleUpdate = (updatedDetail: DetailType) => {
+  const handleUpdate = (updatedDetail: AssetType) => {
     setData({
       ...data,
-      details: data.details.map((detail) =>
-        detail.id === updatedDetail.id ? updatedDetail : detail,
+      assets: data.assets.map((detail) =>
+        detail.id === updatedDetail.id
+          ? {
+              ...updatedDetail,
+              command: updatedDetail.command ? updatedDetail.command : 'update',
+            }
+          : detail,
       ),
     })
   }
@@ -166,7 +184,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
   const handleDelete = (id: string) => {
     setData({
       ...data,
-      details: data.details.filter((detail) => detail.id !== id),
+      assets: data.assets.filter((detail) => detail.id !== id),
     })
 
     setLayouts({
@@ -204,14 +222,14 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                 contentEditable="true"
                 suppressContentEditableWarning
               >
-                {data.name}
+                {data.displayName}
               </h1>
               <h3
                 className="text-gray-500 break-all"
                 contentEditable="true"
                 suppressContentEditableWarning
               >
-                {data.bio}
+                {data.shortBio}
               </h3>
             </div>
           </div>
@@ -236,7 +254,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                 setRowHeight((width - (cols + 1) * margin[0]) / cols)
               }}
             >
-              {data.details.map((detail) => (
+              {data.assets.map((detail) => (
                 <div key={detail.id} className="flex">
                   <GridItem
                     detail={detail}
@@ -259,7 +277,16 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       <button
         type="button"
         className="bg-red-100 h-40"
-        onClick={() => console.log('data', data, 'layouts', layouts)}
+        onClick={() => {
+          const fetch = async () => {
+            await httpClient.put(`/v1/portfolio/edit/${params.userId}`, {
+              ...data,
+              layout: layouts,
+            })
+          }
+          fetch()
+          console.log('data', data, 'layouts', layouts)
+        }}
       >
         저장하기
       </button>

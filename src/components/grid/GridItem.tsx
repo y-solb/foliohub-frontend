@@ -1,4 +1,4 @@
-import { DetailType } from '@/types'
+import { AssetType } from '@/types'
 import { Layout } from 'react-grid-layout'
 import ImageItem from './ImageItem'
 import GithubItem from './GithubItem'
@@ -6,9 +6,9 @@ import TextItem from './TextItem'
 import LinkItem from './LinkItem'
 
 interface GridItemProps {
-  detail: DetailType
+  detail: AssetType
   layout: Layout | undefined
-  onUpdate: (updatedDetail: DetailType) => void
+  onUpdate: (updatedDetail: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
 }

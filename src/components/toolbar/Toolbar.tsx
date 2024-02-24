@@ -53,7 +53,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
         className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
         aria-label="content"
         onClick={() => {
-          onAdd('content')
+          onAdd('content', { content: null })
         }}
       >
         <MdOutlineTitle size={24} />
