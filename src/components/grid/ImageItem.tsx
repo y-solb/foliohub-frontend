@@ -7,12 +7,12 @@ import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface ImageItemProps {
-  detail: AssetType
-  onUpdate: (updatedDetail: AssetType) => void
+  asset: AssetType
+  onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
 }
 
-function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
+function ImageItem({ asset, onUpdate, onDelete }: ImageItemProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
@@ -22,12 +22,12 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
     },
   )
 
-  const { value, id } = detail
+  const { value, id } = asset
 
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
-      ...detail,
-      value: { ...detail.value, link: inputValue },
+      ...asset,
+      value: { ...asset.value, link: inputValue },
     })
     setIsOpenTool(false)
     setActive('')
@@ -35,8 +35,8 @@ function ImageItem({ detail, onUpdate, onDelete }: ImageItemProps) {
 
   const handleUploadImage = (imageUrl: string) => {
     onUpdate({
-      ...detail,
-      value: { ...detail.value, imageUrl },
+      ...asset,
+      value: { ...asset.value, imageUrl },
     })
   }
 

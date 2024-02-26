@@ -10,15 +10,15 @@ type Activity = {
 }
 
 interface GithubItemProps {
-  detail: AssetType
+  asset: AssetType
   width: number
   onDelete: (id: string) => void
 }
 
-function GithubItem({ detail, width, onDelete }: GithubItemProps) {
+function GithubItem({ asset, width, onDelete }: GithubItemProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
 
-  const { value, id } = detail
+  const { value, id } = asset
 
   const calculateContributions = (contributions: Activity[]) => {
     const lastDate = new Date(contributions[contributions.length - 1].date)

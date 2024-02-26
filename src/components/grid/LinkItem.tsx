@@ -8,20 +8,14 @@ import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface LinkItemProps {
-  detail: AssetType
+  asset: AssetType
   width: number
   height: number
-  onUpdate: (updatedDetail: AssetType) => void
+  onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
 }
 
-function LinkItem({
-  detail,
-  width,
-  height,
-  onUpdate,
-  onDelete,
-}: LinkItemProps) {
+function LinkItem({ asset, width, height, onUpdate, onDelete }: LinkItemProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
@@ -35,7 +29,7 @@ function LinkItem({
     image: string
     description: string
   }>()
-  const { value, id } = detail
+  const { value, id } = asset
 
   const fetchData = async () => {
     try {
@@ -54,8 +48,8 @@ function LinkItem({
 
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
-      ...detail,
-      value: { ...detail.value, link: inputValue },
+      ...asset,
+      value: { ...asset.value, link: inputValue },
     })
     setIsOpenTool(false)
     setActive('')

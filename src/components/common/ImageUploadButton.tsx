@@ -23,10 +23,6 @@ function ImageUploadButton({ onUpload }: ImageUploadButtonProps) {
     if (file) {
       const imageUrl = await uploadImage(file)
       onUpload(imageUrl)
-      //   onUpdate({
-      //     ...detail,
-      //     value: { imageUrl, link: '' },
-      //   })
     }
   }
 

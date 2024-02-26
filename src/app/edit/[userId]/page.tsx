@@ -167,16 +167,16 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     }
   }
 
-  const handleUpdate = (updatedDetail: AssetType) => {
+  const handleUpdate = (updatedAsset: AssetType) => {
     setData({
       ...data,
-      assets: data.assets.map((detail) =>
-        detail.id === updatedDetail.id
+      assets: data.assets.map((asset) =>
+        asset.id === updatedAsset.id
           ? {
-              ...updatedDetail,
-              command: updatedDetail.command ? updatedDetail.command : 'update',
+              ...updatedAsset,
+              command: updatedAsset.command ? updatedAsset.command : 'update',
             }
-          : detail,
+          : asset,
       ),
     })
   }
@@ -184,7 +184,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
   const handleDelete = (id: string) => {
     setData({
       ...data,
-      assets: data.assets.filter((detail) => detail.id !== id),
+      assets: data.assets.filter((asset) => asset.id !== id),
     })
 
     setLayouts({
@@ -254,14 +254,14 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                 setRowHeight((width - (cols + 1) * margin[0]) / cols)
               }}
             >
-              {data.assets.map((detail) => (
-                <div key={detail.id} className="flex">
+              {data.assets.map((asset) => (
+                <div key={asset.id} className="flex">
                   <GridItem
-                    detail={detail}
+                    asset={asset}
                     layout={layouts[breakpoint]?.find(
-                      (layout) => layout.i === detail.id,
+                      (layout) => layout.i === asset.id,
                     )}
-                    key={detail.id}
+                    key={asset.id}
                     onUpdate={handleUpdate}
                     onDelete={handleDelete}
                     onChangeEditMode={() => {

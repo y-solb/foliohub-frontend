@@ -32,19 +32,19 @@ const formats = [
 ]
 
 interface TextItemProps {
-  detail: AssetType
-  onUpdate: (updatedDetail: AssetType) => void
+  asset: AssetType
+  onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
 }
 
 function TextItem({
-  detail,
+  asset,
   onUpdate,
   onDelete,
   onChangeEditMode,
 }: TextItemProps) {
-  const { value, id } = detail
+  const { value, id } = asset
 
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value.content)
@@ -53,7 +53,7 @@ function TextItem({
     useOutsideClick<HTMLDivElement>(() => {
       onChangeEditMode()
       onUpdate({
-        ...detail,
+        ...asset,
         value: { content },
       })
     })

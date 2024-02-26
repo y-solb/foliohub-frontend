@@ -6,46 +6,40 @@ import TextItem from './TextItem'
 import LinkItem from './LinkItem'
 
 interface GridItemProps {
-  detail: AssetType
+  asset: AssetType
   layout: Layout | undefined
-  onUpdate: (updatedDetail: AssetType) => void
+  onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
 }
 
 function GridItem({
-  detail,
+  asset,
   layout,
   onUpdate,
   onDelete,
   onChangeEditMode,
 }: GridItemProps) {
-  switch (detail.type) {
+  switch (asset.type) {
     case 'github':
       return (
-        <GithubItem
-          detail={detail}
-          width={layout?.w ?? 1}
-          onDelete={onDelete}
-        />
+        <GithubItem asset={asset} width={layout?.w ?? 1} onDelete={onDelete} />
       )
     case 'content':
       return (
         <TextItem
-          detail={detail}
+          asset={asset}
           onUpdate={onUpdate}
           onDelete={onDelete}
           onChangeEditMode={onChangeEditMode}
         />
       )
     case 'image':
-      return (
-        <ImageItem detail={detail} onUpdate={onUpdate} onDelete={onDelete} />
-      )
+      return <ImageItem asset={asset} onUpdate={onUpdate} onDelete={onDelete} />
     case 'link':
       return (
         <LinkItem
-          detail={detail}
+          asset={asset}
           width={layout?.w ?? 1}
           height={layout?.h ?? 1}
           onUpdate={onUpdate}
