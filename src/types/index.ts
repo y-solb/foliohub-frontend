@@ -19,3 +19,11 @@ export type AuthInfo = {
   userId: string
   accessToken: string
 }
+
+export type UserData = {
+  id: string
+  displayName: string
+  shortBio: string
+  thumbnail: string
+  assets: AssetType[]
+}
