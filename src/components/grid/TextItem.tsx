@@ -76,9 +76,7 @@ function TextItem({
         setIsOpenControl(false)
       }}
     >
-      <div
-        className={`relative flex flex-1 ${isEditorToolbarOpen ? '' : 'overflow-hidden'} grid-item-wrapper max-w-full`}
-      >
+      <div className="relative flex flex-1 overflow-scroll grid-item-wrapper max-w-full">
         {isEditorToolbarOpen ? (
           <ReactQuill
             id="textEditor"
