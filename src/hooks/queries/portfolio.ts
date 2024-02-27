@@ -26,7 +26,7 @@ const editPortfolio = async ({
   userId,
   updatedPortfolio,
 }: UpdatePortfolioVariables) => {
-  const { data } = await httpClient.put(`/v1/portfolio/edit/${userId}`, {
+  const { data } = await httpClient.put(`/v1/portfolio/${userId}`, {
     ...updatedPortfolio,
   })
   return data
