@@ -4,7 +4,13 @@ export type AssetType = {
   id: string
   type: ToolType
   command?: 'save' | 'update'
-  value: any // TODO: 타입 변경
+  value: any
+  // {
+  //   githubId?: string
+  //   link?: string
+  //   imageUrl?: string
+  //   content?: string
+  // }  TODO: 타입 변경
 }
 
 export type AuthInfo = {

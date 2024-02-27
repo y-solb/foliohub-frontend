@@ -26,7 +26,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
     if (activeTab === 'github') {
       onAdd('github', { githubId: inputValue })
     } else if (activeTab === 'link') {
-      onAdd('link', { url: inputValue })
+      onAdd('link', { link: inputValue })
     }
 
     setActive('')

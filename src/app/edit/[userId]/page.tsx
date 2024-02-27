@@ -10,7 +10,10 @@ import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import { FaAngleRight } from 'react-icons/fa6'
 import GridItem from '@/components/grid/GridItem'
-import httpClient from '@/lib/httpClient'
+import {
+  usePortfolioMutation,
+  usePortfolioQuery,
+} from '@/hooks/queries/portfolio'
 
 const LG_BREAKPOINT = 842
 const MD_BREAKPOINT = 841
@@ -28,65 +31,6 @@ const PREVENT_DRAG_DEFAULTS = [
   '.control-wrapper',
   '.image-link',
 ]
-const USERDATA: UserData = {
-  id: '1',
-  displayName: '소르비',
-  shortBio:
-    '❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다. ❤️프론트엔드 개발자입니다.',
-  thumbnail: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
-  assets: [
-    {
-      id: '123',
-      type: 'image',
-      value: {
-        imageUrl: 'https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg',
-      },
-    },
-    {
-      id: '1223',
-      type: 'image',
-      value: {
-        imageUrl:
-          'https://res.cloudinary.com/dkxn96rs9/image/upload/v1707230068/jpjtwqkxs5dcmoket5wr.png',
-      },
-    },
-    {
-      id: '1224',
-      type: 'github',
-      value: {
-        githubId: 'y-solb',
-      },
-    },
-    {
-      id: '1244',
-      type: 'link',
-      value: {
-        link: 'https://www.instagram.com/p/C3Kj-rlyvXv/?img_index=1',
-      },
-    },
-    {
-      id: '12448',
-      type: 'link',
-      value: {
-        link: 'https://www.instagram.com/solb_climb_account/',
-      },
-    },
-    {
-      id: '124484',
-      type: 'link',
-      value: {
-        link: 'https://sollogging.tistory.com/',
-      },
-    },
-    {
-      id: '124489',
-      type: 'link',
-      value: {
-        link: 'https://sollogging.tistory.com/75',
-      },
-    },
-  ],
-}
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -104,7 +48,8 @@ const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
 })
 
 export default function EditPage({ params }: { params: { userId: string } }) {
-  const [data, setData] = useState<UserData>(USERDATA)
+  const { data, isLoading } = usePortfolioQuery(params.userId)
+  const [portfolio, setPortfolio] = useState<UserData | null>(null)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],
     md: [],
@@ -112,6 +57,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
   const [breakpoint, setBreakpoint] = useState('')
   const [rowHeight, setRowHeight] = useState(168) // TODO: 처음에 렌더링 시 계산되도록 변경 필요
   const [isEditMode, setIsEditMode] = useState(false)
+  const { mutate } = usePortfolioMutation()
 
   useEffect(() => {
     const windowWidth = window.innerWidth
@@ -123,14 +69,26 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     }
   }, [])
 
+  useEffect(() => {
+    if (data) {
+      const { id, displayName, shortBio, thumbnail, assets, layout } = data
+      setPortfolio({ id, displayName, shortBio, thumbnail, assets })
+      setLayouts(layout)
+    }
+  }, [data])
+
+  if (isLoading || !portfolio) {
+    return null
+  }
+
   // TODO name을 type으로 변경하기
   const handleAdd = (name: ToolType, value?: string) => {
     const id = uuidv4()
 
-    setData({
-      ...data,
+    setPortfolio({
+      ...portfolio,
       assets: [
-        ...data.assets,
+        ...portfolio.assets,
         {
           id,
           type: name,
@@ -168,9 +126,9 @@ export default function EditPage({ params }: { params: { userId: string } }) {
   }
 
   const handleUpdate = (updatedAsset: AssetType) => {
-    setData({
-      ...data,
-      assets: data.assets.map((asset) =>
+    setPortfolio({
+      ...portfolio,
+      assets: portfolio.assets.map((asset) =>
         asset.id === updatedAsset.id
           ? {
               ...updatedAsset,
@@ -182,9 +140,9 @@ export default function EditPage({ params }: { params: { userId: string } }) {
   }
 
   const handleDelete = (id: string) => {
-    setData({
-      ...data,
-      assets: data.assets.filter((asset) => asset.id !== id),
+    setPortfolio({
+      ...portfolio,
+      assets: portfolio.assets.filter((asset) => asset.id !== id),
     })
 
     setLayouts({
@@ -193,8 +151,6 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     })
   }
 
-  console.log(params.userId)
-
   return (
     <div className="relative">
       <Toolbar onAdd={handleAdd} />
@@ -202,17 +158,17 @@ export default function EditPage({ params }: { params: { userId: string } }) {
         <div className="flex w-full md:flex-row flex-col">
           <div className="flex flex-col gap-8 px-8 py-16 w-80">
             <button type="button">
-              {data.thumbnail ? (
+              {portfolio.thumbnail ? (
                 <img
                   className="rounded-full w-48 h-48"
-                  src={data.thumbnail}
+                  src={portfolio.thumbnail}
                   alt="프로필 이미지"
                 />
               ) : (
                 <img
                   className="rounded-full w-48 h-48"
                   src="https://pbs.twimg.com/media/FPOm-o_agAA4xXW.jpg"
-                  alt="프로필 이미지"
+                  alt="프로필 이미지_기본"
                 />
               )}
             </button>
@@ -222,14 +178,14 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                 contentEditable="true"
                 suppressContentEditableWarning
               >
-                {data.displayName}
+                {portfolio.displayName}
               </h1>
               <h3
                 className="text-gray-500 break-all"
                 contentEditable="true"
                 suppressContentEditableWarning
               >
-                {data.shortBio}
+                {portfolio.shortBio}
               </h3>
             </div>
           </div>
@@ -254,7 +210,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
                 setRowHeight((width - (cols + 1) * margin[0]) / cols)
               }}
             >
-              {data.assets.map((asset) => (
+              {portfolio.assets.map((asset) => (
                 <div key={asset.id} className="flex">
                   <GridItem
                     asset={asset}
@@ -278,14 +234,10 @@ export default function EditPage({ params }: { params: { userId: string } }) {
         type="button"
         className="bg-red-100 h-40"
         onClick={() => {
-          const fetch = async () => {
-            await httpClient.put(`/v1/portfolio/edit/${params.userId}`, {
-              ...data,
-              layout: layouts,
-            })
-          }
-          fetch()
-          console.log('data', data, 'layouts', layouts)
+          mutate({
+            userId: params.userId,
+            updatedPortfolio: { ...portfolio, layout: layouts },
+          })
         }}
       >
         저장하기
