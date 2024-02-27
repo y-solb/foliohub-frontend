@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AssetType } from '@/types'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
-import { RxLink2 } from 'react-icons/rx'
+import { PiNotePencil } from 'react-icons/pi'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
@@ -113,7 +113,7 @@ function TextItem({
               className="p-1 rounded-lg hover:bg-gray-200"
               onClick={handleChangeEdit}
             >
-              <RxLink2 size={24} />
+              <PiNotePencil size={24} />
             </button>
           </div>
         </div>
