@@ -1,6 +1,6 @@
 'use client'
 
-import useAuthInfo from '@/hooks/queries/useAuthInfo'
+import { useAuthQuery } from '@/hooks/queries/auth'
 import httpClient from '@/lib/httpClient'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import { useEffect } from 'react'
@@ -9,9 +9,7 @@ import { useRecoilState } from 'recoil'
 function BaseLayout() {
   const [authInfo, setAuthInfo] = useRecoilState(authInfoState)
 
-  const {
-    authInfoQuery: { data, refetch },
-  } = useAuthInfo()
+  const { data, refetch } = useAuthQuery()
 
   const currentUser = data ?? null
 

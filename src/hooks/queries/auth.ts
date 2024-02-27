@@ -1,8 +1,14 @@
 import httpClient from '@/lib/httpClient'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { AuthInfo } from '@/types'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 type RegType = {
   success: boolean
+}
+
+const getAuthInfo = async (): Promise<AuthInfo> => {
+  const { data } = await httpClient.get('/v1/auth')
+  return data
 }
 
 const register = async (userId: string): Promise<RegType> => {
@@ -17,22 +23,29 @@ const logout = async (): Promise<RegType> => {
   return data
 }
 
-export default function useAuth() {
-  const queryClient = useQueryClient()
+export const useAuthQuery = () => {
+  return useQuery<AuthInfo>({
+    queryKey: ['authInfo'],
+    queryFn: getAuthInfo,
+  })
+}
 
-  const registerMutation = useMutation({
+export const useRegisterMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
     mutationFn: (userId: string) => register(userId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authInfo'] })
     },
   })
+}
 
-  const logoutMutation = useMutation({
+export const useLogoutMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
     mutationFn: () => logout(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authInfo'] })
     },
   })
-
-  return { registerMutation, logoutMutation }
 }

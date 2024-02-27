@@ -4,12 +4,12 @@ import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { FaArrowRight } from 'react-icons/fa6'
-import useAuth from '@/hooks/mutations/useAuth'
+import { useRegisterMutation } from '@/hooks/queries/auth'
 
 export default function RegisterPage() {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const router = useRouter()
-  const { registerMutation } = useAuth()
+  const { mutate } = useRegisterMutation()
 
   const handleSubmit = async () => {
     if (!inputRef.current || !inputRef.current.value) {
@@ -17,7 +17,7 @@ export default function RegisterPage() {
       return
     }
 
-    registerMutation.mutate(inputRef.current.value)
+    mutate(inputRef.current.value)
     router.push('/')
     // try {
     //   const { data } = await httpClient.post('/v1/auth/register', {

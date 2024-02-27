@@ -1,6 +1,6 @@
 'use client'
 
-import useAuth from '@/hooks/mutations/useAuth'
+import { useLogoutMutation } from '@/hooks/queries/auth'
 import httpClient from '@/lib/httpClient'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import authModalState from '@/recoil/atoms/authModalState'
@@ -10,10 +10,10 @@ import { useRecoilState, useSetRecoilState } from 'recoil'
 function Header() {
   const setAuthModal = useSetRecoilState(authModalState)
   const [authInfo, setAuthInfo] = useRecoilState(authInfoState)
-  const { logoutMutation } = useAuth()
+  const { mutate } = useLogoutMutation()
 
   const handleLogout = () => {
-    logoutMutation.mutate()
+    mutate()
     setAuthInfo(null)
     httpClient.defaults.headers.common.Authorization = ''
   }
