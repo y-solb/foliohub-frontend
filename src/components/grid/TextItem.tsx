@@ -7,9 +7,12 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-const EditorToolbar = dynamic(() => import('../toolbar/EditorToolbar'), {
-  ssr: false,
-})
+const TextEditorToolbar = dynamic(
+  () => import('../toolbar/TextEditorToolbar'),
+  {
+    ssr: false,
+  },
+)
 
 const modules = {
   toolbar: {
@@ -49,7 +52,7 @@ function TextItem({
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value.content)
 
-  const [isEditorToolbarOpen, setIsEditorToolbarOpen, outRef] =
+  const [isTextEditorToolbarOpen, setIsTextEditorToolbarOpen, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
       onChangeEditMode()
       onUpdate({
@@ -60,7 +63,7 @@ function TextItem({
 
   const handleChangeEdit = () => {
     setIsOpenControl(false)
-    setIsEditorToolbarOpen(!isEditorToolbarOpen)
+    setIsTextEditorToolbarOpen(!isTextEditorToolbarOpen)
     onChangeEditMode()
   }
 
@@ -69,7 +72,7 @@ function TextItem({
       ref={outRef}
       className="relative flex flex-1 max-w-full"
       onMouseEnter={() => {
-        if (isEditorToolbarOpen) return
+        if (isTextEditorToolbarOpen) return
         setIsOpenControl(true)
       }}
       onMouseLeave={() => {
@@ -77,7 +80,7 @@ function TextItem({
       }}
     >
       <div className="relative flex flex-1 overflow-scroll grid-item-wrapper max-w-full">
-        {isEditorToolbarOpen ? (
+        {isTextEditorToolbarOpen ? (
           <ReactQuill
             id="textEditor"
             modules={modules}
@@ -115,7 +118,7 @@ function TextItem({
           </div>
         </div>
       )}
-      {isEditorToolbarOpen && <EditorToolbar />}
+      {isTextEditorToolbarOpen && <TextEditorToolbar />}
     </div>
   )
 }
