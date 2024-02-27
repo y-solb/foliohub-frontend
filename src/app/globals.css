@@ -221,11 +221,9 @@ html {
     @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white shadow-md;
   }
   .toolbar-wrapper {
-    @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white flex gap-2;
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white flex gap-2 z-10;
   }
-  .control-wrapper {
-    @apply z-10;
-  }
+
   .ellipsis2 {
     display: -webkit-box;
     word-wrap: break-word;
