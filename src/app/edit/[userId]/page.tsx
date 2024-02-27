@@ -8,12 +8,12 @@ import { AssetType, ToolType } from '@/types'
 import React, { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
-import { FaAngleRight } from 'react-icons/fa6'
 import GridItem from '@/components/grid/GridItem'
 import {
   usePortfolioMutation,
   usePortfolioQuery,
 } from '@/hooks/queries/portfolio'
+import ResizeHandler from '@/components/grid/ResizeHandler'
 
 const LG_BREAKPOINT = 842
 const MD_BREAKPOINT = 841
@@ -33,19 +33,6 @@ const PREVENT_DRAG_DEFAULTS = [
 ]
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
-
-const ResizeHandler = React.forwardRef<HTMLDivElement>((props, ref) => {
-  return (
-    <div
-      ref={ref}
-      className="resize-handler absolute bottom-1 right-1 cursor-se-resize"
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...props}
-    >
-      <FaAngleRight size="24" className="text-gray-200 rotate-45" />
-    </div>
-  )
-})
 
 export default function EditPage({ params }: { params: { userId: string } }) {
   const { data, isLoading } = usePortfolioQuery(params.userId)
@@ -199,7 +186,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
               compactType={null}
               isDraggable={!isEditMode}
               draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
-              resizeHandle={<ResizeHandler />}
+              resizeHandle={<ResizeHandler handleAxis="se" />}
               onBreakpointChange={(newBreakpoint) => {
                 setBreakpoint(newBreakpoint)
               }}
