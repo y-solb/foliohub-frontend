@@ -218,10 +218,10 @@ html {
     @apply text-xs font-normal;
   }
   .grid-item-wrapper {
-    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white shadow-md;
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white;
   }
   .toolbar-wrapper {
-    @apply rounded-2xl border border-solid border-gray-100 shadow-md p-3 bg-white flex gap-2 z-10;
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white p-3 flex gap-2 z-10;
   }
 
   .ellipsis2 {
