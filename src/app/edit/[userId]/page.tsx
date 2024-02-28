@@ -154,7 +154,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       </div>
       <button
         type="button"
-        className="bg-red-100 h-40"
+        className="fixed bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
         onClick={handleSavePortfolio}
       >
         저장하기
