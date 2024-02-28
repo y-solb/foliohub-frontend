@@ -23,7 +23,12 @@ function GridItem({
   switch (asset.type) {
     case 'github':
       return (
-        <GithubItem asset={asset} width={layout?.w ?? 1} onDelete={onDelete} />
+        <GithubItem
+          asset={asset}
+          width={layout?.w ?? 1}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
+        />
       )
     case 'content':
       return (
