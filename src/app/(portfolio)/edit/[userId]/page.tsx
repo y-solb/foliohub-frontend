@@ -10,8 +10,8 @@ import {
   usePortfolioMutation,
   usePortfolioQuery,
 } from '@/hooks/queries/portfolio'
-import Profile from '@/containers/portfolio/Profile'
-import AssetGridLayout from '@/containers/portfolio/AssetGridLayout'
+import AssetGridLayoutEditor from '@/containers/portfolio/AssetGridLayoutEditor'
+import ProfileEditor from '@/containers/portfolio/ProfileEditor'
 
 export default function EditPage({ params }: { params: { userId: string } }) {
   const { data, isLoading } = usePortfolioQuery(params.userId)
@@ -135,13 +135,13 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       <Toolbar onAdd={handleAdd} />
       <div className="flex">
         <div className="flex w-full md:flex-row flex-col">
-          <Profile
+          <ProfileEditor
             portfolio={portfolio}
             displayNameRef={displayNameRef}
             shortBioRef={shortBioRef}
             onProfileChange={handleProfileChange}
           />
-          <AssetGridLayout
+          <AssetGridLayoutEditor
             portfolio={portfolio}
             layouts={layouts}
             handleUpdate={handleUpdate}

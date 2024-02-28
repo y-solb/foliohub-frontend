@@ -1,19 +1,35 @@
-import Asset from '@/components/grid/Asset'
-import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants'
-import { UserData } from '@/types'
+import GridItem from '@/components/grid/AssetEditor'
+import ResizeHandler from '@/components/grid/ResizeHandler'
+import {
+  LG_BREAKPOINT,
+  MD_BREAKPOINT,
+  PREVENT_DRAG_DEFAULTS,
+} from '@/constants'
+import useToggle from '@/hooks/useToggle'
+import { AssetType, UserData } from '@/types'
 import { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
-interface AssetGridLayoutProps {
+interface AssetGridLayoutEditorProps {
   portfolio: UserData
   layouts: Layouts
+  handleUpdate: (updatedAsset: AssetType) => void
+  handleDelete: (id: string) => void
+  onLayoutChange: (currentLayout: Layouts) => void
 }
 
-function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
+function AssetGridLayoutEditor({
+  portfolio,
+  layouts,
+  handleUpdate,
+  handleDelete,
+  onLayoutChange,
+}: AssetGridLayoutEditorProps) {
   const [breakpoint, setBreakpoint] = useState('')
   const [rowHeight, setRowHeight] = useState(168)
+  const [isEditMode, toggle] = useToggle(false)
 
   useEffect(() => {
     const windowWidth = window.innerWidth
@@ -34,10 +50,14 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
         layouts={layouts}
         verticalCompact
         compactType={null}
-        isDraggable={false}
-        isResizable={false}
+        isDraggable={!isEditMode}
+        draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
+        resizeHandle={<ResizeHandler handleAxis="se" />}
         onBreakpointChange={(newBreakpoint) => {
           setBreakpoint(newBreakpoint)
+        }}
+        onLayoutChange={(_, currentLayout) => {
+          onLayoutChange(currentLayout)
         }}
         onWidthChange={(width, margin, cols) => {
           setRowHeight((width - (cols + 1) * margin[0]) / cols)
@@ -45,12 +65,15 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
       >
         {portfolio.assets.map((asset) => (
           <div key={asset.id} className="flex">
-            <Asset
+            <GridItem
               asset={asset}
               layout={layouts[breakpoint]?.find(
                 (layout) => layout.i === asset.id,
               )}
               key={asset.id}
+              onUpdate={handleUpdate}
+              onDelete={handleDelete}
+              onChangeEditMode={toggle}
             />
           </div>
         ))}
@@ -59,4 +82,4 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
   )
 }
 
-export default AssetGridLayout
+export default AssetGridLayoutEditor

@@ -12,14 +12,19 @@ type Activity = {
   level: number
 }
 
-interface GithubItemProps {
+interface GithubAssetEditorProps {
   asset: AssetType
   width: number
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
 }
 
-function GithubItem({ asset, width, onUpdate, onDelete }: GithubItemProps) {
+function GithubAssetEditor({
+  asset,
+  width,
+  onUpdate,
+  onDelete,
+}: GithubAssetEditorProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
@@ -114,4 +119,4 @@ function GithubItem({ asset, width, onUpdate, onDelete }: GithubItemProps) {
   )
 }
 
-export default GithubItem
+export default GithubAssetEditor

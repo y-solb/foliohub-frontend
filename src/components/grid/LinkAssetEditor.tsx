@@ -7,7 +7,7 @@ import DeleteGridItemButton from '../DeleteGridItemButton'
 
 import InputToolbar from '../toolbar/InputToolbar'
 
-interface LinkItemProps {
+interface LinkAssetEditorProps {
   asset: AssetType
   width: number
   height: number
@@ -15,7 +15,13 @@ interface LinkItemProps {
   onDelete: (id: string) => void
 }
 
-function LinkItem({ asset, width, height, onUpdate, onDelete }: LinkItemProps) {
+function LinkAssetEditor({
+  asset,
+  width,
+  height,
+  onUpdate,
+  onDelete,
+}: LinkAssetEditorProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
@@ -139,4 +145,4 @@ function LinkItem({ asset, width, height, onUpdate, onDelete }: LinkItemProps) {
   )
 }
 
-export default LinkItem
+export default LinkAssetEditor

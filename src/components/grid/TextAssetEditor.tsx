@@ -34,19 +34,19 @@ const formats = [
   'color',
 ]
 
-interface TextItemProps {
+interface TextAssetEditorProps {
   asset: AssetType
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
 }
 
-function TextItem({
+function TextAssetEditor({
   asset,
   onUpdate,
   onDelete,
   onChangeEditMode,
-}: TextItemProps) {
+}: TextAssetEditorProps) {
   const { value, id } = asset
 
   const [isOpenControl, setIsOpenControl] = useState(false)
@@ -123,4 +123,4 @@ function TextItem({
   )
 }
 
-export default TextItem
+export default TextAssetEditor

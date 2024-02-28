@@ -1,11 +1,11 @@
 import { AssetType } from '@/types'
 import { Layout } from 'react-grid-layout'
-import ImageItem from './ImageItem'
-import GithubItem from './GithubItem'
-import TextItem from './TextItem'
-import LinkItem from './LinkItem'
+import ImageAssetEditor from './ImageAssetEditor'
+import GithubAssetEditor from './GithubAssetEditor'
+import TextAssetEditor from './TextAssetEditor'
+import LinkAssetEditor from './LinkAssetEditor'
 
-interface GridItemProps {
+interface AssetEditorProps {
   asset: AssetType
   layout: Layout | undefined
   onUpdate: (updatedAsset: AssetType) => void
@@ -13,17 +13,17 @@ interface GridItemProps {
   onChangeEditMode: () => void
 }
 
-function GridItem({
+function AssetEditor({
   asset,
   layout,
   onUpdate,
   onDelete,
   onChangeEditMode,
-}: GridItemProps) {
+}: AssetEditorProps) {
   switch (asset.type) {
     case 'github':
       return (
-        <GithubItem
+        <GithubAssetEditor
           asset={asset}
           width={layout?.w ?? 1}
           onUpdate={onUpdate}
@@ -32,7 +32,7 @@ function GridItem({
       )
     case 'content':
       return (
-        <TextItem
+        <TextAssetEditor
           asset={asset}
           onUpdate={onUpdate}
           onDelete={onDelete}
@@ -40,10 +40,16 @@ function GridItem({
         />
       )
     case 'image':
-      return <ImageItem asset={asset} onUpdate={onUpdate} onDelete={onDelete} />
+      return (
+        <ImageAssetEditor
+          asset={asset}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
+        />
+      )
     case 'link':
       return (
-        <LinkItem
+        <LinkAssetEditor
           asset={asset}
           width={layout?.w ?? 1}
           height={layout?.h ?? 1}
@@ -56,4 +62,4 @@ function GridItem({
   }
 }
 
-export default GridItem
+export default AssetEditor

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
@@ -6,13 +7,17 @@ import DeleteGridItemButton from '../DeleteGridItemButton'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
-interface ImageItemProps {
+interface ImageAssetEditorProps {
   asset: AssetType
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
 }
 
-function ImageItem({ asset, onUpdate, onDelete }: ImageItemProps) {
+function ImageAssetEditor({
+  asset,
+  onUpdate,
+  onDelete,
+}: ImageAssetEditorProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
   const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
@@ -55,7 +60,13 @@ function ImageItem({ asset, onUpdate, onDelete }: ImageItemProps) {
       }}
     >
       <div className="relative flex flex-1 rounded-2xl overflow-hidden">
-        <img src={value.imageUrl} alt={`image_${id}`} className="w-full" />
+        <Image
+          src={value.imageUrl}
+          alt={`image_${id}`}
+          fill
+          priority
+          className="w-full"
+        />
         {value.link && (
           <a
             href={value.link}
@@ -103,4 +114,4 @@ function ImageItem({ asset, onUpdate, onDelete }: ImageItemProps) {
   )
 }
 
-export default ImageItem
+export default ImageAssetEditor
