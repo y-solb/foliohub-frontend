@@ -5,7 +5,7 @@
 import 'react-grid-layout/css/styles.css'
 import Toolbar from '@/components/toolbar/Toolbar'
 import { AssetType, ToolType, UserData } from '@/types'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Layouts } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import {
@@ -17,6 +17,8 @@ import AssetGridLayout from '@/containers/portfolio/AssetGridLayout'
 
 export default function EditPage({ params }: { params: { userId: string } }) {
   const { data, isLoading } = usePortfolioQuery(params.userId)
+  const displayNameRef = useRef<HTMLHeadingElement | null>(null)
+  const shortBioRef = useRef<HTMLHeadingElement | null>(null)
   const [portfolio, setPortfolio] = useState<UserData | null>(null)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],
@@ -113,6 +115,23 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     })
   }
 
+  const handleSavePortfolio = () => {
+    if (!displayNameRef.current?.innerHTML || !shortBioRef.current?.innerHTML) {
+      alert('displayNameRef, shortBioRef값을 입력해 주세요')
+      return
+    }
+
+    mutate({
+      userId: params.userId,
+      updatedPortfolio: {
+        ...portfolio,
+        displayName: displayNameRef.current?.innerHTML,
+        shortBio: shortBioRef.current?.innerHTML,
+        layout: layouts,
+      },
+    })
+  }
+
   return (
     <div className="relative">
       <Toolbar onAdd={handleAdd} />
@@ -120,6 +139,8 @@ export default function EditPage({ params }: { params: { userId: string } }) {
         <div className="flex w-full md:flex-row flex-col">
           <Profile
             portfolio={portfolio}
+            displayNameRef={displayNameRef}
+            shortBioRef={shortBioRef}
             onProfileChange={handleProfileChange}
           />
           <AssetGridLayout
@@ -136,12 +157,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       <button
         type="button"
         className="bg-red-100 h-40"
-        onClick={() => {
-          mutate({
-            userId: params.userId,
-            updatedPortfolio: { ...portfolio, layout: layouts },
-          })
-        }}
+        onClick={handleSavePortfolio}
       >
         저장하기
       </button>

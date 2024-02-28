@@ -7,13 +7,20 @@ import { GoSmiley } from 'react-icons/go'
 
 interface ProfileProps {
   portfolio: UserData
+  displayNameRef: React.RefObject<HTMLHeadingElement>
+  shortBioRef: React.RefObject<HTMLHeadingElement>
   onProfileChange: (
     name: 'displayName' | 'shortBio' | 'thumbnail',
     value: string,
   ) => void
 }
 
-function Profile({ portfolio, onProfileChange }: ProfileProps) {
+function Profile({
+  portfolio,
+  displayNameRef,
+  shortBioRef,
+  onProfileChange,
+}: ProfileProps) {
   const imageRef = useRef<HTMLInputElement | null>(null)
 
   const handleClickInputRef = () => {
@@ -33,18 +40,18 @@ function Profile({ portfolio, onProfileChange }: ProfileProps) {
     }
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLHeadingElement>) => {
-    const {
-      dataset: { name },
-      textContent,
-    } = event.currentTarget
+  // const handleChange = (event: React.ChangeEvent<HTMLHeadingElement>) => {
+  //   const {
+  //     dataset: { name },
+  //     textContent,
+  //   } = event.currentTarget
 
-    if (!name || !textContent) return
-    onProfileChange(
-      name as 'displayName' | 'shortBio' | 'thumbnail',
-      textContent,
-    )
-  }
+  //   if (!name || !textContent) return
+  //   onProfileChange(
+  //     name as 'displayName' | 'shortBio' | 'thumbnail',
+  //     textContent,
+  //   )
+  // }
   return (
     <div className="flex flex-col gap-8 px-8 py-16 w-80">
       <button
@@ -62,7 +69,6 @@ function Profile({ portfolio, onProfileChange }: ProfileProps) {
         ) : (
           <div className="relative rounded-full border border-solid border-gray-100 shadow-md bg-gray-200 w-full h-full">
             <GoSmiley
-              // size={158}
               color="white"
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
             />
@@ -81,20 +87,18 @@ function Profile({ portfolio, onProfileChange }: ProfileProps) {
       />
       <div className="flex flex-col gap-4">
         <h1
-          data-name="displayName"
+          ref={displayNameRef}
           className="break-all"
           contentEditable="true"
           suppressContentEditableWarning
-          onInput={handleChange}
         >
           {portfolio.displayName}
         </h1>
         <h3
-          data-name="shortBio"
+          ref={shortBioRef}
           className="text-gray-500 break-all"
           contentEditable="true"
           suppressContentEditableWarning
-          onInput={handleChange}
         >
           {portfolio.shortBio}
         </h3>
