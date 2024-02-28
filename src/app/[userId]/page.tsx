@@ -28,7 +28,10 @@ export default function UserPage({ params }: { params: { userId: string } }) {
           <div />
         </div>
       </div>
-      <a href={`/edit/${params.userId}`} className="bg-red-100 h-40">
+      <a
+        href={`/edit/${params.userId}`}
+        className="fixed flex items-center bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
+      >
         편집하기
       </a>
     </>
