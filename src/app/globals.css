@@ -193,8 +193,8 @@ html {
   }
   [contenteditable='true']:empty:before,
   [data-empty='true']:empty:before {
-    content: attr(title);
-    @apply text-gray-500;
+    content: attr(data-placeholder);
+    @apply text-gray-300;
   }
 }
 @layer components {

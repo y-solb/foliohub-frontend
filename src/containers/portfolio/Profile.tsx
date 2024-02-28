@@ -40,18 +40,6 @@ function Profile({
     }
   }
 
-  // const handleChange = (event: React.ChangeEvent<HTMLHeadingElement>) => {
-  //   const {
-  //     dataset: { name },
-  //     textContent,
-  //   } = event.currentTarget
-
-  //   if (!name || !textContent) return
-  //   onProfileChange(
-  //     name as 'displayName' | 'shortBio' | 'thumbnail',
-  //     textContent,
-  //   )
-  // }
   return (
     <div className="flex flex-col gap-8 px-8 py-16 w-80">
       <button
@@ -87,6 +75,7 @@ function Profile({
       />
       <div className="flex flex-col gap-4">
         <h1
+          data-placeholder="이름을 입력해주세요."
           ref={displayNameRef}
           className="break-all"
           contentEditable="true"
@@ -95,6 +84,7 @@ function Profile({
           {portfolio.displayName}
         </h1>
         <h3
+          data-placeholder="간단한 소개글을 작성해주세요."
           ref={shortBioRef}
           className="text-gray-500 break-all"
           contentEditable="true"
