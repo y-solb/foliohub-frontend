@@ -79,7 +79,7 @@ function TextAssetEditor({
         setIsOpenControl(false)
       }}
     >
-      <div className="relative flex flex-1 overflow-scroll grid-item-wrapper max-w-full">
+      <div className="relative flex flex-1 overflow-y-auto grid-item-wrapper max-w-full">
         {isTextEditorToolbarOpen ? (
           <ReactQuill
             id="textEditor"
