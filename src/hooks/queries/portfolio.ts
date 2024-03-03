@@ -42,7 +42,7 @@ const getPortfolioList = async (pageParam: number): Promise<PortfolioData> => {
   const { data } = await httpClient.get('/v1/portfolio/list', {
     params: {
       page: pageParam,
-      count: 5,
+      count: 3,
     },
   })
   return data
