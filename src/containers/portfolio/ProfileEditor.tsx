@@ -89,7 +89,7 @@ function ProfileEditor({
         <h3
           data-placeholder="간단한 소개글을 작성해주세요."
           ref={shortBioRef}
-          className="text-gray-500 break-all"
+          className="text-gray-400 break-all"
           contentEditable="true"
           suppressContentEditableWarning
         >

@@ -202,10 +202,10 @@ html {
     @apply text-2xl font-semibold;
   }
   .subtitle1 {
-    @apply text-xl font-medium;
+    @apply text-lg font-medium;
   }
   .subtitle2 {
-    @apply text-lg font-medium;
+    @apply text-base font-medium;
   }
   #textEditor .ql-snow .ql-editor p,
   .body1 {

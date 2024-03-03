@@ -30,22 +30,29 @@ export default function Home() {
     <div>
       <Header />
       <BaseLayout />
-      <ul>
+      <ul className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-6">
         {portfolios.map((portfolio) => (
-          <li key={portfolio.id} className="h-96">
-            <Link href={`/${portfolio.userId}`}>
-              <p>{portfolio.displayName}</p>
-              <p>{portfolio.shortBio}</p>
-              <p>{portfolio.userId}</p>
-              {portfolio.thumbnail && (
-                <Image
-                  src={portfolio.thumbnail}
-                  alt={`image_${portfolio.id}`}
-                  priority
-                  width={50}
-                  height={50}
-                />
-              )}
+          <li key={portfolio.id} className="grid-item-wrapper h-80">
+            <Link
+              href={`/${portfolio.userId}`}
+              className="flex flex-col items-center px-10 py-8 w-full h-full"
+            >
+              <div className="relative flex w-32 h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
+                {portfolio.thumbnail && (
+                  <Image
+                    src={portfolio.thumbnail}
+                    alt={`image_${portfolio.id}`}
+                    priority
+                    fill
+                  />
+                )}
+              </div>
+              <div className="flex flex-col items-center mt-4 gap-2">
+                <h2>{portfolio.displayName}</h2>
+                <p className="body1 text-gray-400 ellipsis2">
+                  {portfolio.shortBio}
+                </p>
+              </div>
             </Link>
           </li>
         ))}

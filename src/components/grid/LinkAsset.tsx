@@ -56,7 +56,7 @@ function LinkAsset({ asset, width, height }: LinkAssetProps) {
           <p className="body2 ellipsis2">{info?.title}</p>
           {(width > 1 || height > 1) && (
             <p
-              className={`body3 text-gray-500  ${width > 2 || height > 2 ? 'ellipsis5' : 'ellipsis3'}`}
+              className={`body3 text-gray-400  ${width > 2 || height > 2 ? 'ellipsis5' : 'ellipsis3'}`}
             >
               {info?.description}
             </p>

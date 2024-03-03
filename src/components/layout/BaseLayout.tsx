@@ -9,10 +9,10 @@ import { useRecoilState } from 'recoil'
 function BaseLayout() {
   const [authInfo, setAuthInfo] = useRecoilState(authInfoState)
 
-  const { data, refetch } = useAuthQuery()
+  const { data } = useAuthQuery()
 
   const currentUser = data ?? null
-
+  console.log(authInfo)
   useEffect(() => {
     if (currentUser?.accessToken) {
       httpClient.defaults.headers.common.Authorization = `Bearer ${currentUser.accessToken}`
@@ -22,11 +22,11 @@ function BaseLayout() {
 
   return (
     <div>
-      <p>BaseLayout</p>
+      {/* <p>BaseLayout</p>
       <p>user:{authInfo ? authInfo.userId : '비회원'}</p>
       <button type="button" onClick={() => refetch}>
         api 요청
-      </button>
+      </button> */}
     </div>
   )
 }

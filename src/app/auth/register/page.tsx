@@ -41,7 +41,7 @@ export default function RegisterPage() {
         />
         <div className="flex items-center flex-col p-10 toolbar-wrapper mt-8 bg-white">
           <h3>회원가입</h3>
-          <p className="body2 text-gray-500">환영해요</p>
+          <p className="body2 text-gray-400">환영해요</p>
           <div className="flex items-center justify-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden pl-4 pr-2 py-2 mt-4">
             <span>https://www.foliohub.me/</span>
             <input type="text" ref={inputRef} placeholder="id" />
@@ -79,7 +79,7 @@ export default function RegisterPage() {
           height={32}
         />
         {/* <h3 className="mt-16">회원가입</h3> */}
-        <p className="body2 text-gray-500 mt-16 mb-8">
+        <p className="body2 text-gray-400 mt-16 mb-8">
           반가워요! 사용할 ID를 입력하면 회원가입이 완료돼요.
         </p>
 
@@ -120,7 +120,7 @@ export default function RegisterPage() {
             height={32}
           />
           <h3>회원가입</h3>
-          <p className="body2 text-gray-500">환영해요</p>
+          <p className="body2 text-gray-400">환영해요</p>
 
           <div className="flex items-center justify-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden pl-4 pr-2 py-2 mt-4">
             <span>https://www.foliohub.me/</span>

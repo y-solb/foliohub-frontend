@@ -31,7 +31,7 @@ function Profile({ portfolio }: ProfileProps) {
 
       <div className="flex flex-col gap-4">
         <h1 className="break-all">{portfolio.displayName}</h1>
-        <h3 className="text-gray-500 break-all">{portfolio.shortBio}</h3>
+        <h3 className="text-gray-400 break-all">{portfolio.shortBio}</h3>
       </div>
     </div>
   )

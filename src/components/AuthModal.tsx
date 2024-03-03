@@ -24,7 +24,7 @@ function AuthModal() {
             width={120}
             height={32}
           />
-          <span className="body2 text-gray-500">
+          <span className="body2 text-gray-400">
             당신의 여정을 기록하고, 성장을 공유해 봐요!
           </span>
         </div>
