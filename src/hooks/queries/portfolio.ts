@@ -5,6 +5,7 @@ import {
   useInfiniteQuery,
   useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query'
 import { Layouts } from 'react-grid-layout'
 
@@ -86,8 +87,15 @@ export const usePortfolioQuery = (userId: string) => {
 }
 
 export const usePortfolioMutation = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: (variables: UpdatePortfolioVariables) =>
       editPortfolio(variables),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: ['portfolio', variables.userId],
+      })
+    },
   })
 }

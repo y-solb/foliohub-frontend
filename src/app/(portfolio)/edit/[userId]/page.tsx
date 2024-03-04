@@ -12,6 +12,7 @@ import {
 } from '@/hooks/queries/portfolio'
 import AssetGridLayoutEditor from '@/containers/portfolio/AssetGridLayoutEditor'
 import ProfileEditor from '@/containers/portfolio/ProfileEditor'
+import { useRouter } from 'next/navigation'
 
 export default function EditPage({ params }: { params: { userId: string } }) {
   const { data, isLoading } = usePortfolioQuery(params.userId)
@@ -22,7 +23,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     lg: [],
     md: [],
   })
-
+  const router = useRouter()
   const { mutate } = usePortfolioMutation()
 
   useEffect(() => {
@@ -119,15 +120,22 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       return
     }
 
-    mutate({
-      userId: params.userId,
-      updatedPortfolio: {
-        ...portfolio,
-        displayName: displayNameRef.current?.innerHTML,
-        shortBio: shortBioRef.current?.innerHTML,
-        layout: layouts,
+    mutate(
+      {
+        userId: params.userId,
+        updatedPortfolio: {
+          ...portfolio,
+          displayName: displayNameRef.current?.innerHTML,
+          shortBio: shortBioRef.current?.innerHTML,
+          layout: layouts,
+        },
       },
-    })
+      {
+        onSuccess: (_, variables) => {
+          router.push(`/${variables.userId}`)
+        },
+      },
+    )
   }
 
   return (
