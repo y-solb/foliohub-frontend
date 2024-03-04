@@ -1,8 +1,9 @@
-import Image from 'next/image'
+/* eslint-disable @next/next/no-img-element */
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
+import useToggle from '@/hooks/useToggle'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from '../toolbar/InputToolbar'
@@ -11,12 +12,14 @@ interface ImageAssetEditorProps {
   asset: AssetType
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
+  onChangeEditMode: () => void
 }
 
 function ImageAssetEditor({
   asset,
   onUpdate,
   onDelete,
+  onChangeEditMode,
 }: ImageAssetEditorProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTab, setActive] = useState('')
@@ -26,6 +29,7 @@ function ImageAssetEditor({
       setActive('')
     },
   )
+  const [isEditMode, toggle] = useToggle(false)
 
   const { value, id } = asset
 
@@ -60,13 +64,34 @@ function ImageAssetEditor({
       }}
     >
       <div className="relative flex flex-1 rounded-2xl overflow-hidden">
-        <Image
-          src={value.imageUrl}
-          alt={`image_${id}`}
-          fill
-          priority
-          className="w-full"
-        />
+        <div className="relative w-full overflow-hidden">
+          {isEditMode ? (
+            <img
+              src={value.imageUrl}
+              alt={`image_${id}`}
+              className="object-cover w-full h-full"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: `translate(-50% , -50%)`,
+              }}
+            />
+          ) : (
+            <img
+              src={value.imageUrl}
+              alt={`image_${id}`}
+              className="object-cover w-full h-full"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: `translate(-50% , -50%)`,
+              }}
+            />
+          )}
+        </div>
+
         {value.link && (
           <a
             href={value.link}
@@ -87,6 +112,15 @@ function ImageAssetEditor({
             }}
           />
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
+            <button
+              type="button"
+              onClick={() => {
+                toggle()
+                onChangeEditMode()
+              }}
+            >
+              이미지 편집모드
+            </button>
             <button
               type="button"
               name="link"
