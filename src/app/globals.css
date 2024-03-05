@@ -27,10 +27,12 @@ html {
   border-radius: 999px;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #6b7280;
   border-radius: 999px;
 }
-
+/* react-image-crop */
+#cropImageAsset .ReactCrop {
+  display: flex;
+}
 /* react-grid-layout */
 .react-resizable-hide .resize-handler {
   display: none;

@@ -43,8 +43,11 @@ function AssetEditor({
       return (
         <ImageAssetEditor
           asset={asset}
+          w={layout?.w ?? 1}
+          h={layout?.h ?? 1}
           onUpdate={onUpdate}
           onDelete={onDelete}
+          onChangeEditMode={onChangeEditMode}
         />
       )
     case 'link':
