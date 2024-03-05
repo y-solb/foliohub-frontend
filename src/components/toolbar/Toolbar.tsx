@@ -34,7 +34,11 @@ function Toolbar({ onAdd }: ToolbarProps) {
   }
 
   const handleUploadImage = (imageUrl: string) => {
-    onAdd('image', { imageUrl, link: '' })
+    onAdd('image', {
+      imageUrl,
+      link: '',
+      pos: { md: { x: 50, y: 50 }, lg: { x: 50, y: 50 } },
+    })
   }
 
   return (
