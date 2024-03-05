@@ -7,6 +7,7 @@ import LinkAssetEditor from './LinkAssetEditor'
 
 interface AssetEditorProps {
   asset: AssetType
+  breakpoint: string
   layout: Layout | undefined
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
@@ -15,6 +16,7 @@ interface AssetEditorProps {
 
 function AssetEditor({
   asset,
+  breakpoint,
   layout,
   onUpdate,
   onDelete,
@@ -45,6 +47,7 @@ function AssetEditor({
           asset={asset}
           w={layout?.w ?? 1}
           h={layout?.h ?? 1}
+          breakpoint={breakpoint}
           onUpdate={onUpdate}
           onDelete={onDelete}
           onChangeEditMode={onChangeEditMode}

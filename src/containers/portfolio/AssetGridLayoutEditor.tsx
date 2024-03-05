@@ -67,6 +67,7 @@ function AssetGridLayoutEditor({
           <div key={asset.id} className="flex cursor-move">
             <GridItem
               asset={asset}
+              breakpoint={breakpoint}
               layout={layouts[breakpoint]?.find(
                 (layout) => layout.i === asset.id,
               )}

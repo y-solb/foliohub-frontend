@@ -19,6 +19,7 @@ interface ImageAssetEditorProps {
   asset: AssetType
   w: number
   h: number
+  breakpoint: string
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
@@ -48,6 +49,7 @@ function ImageAssetEditor({
   asset,
   w,
   h,
+  breakpoint,
   onUpdate,
   onDelete,
   onChangeEditMode,
@@ -91,10 +93,12 @@ function ImageAssetEditor({
   const handleUploadImagePos = (x: number, y: number) => {
     onUpdate({
       ...asset,
-      value: { ...asset.value, pos: { x, y } },
+      value: {
+        ...asset.value,
+        pos: { ...asset.value.pos, [breakpoint]: { x, y } },
+      },
     })
   }
-
   return (
     <>
       <div
@@ -118,7 +122,7 @@ function ImageAssetEditor({
               src={value.imageUrl}
               alt={`image_${id}`}
               style={{
-                objectPosition: `${value?.pos?.x}% ${value?.pos?.y}%`,
+                objectPosition: `${value.pos[breakpoint]?.x}% ${value.pos[breakpoint]?.y}%`,
               }}
             />
           </div>
