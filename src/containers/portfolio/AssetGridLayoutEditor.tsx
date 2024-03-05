@@ -64,7 +64,7 @@ function AssetGridLayoutEditor({
         }}
       >
         {portfolio.assets.map((asset) => (
-          <div key={asset.id} className="flex">
+          <div key={asset.id} className="flex cursor-move">
             <GridItem
               asset={asset}
               layout={layouts[breakpoint]?.find(
