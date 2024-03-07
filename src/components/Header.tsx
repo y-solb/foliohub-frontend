@@ -5,6 +5,7 @@ import httpClient from '@/lib/httpClient'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import authModalState from '@/recoil/atoms/authModalState'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 
 function Header() {
@@ -25,12 +26,14 @@ function Header() {
   return (
     <div className="flex justify-between px-6 py-4">
       <div className="flex items-center justify-center gap-2">
-        <Image
-          src="/foliohub_text.svg"
-          alt="text_logo"
-          width={120}
-          height={32}
-        />
+        <Link href="/">
+          <Image
+            src="/foliohub_text.svg"
+            alt="text_logo"
+            width={120}
+            height={32}
+          />
+        </Link>
       </div>
       {authInfo ? (
         <button
