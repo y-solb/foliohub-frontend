@@ -35,6 +35,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
         shortBio,
         thumbnail,
         isLike,
+        likeCount,
         assets,
         layout,
       } = data
@@ -45,6 +46,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
         shortBio,
         thumbnail,
         isLike,
+        likeCount,
         assets,
       })
       setLayouts(layout)

@@ -34,6 +34,7 @@ export type Portfolio = {
   shortBio: string
   thumbnail: string
   isLike: boolean
+  likeCount: number
   assets: AssetType[]
   layout: Layouts
 }
@@ -45,6 +46,7 @@ type UpdatelikePortfolioData = {
   success: boolean
   message: string
   isLike: boolean
+  likeCount: number
 }
 type UpdatelikePortfolioVariables = {
   portfolioId: string

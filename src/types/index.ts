@@ -27,5 +27,6 @@ export type UserData = {
   shortBio: string
   thumbnail: string
   isLike: boolean
+  likeCount: number
   assets: AssetType[]
 }

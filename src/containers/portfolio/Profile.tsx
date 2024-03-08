@@ -30,6 +30,7 @@ function Profile({ portfolio }: ProfileProps) {
       queryClient.setQueryData<Portfolio>(['portfolio', portfolio.userId], {
         ...prevPortfolio,
         isLike: true,
+        likeCount: prevPortfolio.likeCount + 1,
       })
     },
     onError: () => {
@@ -56,6 +57,7 @@ function Profile({ portfolio }: ProfileProps) {
       queryClient.setQueryData<Portfolio>(['portfolio', portfolio.userId], {
         ...prevPortfolio,
         isLike: false,
+        likeCount: prevPortfolio.likeCount - 1,
       })
     },
     onError: () => {
@@ -106,7 +108,7 @@ function Profile({ portfolio }: ProfileProps) {
         <h1 className="break-all">{portfolio.displayName}</h1>
         <h3 className="text-gray-400 break-all">{portfolio.shortBio}</h3>
       </div>
-      <div>
+      <div className="flex gap-1 items-center justify-end">
         <button type="button" aria-label="좋아요" onClick={handleLike}>
           {portfolio.isLike ? (
             <IoMdHeart size={24} color="#ef4444" />
@@ -114,6 +116,7 @@ function Profile({ portfolio }: ProfileProps) {
             <IoMdHeartEmpty size={24} color="#6b7280" />
           )}
         </button>
+        <span className="text-gray-400 body2">{portfolio.likeCount}</span>
       </div>
     </div>
   )
