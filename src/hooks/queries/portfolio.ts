@@ -16,6 +16,8 @@ type PortfolioItem = {
   shortBio: string
   thumbnail: string
   userId: string
+  userJob: string
+  likeCount: number
   updatedAt: string
 }
 type PortfolioData = {

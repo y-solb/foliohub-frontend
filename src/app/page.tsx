@@ -7,6 +7,7 @@ import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import Link from 'next/link'
 import { useMemo, useRef } from 'react'
 import Image from 'next/image'
+import { IoMdHeart } from 'react-icons/io'
 
 export default function Home() {
   const loaderRef = useRef<HTMLDivElement>(null)
@@ -33,10 +34,10 @@ export default function Home() {
       <div className=" px-6">
         <ul className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
           {portfolios.map((portfolio) => (
-            <li key={portfolio.id} className="grid-item-wrapper h-80">
+            <li key={portfolio.id} className="grid-item-wrapper h-82">
               <Link
                 href={`/${portfolio.userId}`}
-                className="flex flex-col items-center px-10 py-8 w-full h-full"
+                className="relative flex flex-col items-center px-10 py-8 w-full h-full"
               >
                 <div className="relative flex w-32 h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
                   {portfolio.thumbnail && (
@@ -53,6 +54,15 @@ export default function Home() {
                   <p className="body1 text-gray-400 ellipsis2">
                     {portfolio.shortBio}
                   </p>
+                </div>
+                <div className="flex items-center h-8 px-4 rounded-3xl text-gray-400 border border-solid border-gray-200 body2 font-medium mt-6">
+                  {portfolio.userJob}
+                </div>
+                <div className="absolute bottom-3 right-6 flex gap-1 items-center justify-end">
+                  <IoMdHeart size={16} className="text-gray-300" />
+                  <span className="text-gray-300 body2">
+                    {portfolio.likeCount}
+                  </span>
                 </div>
               </Link>
             </li>
