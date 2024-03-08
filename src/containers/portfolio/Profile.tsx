@@ -1,12 +1,85 @@
 import Image from 'next/image'
 import { UserData } from '@/types'
 import { GoSmiley } from 'react-icons/go'
+import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
+import {
+  Portfolio,
+  useLikePorfolioMutation,
+  useUnlikePorfolioMutation,
+} from '@/hooks/queries/portfolio'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ProfileProps {
   portfolio: UserData
 }
 
 function Profile({ portfolio }: ProfileProps) {
+  const queryClient = useQueryClient()
+  const { mutate: like } = useLikePorfolioMutation({
+    onMutate() {
+      queryClient.cancelQueries({
+        queryKey: ['portfolio', portfolio.userId],
+      })
+
+      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+        'portfolio',
+        portfolio.userId,
+      ])
+      if (!prevPortfolio) return
+
+      queryClient.setQueryData<Portfolio>(['portfolio', portfolio.userId], {
+        ...prevPortfolio,
+        isLike: true,
+      })
+    },
+    onError: () => {
+      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+        'portfolio',
+        portfolio.userId,
+      ])
+      if (!prevPortfolio) return
+      queryClient.setQueryData(['portfolio', portfolio.userId], prevPortfolio)
+    },
+  })
+  const { mutate: unlike } = useUnlikePorfolioMutation({
+    onMutate() {
+      queryClient.cancelQueries({
+        queryKey: ['portfolio', portfolio.userId],
+      })
+
+      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+        'portfolio',
+        portfolio.userId,
+      ])
+      if (!prevPortfolio) return
+
+      queryClient.setQueryData<Portfolio>(['portfolio', portfolio.userId], {
+        ...prevPortfolio,
+        isLike: false,
+      })
+    },
+    onError: () => {
+      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+        'portfolio',
+        portfolio.userId,
+      ])
+      if (!prevPortfolio) return
+      queryClient.setQueryData(['portfolio', portfolio.userId], prevPortfolio)
+    },
+  })
+
+  const handleLike = () => {
+    if (portfolio.isLike) {
+      unlike({
+        portfolioId: portfolio.id,
+      })
+    } else {
+      like({
+        portfolioId: portfolio.id,
+      })
+    }
+  }
+
   return (
     <div className="flex flex-col gap-8 px-8 py-16 w-80">
       <div className="relative flex w-48 h-48">
@@ -32,6 +105,15 @@ function Profile({ portfolio }: ProfileProps) {
       <div className="flex flex-col gap-4">
         <h1 className="break-all">{portfolio.displayName}</h1>
         <h3 className="text-gray-400 break-all">{portfolio.shortBio}</h3>
+      </div>
+      <div>
+        <button type="button" aria-label="좋아요" onClick={handleLike}>
+          {portfolio.isLike ? (
+            <IoMdHeart size={24} color="#ef4444" />
+          ) : (
+            <IoMdHeartEmpty size={24} color="#6b7280" />
+          )}
+        </button>
       </div>
     </div>
   )

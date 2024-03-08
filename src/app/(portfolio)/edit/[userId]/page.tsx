@@ -28,8 +28,25 @@ export default function EditPage({ params }: { params: { userId: string } }) {
 
   useEffect(() => {
     if (data) {
-      const { id, displayName, shortBio, thumbnail, assets, layout } = data
-      setPortfolio({ id, displayName, shortBio, thumbnail, assets })
+      const {
+        id,
+        userId,
+        displayName,
+        shortBio,
+        thumbnail,
+        isLike,
+        assets,
+        layout,
+      } = data
+      setPortfolio({
+        id,
+        userId,
+        displayName,
+        shortBio,
+        thumbnail,
+        isLike,
+        assets,
+      })
       setLayouts(layout)
     }
   }, [data])

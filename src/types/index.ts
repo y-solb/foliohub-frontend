@@ -22,8 +22,10 @@ export type AuthInfo = {
 
 export type UserData = {
   id: string
+  userId: string
   displayName: string
   shortBio: string
   thumbnail: string
+  isLike: boolean
   assets: AssetType[]
 }

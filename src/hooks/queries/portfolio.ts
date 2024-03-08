@@ -2,6 +2,7 @@ import httpClient from '@/lib/httpClient'
 import { AssetType } from '@/types'
 import {
   InfiniteData,
+  UseMutationOptions,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -26,17 +27,27 @@ type PortfolioData = {
     total: number
   }
 }
-type Portfolio = {
+export type Portfolio = {
   id: string
+  userId: string
   displayName: string
   shortBio: string
   thumbnail: string
+  isLike: boolean
   assets: AssetType[]
   layout: Layouts
 }
 type UpdatePortfolioVariables = {
   userId: string
   updatedPortfolio: Portfolio
+}
+type UpdatelikePortfolioData = {
+  success: boolean
+  message: string
+  isLike: boolean
+}
+type UpdatelikePortfolioVariables = {
+  portfolioId: string
 }
 
 const getPortfolioList = async (pageParam: number): Promise<PortfolioData> => {
@@ -61,6 +72,18 @@ const editPortfolio = async ({
   const { data } = await httpClient.put(`/v1/portfolio/${userId}`, {
     ...updatedPortfolio,
   })
+  return data
+}
+
+const likePortfolio = async ({ portfolioId }: UpdatelikePortfolioVariables) => {
+  const { data } = await httpClient.post(`/v1/portfolio/like/${portfolioId}`)
+  return data
+}
+
+const unlikePortfolio = async ({
+  portfolioId,
+}: UpdatelikePortfolioVariables) => {
+  const { data } = await httpClient.post(`/v1/portfolio/unlike/${portfolioId}`)
   return data
 }
 
@@ -97,5 +120,35 @@ export const usePortfolioMutation = () => {
         queryKey: ['portfolio', variables.userId],
       })
     },
+  })
+}
+
+export const useLikePorfolioMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    UpdatelikePortfolioData,
+    TError,
+    UpdatelikePortfolioVariables,
+    TContext
+  >,
+) => {
+  return useMutation({
+    mutationFn: (variables: UpdatelikePortfolioVariables) =>
+      likePortfolio(variables),
+    ...options,
+  })
+}
+
+export const useUnlikePorfolioMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    UpdatelikePortfolioData,
+    TError,
+    UpdatelikePortfolioVariables,
+    TContext
+  >,
+) => {
+  return useMutation({
+    mutationFn: (variables: UpdatelikePortfolioVariables) =>
+      unlikePortfolio(variables),
+    ...options,
   })
 }
