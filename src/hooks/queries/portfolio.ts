@@ -64,6 +64,18 @@ const getPortfolioList = async (pageParam: number): Promise<PortfolioData> => {
   return data
 }
 
+const getLikePortfolioList = async (
+  pageParam: number,
+): Promise<PortfolioData> => {
+  const { data } = await httpClient.get('/v1/portfolio/like/list', {
+    params: {
+      page: pageParam,
+      count: 3,
+    },
+  })
+  return data
+}
+
 const getPortfolio = async (userId: string): Promise<Portfolio> => {
   const { data } = await httpClient.get(`/v1/portfolio/${userId}`)
   return data
@@ -95,6 +107,20 @@ export const useInfinitePortfolioQuery = () => {
   return useInfiniteQuery<PortfolioData, Error, InfiniteData<PortfolioData>>({
     queryKey: ['portfolioList'],
     queryFn: ({ pageParam }) => getPortfolioList(pageParam as number),
+    getNextPageParam: (lastPage) => {
+      const {
+        meta: { currentPage, hasNextPage },
+      } = lastPage
+      return hasNextPage ? currentPage + 1 : undefined
+    },
+    initialPageParam: 1,
+  })
+}
+
+export const useInfiniteLikePortfolioQuery = () => {
+  return useInfiniteQuery<PortfolioData, Error, InfiniteData<PortfolioData>>({
+    queryKey: ['portfolioList'],
+    queryFn: ({ pageParam }) => getLikePortfolioList(pageParam as number),
     getNextPageParam: (lastPage) => {
       const {
         meta: { currentPage, hasNextPage },

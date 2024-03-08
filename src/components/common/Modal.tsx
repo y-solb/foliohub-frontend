@@ -36,6 +36,9 @@ function Modal({ isOpen, isBorder = true, children, onClose }: ModalProps) {
       }
     }
   }, [isOpen])
+
+  if (typeof document === 'undefined') return null
+
   const element = document.getElementById('modal-root')
   if (!element) return null
 
