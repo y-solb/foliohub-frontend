@@ -51,7 +51,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col items-center mt-4 gap-2">
                   <h2>{portfolio.displayName}</h2>
-                  <p className="body1 text-gray-400 ellipsis2">
+                  <p className="body2 text-gray-400 ellipsis2">
                     {portfolio.shortBio}
                   </p>
                 </div>
