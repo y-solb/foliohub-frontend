@@ -19,7 +19,7 @@ function MyProfile() {
       <div className="px-8 py-10">
         <div className="flex items-center justify-center">
           <div className="flex gap-8">
-            <div className="relative flex w-32 h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
+            <div className="relative flex w-32 h-32 rounded-full border border-solid border-gray-100 overflow-hidden">
               {data?.thumbnail && (
                 <Image
                   src={data?.thumbnail}
