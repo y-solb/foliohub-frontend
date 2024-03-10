@@ -11,6 +11,7 @@ const config: Config = {
     animation: {
       fadeIn: 'fadeIn 0.2s ease-out',
       fadeOut: 'fadeOut 0.2s ease-out',
+      pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
     },
     keyframes: {
       fadeIn: {
@@ -27,6 +28,14 @@ const config: Config = {
         },
         '100%': {
           opacity: '0',
+        },
+      },
+      pulse: {
+        '0%, 100%': {
+          opacity: '1',
+        },
+        '50%': {
+          opacity: '.5',
         },
       },
     },

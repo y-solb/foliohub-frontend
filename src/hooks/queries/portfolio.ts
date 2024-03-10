@@ -10,7 +10,7 @@ import {
 } from '@tanstack/react-query'
 import { Layouts } from 'react-grid-layout'
 
-type PortfolioItem = {
+export type PortfolioItem = {
   id: string
   displayName: string
   shortBio: string
