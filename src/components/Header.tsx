@@ -60,7 +60,7 @@ function Header() {
         <div className="relative">
           <button
             type="button"
-            className="relative w-10 h-10 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden"
+            className="relative w-12 h-12 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden"
             onClick={() => setIsOpenNav(true)}
           >
             <Image
