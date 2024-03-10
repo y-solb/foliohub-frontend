@@ -4,11 +4,11 @@ import httpClient from '@/lib/httpClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { AiOutlineLogout, AiOutlineEdit, AiOutlineUser } from 'react-icons/ai'
 import { AuthInfo } from '@/types'
 import { useLogoutMutation } from '@/hooks/queries/auth'
 import { useSetRecoilState } from 'recoil'
 import authInfoState from '@/recoil/atoms/authInfoState'
+import { BiLogOutCircle, BiUser, BiPencil } from 'react-icons/bi'
 
 interface UserMenuProps {
   authInfo: AuthInfo
@@ -49,7 +49,7 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
                 href="/mypage"
                 className="flex items-center gap-6 h-8 text-black body2"
               >
-                <AiOutlineUser size={24} />
+                <BiUser size={24} />
                 <span>마이페이지</span>
               </Link>
             </li>
@@ -58,8 +58,8 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
                 href={`/edit/${username}`}
                 className="flex items-center gap-6 h-8 text-black body2"
               >
-                <AiOutlineEdit size={24} />
-                <span>내 포트폴리오 수정</span>
+                <BiPencil size={24} />
+                <span>포트폴리오 수정</span>
               </Link>
             </li>
             <div className="h-[1px] bg-gray-200 mx-6 my-2" />
@@ -69,7 +69,7 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
                 onClick={handleLogout}
                 className="flex items-center gap-6 h-8 text-black body2"
               >
-                <AiOutlineLogout size={24} />
+                <BiLogOutCircle size={24} />
                 <span>로그아웃</span>
               </button>
             </li>
