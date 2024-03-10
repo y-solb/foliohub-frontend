@@ -26,13 +26,12 @@ function GithubAssetEditor({
   onDelete,
 }: GithubAssetEditorProps) {
   const [isOpenControl, setIsOpenControl] = useState(false)
-  const [activeTab, setActive] = useState('')
-  const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
-    () => {
+  const [activeTool, setActiveTool] = useState('')
+  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
+    useOutsideClick<HTMLDivElement>(() => {
       setIsOpenControl(false)
-      setActive('')
-    },
-  )
+      setActiveTool('')
+    })
 
   const { value, id } = asset
 
@@ -48,18 +47,18 @@ function GithubAssetEditor({
     )
   }
 
-  const handleUpdateGithubLink = (inputValue: string) => {
+  const handleUpdateGithubId = (inputValue: string) => {
     onUpdate({
       ...asset,
       value: { ...asset.value, githubId: inputValue },
     })
-    setIsOpenTool(false)
-    setActive('')
+    setIsOpenInputToolbar(false)
+    setActiveTool('')
   }
 
-  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsOpenTool(true)
-    setActive((e.currentTarget as HTMLButtonElement).name)
+  const handleClickTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsOpenInputToolbar(true)
+    setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
   return (
@@ -70,7 +69,10 @@ function GithubAssetEditor({
         setIsOpenControl(true)
       }}
       onMouseLeave={() => {
+        if (isOpenInputToolbar) return
         setIsOpenControl(false)
+        setIsOpenInputToolbar(false)
+        setActiveTool('')
       }}
     >
       <div className="github-calendar-wrapper relative flex flex-1 grid-item-wrapper overflow-hidden p-4 justify-center items-center">
@@ -100,16 +102,16 @@ function GithubAssetEditor({
               type="button"
               name="githubId"
               aria-label="edit-githubId"
-              className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'githubId' ? 'bg-gray-200' : ''}`}
-              onClick={handleActiveTab}
+              className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'githubId' ? 'bg-gray-200' : ''}`}
+              onClick={handleClickTab}
             >
               <RxLink2 size={24} />
             </button>
-            {isOpenTool && (
+            {isOpenInputToolbar && (
               <InputToolbar
                 defaultValue={value.githubId}
                 buttonLabel="edit-githubId"
-                onAdd={handleUpdateGithubLink}
+                onAdd={handleUpdateGithubId}
               />
             )}
           </div>
