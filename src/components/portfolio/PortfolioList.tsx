@@ -3,28 +3,22 @@
 'use client'
 
 import PortFolioItem from '@/components/portfolio/PortfolioItem'
-import { useInfiniteLikePortfolioQuery } from '@/hooks/queries/portfolio'
-import useInfiniteScroll from '@/hooks/useInfiniteScroll'
-import { useMemo, useRef } from 'react'
+import { PortfolioItem } from '@/hooks/queries/portfolio'
 import PortfolioItemSkeleton from './PortfolioItemSkeleton'
 
-function PortFolioList() {
-  const { data, fetchNextPage, isLoading, isFetching, hasNextPage } =
-    useInfiniteLikePortfolioQuery()
+interface PortFolioListProps {
+  isLoading: boolean
+  isFetching: boolean
+  portfolios: PortfolioItem[]
+  loaderRef: React.RefObject<HTMLDivElement>
+}
 
-  const portfolios = useMemo(() => {
-    return [...(data?.pages?.flatMap((page) => page.data) || [])]
-  }, [data])
-
-  const fetchMorePortfolio = () => {
-    if (!isFetching && hasNextPage) {
-      fetchNextPage()
-    }
-  }
-  const loaderRef = useRef<HTMLDivElement>(null)
-
-  useInfiniteScroll(loaderRef, fetchMorePortfolio)
-
+function PortFolioList({
+  isLoading,
+  isFetching,
+  portfolios,
+  loaderRef,
+}: PortFolioListProps) {
   if (isLoading)
     return (
       <ul className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-8">
@@ -39,7 +33,7 @@ function PortFolioList() {
   return (
     <>
       <ul className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-8">
-        {portfolios.map((portfolio) => (
+        {portfolios?.map((portfolio) => (
           <PortFolioItem key={portfolio.id} portfolio={portfolio} />
         ))}
         {isFetching &&
