@@ -17,6 +17,7 @@ export type AuthInfo = {
   id: string
   email: string
   userId: string
+  thumbnail: string
   accessToken: string
 }
 
