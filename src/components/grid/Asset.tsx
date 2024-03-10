@@ -7,17 +7,18 @@ import LinkAsset from './LinkAsset'
 
 interface AssetProps {
   asset: AssetType
+  breakpoint: string
   layout: Layout | undefined
 }
 
-function Asset({ asset, layout }: AssetProps) {
+function Asset({ asset, breakpoint, layout }: AssetProps) {
   switch (asset.type) {
     case 'github':
       return <GithubAsset asset={asset} width={layout?.w ?? 1} />
     case 'content':
       return <TextAsset asset={asset} />
     case 'image':
-      return <ImageAsset asset={asset} />
+      return <ImageAsset asset={asset} breakpoint={breakpoint} />
     case 'link':
       return (
         <LinkAsset

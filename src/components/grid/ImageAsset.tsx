@@ -1,24 +1,28 @@
-import Image from 'next/image'
+/* eslint-disable @next/next/no-img-element */
 import { AssetType } from '@/types'
 import { RxLink2 } from 'react-icons/rx'
 
 interface ImageAssetProps {
+  breakpoint: string
   asset: AssetType
 }
 
-function ImageAsset({ asset }: ImageAssetProps) {
+function ImageAsset({ asset, breakpoint }: ImageAssetProps) {
   const { value, id } = asset
 
   return (
     <div className="relative flex flex-1">
       <div className="relative flex flex-1 rounded-2xl overflow-hidden">
-        <Image
-          src={value.imageUrl}
-          alt={`image_${id}`}
-          fill
-          priority
-          className="w-full"
-        />
+        <div className="relative w-full overflow-hidden">
+          <img
+            className="relative w-full h-full object-cover"
+            src={value.imageUrl}
+            alt={`image_${id}`}
+            style={{
+              objectPosition: `${value.pos[breakpoint]?.x}% ${value.pos[breakpoint]?.y}%`,
+            }}
+          />
+        </div>
         {value.link && (
           <a
             href={value.link}

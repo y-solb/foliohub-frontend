@@ -47,6 +47,7 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
           <div key={asset.id} className="flex">
             <Asset
               asset={asset}
+              breakpoint={breakpoint}
               layout={layouts[breakpoint]?.find(
                 (layout) => layout.i === asset.id,
               )}
