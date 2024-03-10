@@ -1,6 +1,5 @@
 'use client'
 
-import Header from '@/components/Header'
 import BaseLayout from '@/components/layout/BaseLayout'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
@@ -28,9 +27,7 @@ export default function Home() {
   if (isLoading || !data) return null
 
   return (
-    <div>
-      <Header />
-      <BaseLayout />
+    <BaseLayout>
       <div className=" px-6">
         <ul className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
           {portfolios.map((portfolio) => (
@@ -73,6 +70,6 @@ export default function Home() {
         </ul>
         <div ref={loaderRef}>로딩중</div>
       </div>
-    </div>
+    </BaseLayout>
   )
 }

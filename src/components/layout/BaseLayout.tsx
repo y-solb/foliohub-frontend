@@ -5,8 +5,13 @@ import httpClient from '@/lib/httpClient'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
+import Header from '@/components/Header'
 
-function BaseLayout() {
+interface BaseLayoutProps {
+  children: React.ReactNode
+}
+
+function BaseLayout({ children }: BaseLayoutProps) {
   const [authInfo, setAuthInfo] = useRecoilState(authInfoState)
 
   const { data } = useAuthQuery()
@@ -22,11 +27,8 @@ function BaseLayout() {
 
   return (
     <div>
-      {/* <p>BaseLayout</p>
-      <p>user:{authInfo ? authInfo.userId : '비회원'}</p>
-      <button type="button" onClick={() => refetch}>
-        api 요청
-      </button> */}
+      <Header />
+      {children}
     </div>
   )
 }
