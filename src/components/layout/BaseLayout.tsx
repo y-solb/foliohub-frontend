@@ -6,7 +6,7 @@ interface BaseLayoutProps {
 
 function BaseLayout({ children }: BaseLayoutProps) {
   return (
-    <div>
+    <div className="max-w-[1800px] m-auto">
       <Header />
       {children}
     </div>

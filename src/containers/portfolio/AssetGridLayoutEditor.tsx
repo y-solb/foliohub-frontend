@@ -42,7 +42,7 @@ function AssetGridLayoutEditor({
   }, [])
 
   return (
-    <div className="w-full max-w-screen-xl px-8 py-16">
+    <div className="w-full max-w-7xl px-8 py-16">
       <ResponsiveGridLayout
         breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
         cols={{ lg: 6, md: 2 }}

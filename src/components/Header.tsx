@@ -45,7 +45,7 @@ function Header() {
   if (isLoading) return <HeaderSkeleton />
 
   return (
-    <div className="relative flex items-center justify-between px-8 py-4 h-20">
+    <div className="relative flex items-center justify-between lg:px-20 px-10 py-4 h-24">
       <div className="flex items-center justify-center gap-2">
         <Link href="/">
           <Image

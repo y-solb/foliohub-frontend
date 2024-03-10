@@ -14,7 +14,7 @@ export default function UserPage({ params }: { params: { userId: string } }) {
   return (
     <>
       <div className="flex">
-        <div className="flex w-full md:flex-row flex-col">
+        <div className="flex w-full md:flex-row flex-col justify-center">
           <Profile portfolio={data} />
           <AssetGridLayout portfolio={data} layouts={data.layout} />
         </div>
