@@ -14,7 +14,7 @@ interface UserMenuProps {
   authInfo: AuthInfo
 }
 
-function UserMenu({ authInfo: { id, userId, thumbnail } }: UserMenuProps) {
+function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
   const setAuthInfo = useSetRecoilState(authInfoState)
   const { mutate } = useLogoutMutation()
   const [isOpenNav, setIsOpenNav, outRef] = useOutsideClick<HTMLDivElement>(
@@ -55,7 +55,7 @@ function UserMenu({ authInfo: { id, userId, thumbnail } }: UserMenuProps) {
             </li>
             <li className="px-6 py-2 hover:bg-gray-100">
               <Link
-                href={`/edit/${userId}`}
+                href={`/edit/${username}`}
                 className="flex items-center gap-6 h-8 text-black body2"
               >
                 <AiOutlineEdit size={24} />

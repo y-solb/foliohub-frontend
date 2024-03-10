@@ -14,8 +14,8 @@ import AssetGridLayoutEditor from '@/containers/portfolio/AssetGridLayoutEditor'
 import ProfileEditor from '@/containers/portfolio/ProfileEditor'
 import { useRouter } from 'next/navigation'
 
-export default function EditPage({ params }: { params: { userId: string } }) {
-  const { data, isLoading } = usePortfolioQuery(params.userId)
+export default function EditPage({ params }: { params: { username: string } }) {
+  const { data, isLoading } = usePortfolioQuery(params.username)
   const displayNameRef = useRef<HTMLHeadingElement | null>(null)
   const shortBioRef = useRef<HTMLHeadingElement | null>(null)
   const [portfolio, setPortfolio] = useState<UserData | null>(null)
@@ -30,7 +30,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
     if (data) {
       const {
         id,
-        userId,
+        username,
         displayName,
         shortBio,
         thumbnail,
@@ -41,7 +41,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       } = data
       setPortfolio({
         id,
-        userId,
+        username,
         displayName,
         shortBio,
         thumbnail,
@@ -141,7 +141,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
 
     mutate(
       {
-        userId: params.userId,
+        username: params.username,
         updatedPortfolio: {
           ...portfolio,
           displayName: displayNameRef.current?.innerHTML,
@@ -151,7 +151,7 @@ export default function EditPage({ params }: { params: { userId: string } }) {
       },
       {
         onSuccess: (_, variables) => {
-          router.push(`/${variables.userId}`)
+          router.push(`/${variables.username}`)
         },
       },
     )

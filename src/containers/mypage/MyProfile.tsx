@@ -30,7 +30,7 @@ function MyProfile() {
               )}
             </div>
             <div className="flex flex-col justify-center gap-2">
-              <h1>{data?.userId}</h1>
+              <h1>{data?.username}</h1>
               <div className="flex items-center gap-2">
                 <p className="body1 text-gray-400">{data?.job}</p>
                 <button
@@ -43,7 +43,7 @@ function MyProfile() {
                 </button>
               </div>
               <Link
-                href={`${data?.userId}`}
+                href={`${data?.username}`}
                 className="flex items-center h-11 px-6 rounded-3xl text-white brand-gradient subtitle2"
               >
                 포트폴리오 보러가기

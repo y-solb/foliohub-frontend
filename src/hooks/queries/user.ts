@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 type MyInfo = {
   id: string
-  userId: string
+  username: string
   jobCategoryCode: string
   displayName: string
   thumbnail: string

@@ -5,8 +5,8 @@ import Profile from '@/containers/portfolio/Profile'
 import { usePortfolioQuery } from '@/hooks/queries/portfolio'
 import Link from 'next/link'
 
-export default function UserPage({ params }: { params: { userId: string } }) {
-  const { data, isLoading } = usePortfolioQuery(params.userId)
+export default function UserPage({ params }: { params: { username: string } }) {
+  const { data, isLoading } = usePortfolioQuery(params.username)
 
   if (isLoading || !data) {
     return null
@@ -20,7 +20,7 @@ export default function UserPage({ params }: { params: { userId: string } }) {
         </div>
       </div>
       <Link
-        href={`/edit/${params.userId}`}
+        href={`/edit/${params.username}`}
         className="fixed flex items-center bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
       >
         편집하기

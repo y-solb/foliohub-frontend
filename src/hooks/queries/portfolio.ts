@@ -15,7 +15,7 @@ export type PortfolioItem = {
   displayName: string
   shortBio: string
   thumbnail: string
-  userId: string
+  username: string
   userJob: string
   likeCount: number
   updatedAt: string
@@ -31,7 +31,7 @@ type PortfolioData = {
 }
 export type Portfolio = {
   id: string
-  userId: string
+  username: string
   displayName: string
   shortBio: string
   thumbnail: string
@@ -41,7 +41,7 @@ export type Portfolio = {
   layout: Layouts
 }
 type UpdatePortfolioVariables = {
-  userId: string
+  username: string
   updatedPortfolio: Portfolio
 }
 type UpdatelikePortfolioData = {
@@ -76,16 +76,16 @@ const getLikePortfolioList = async (
   return data
 }
 
-const getPortfolio = async (userId: string): Promise<Portfolio> => {
-  const { data } = await httpClient.get(`/v1/portfolio/${userId}`)
+const getPortfolio = async (username: string): Promise<Portfolio> => {
+  const { data } = await httpClient.get(`/v1/portfolio/${username}`)
   return data
 }
 
 const editPortfolio = async ({
-  userId,
+  username,
   updatedPortfolio,
 }: UpdatePortfolioVariables) => {
-  const { data } = await httpClient.put(`/v1/portfolio/${userId}`, {
+  const { data } = await httpClient.put(`/v1/portfolio/${username}`, {
     ...updatedPortfolio,
   })
   return data
@@ -131,11 +131,11 @@ export const useInfiniteLikePortfolioQuery = () => {
   })
 }
 
-export const usePortfolioQuery = (userId: string) => {
+export const usePortfolioQuery = (username: string) => {
   return useQuery<Portfolio>({
-    queryKey: ['portfolio', userId],
-    queryFn: () => getPortfolio(userId),
-    enabled: !!userId,
+    queryKey: ['portfolio', username],
+    queryFn: () => getPortfolio(username),
+    enabled: !!username,
   })
 }
 
@@ -147,7 +147,7 @@ export const usePortfolioMutation = () => {
       editPortfolio(variables),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['portfolio', variables.userId],
+        queryKey: ['portfolio', variables.username],
       })
     },
   })

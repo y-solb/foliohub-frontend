@@ -11,9 +11,9 @@ const getAuthInfo = async (): Promise<AuthInfo> => {
   return data
 }
 
-const register = async (userId: string): Promise<RegType> => {
+const register = async (username: string): Promise<RegType> => {
   const { data } = await httpClient.post('/v1/auth/register', {
-    userId,
+    username,
   })
   return data
 }
@@ -33,7 +33,7 @@ export const useAuthQuery = () => {
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (userId: string) => register(userId),
+    mutationFn: (username: string) => register(username),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authInfo'] })
     },

@@ -10,7 +10,7 @@ interface PortFolioItemProps {
 function PortFolioItem({
   portfolio: {
     id,
-    userId,
+    username,
     userJob,
     thumbnail,
     displayName,
@@ -21,7 +21,7 @@ function PortFolioItem({
   return (
     <li className="grid-item-wrapper">
       <Link
-        href={`/${userId}`}
+        href={`/${username}`}
         className="relative flex flex-col items-center px-10 py-8 w-full h-full"
       >
         <div className="relative flex min-w-32 min-h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">

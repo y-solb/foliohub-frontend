@@ -18,16 +18,16 @@ function Profile({ portfolio }: ProfileProps) {
   const { mutate: like } = useLikePorfolioMutation({
     onMutate() {
       queryClient.cancelQueries({
-        queryKey: ['portfolio', portfolio.userId],
+        queryKey: ['portfolio', portfolio.username],
       })
 
       const prevPortfolio = queryClient.getQueryData<Portfolio>([
         'portfolio',
-        portfolio.userId,
+        portfolio.username,
       ])
       if (!prevPortfolio) return
 
-      queryClient.setQueryData<Portfolio>(['portfolio', portfolio.userId], {
+      queryClient.setQueryData<Portfolio>(['portfolio', portfolio.username], {
         ...prevPortfolio,
         isLike: true,
         likeCount: prevPortfolio.likeCount + 1,
@@ -36,25 +36,25 @@ function Profile({ portfolio }: ProfileProps) {
     onError: () => {
       const prevPortfolio = queryClient.getQueryData<Portfolio>([
         'portfolio',
-        portfolio.userId,
+        portfolio.username,
       ])
       if (!prevPortfolio) return
-      queryClient.setQueryData(['portfolio', portfolio.userId], prevPortfolio)
+      queryClient.setQueryData(['portfolio', portfolio.username], prevPortfolio)
     },
   })
   const { mutate: unlike } = useUnlikePorfolioMutation({
     onMutate() {
       queryClient.cancelQueries({
-        queryKey: ['portfolio', portfolio.userId],
+        queryKey: ['portfolio', portfolio.username],
       })
 
       const prevPortfolio = queryClient.getQueryData<Portfolio>([
         'portfolio',
-        portfolio.userId,
+        portfolio.username,
       ])
       if (!prevPortfolio) return
 
-      queryClient.setQueryData<Portfolio>(['portfolio', portfolio.userId], {
+      queryClient.setQueryData<Portfolio>(['portfolio', portfolio.username], {
         ...prevPortfolio,
         isLike: false,
         likeCount: prevPortfolio.likeCount - 1,
@@ -63,10 +63,10 @@ function Profile({ portfolio }: ProfileProps) {
     onError: () => {
       const prevPortfolio = queryClient.getQueryData<Portfolio>([
         'portfolio',
-        portfolio.userId,
+        portfolio.username,
       ])
       if (!prevPortfolio) return
-      queryClient.setQueryData(['portfolio', portfolio.userId], prevPortfolio)
+      queryClient.setQueryData(['portfolio', portfolio.username], prevPortfolio)
     },
   })
 

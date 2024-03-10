@@ -16,14 +16,14 @@ export type AssetType = {
 export type AuthInfo = {
   id: string
   email: string
-  userId: string
+  username: string
   thumbnail: string
   accessToken: string
 }
 
 export type UserData = {
   id: string
-  userId: string
+  username: string
   displayName: string
   shortBio: string
   thumbnail: string
