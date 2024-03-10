@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <BaseLayout>
-      <div className=" px-6">
+      <div className="px-8">
         <ul className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
           {portfolios.map((portfolio) => (
             <li key={portfolio.id} className="grid-item-wrapper h-82">
