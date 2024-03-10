@@ -8,7 +8,7 @@ function BaseLayout({ children }: BaseLayoutProps) {
   return (
     <div className="max-w-[1800px] m-auto">
       <Header />
-      {children}
+      <div className="pt-16">{children}</div>
     </div>
   )
 }
