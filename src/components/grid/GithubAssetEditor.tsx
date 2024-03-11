@@ -25,6 +25,8 @@ function GithubAssetEditor({
   onUpdate,
   onDelete,
 }: GithubAssetEditorProps) {
+  const { value, id } = asset
+
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
   const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
@@ -32,8 +34,6 @@ function GithubAssetEditor({
       setIsOpenControl(false)
       setActiveTool('')
     })
-
-  const { value, id } = asset
 
   const calculateContributions = (contributions: Activity[]) => {
     const lastDate = new Date(contributions[contributions.length - 1].date)
