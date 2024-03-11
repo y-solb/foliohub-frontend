@@ -1,8 +1,9 @@
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
-import axios from 'axios'
+
+import { useMetadataQuery } from '@/hooks/queries/metadata'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
 import InputToolbar from '../toolbar/InputToolbar'
@@ -22,43 +23,25 @@ function LinkAssetEditor({
   onUpdate,
   onDelete,
 }: LinkAssetEditorProps) {
-  const [isOpenControl, setIsOpenControl] = useState(false)
-  const [activeTab, setActive] = useState('')
-  const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
-    () => {
-      setIsOpenControl(false)
-      setActive('')
-    },
-  )
-  const [info, setInfo] = useState<{
-    title: string
-    image: string
-    description: string
-  }>()
   const { value, id } = asset
 
-  const fetchData = async () => {
-    try {
-      const { data } = await axios.get('http://localhost:3001/v1/metadata', {
-        params: { link: value.link },
-      })
-      setInfo(data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const { data } = useMetadataQuery(value.link)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  const [isOpenControl, setIsOpenControl] = useState(false)
+  const [activeTool, setActiveTool] = useState('')
+  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
+    useOutsideClick<HTMLDivElement>(() => {
+      setIsOpenControl(false)
+      setActiveTool('')
+    })
 
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
       ...asset,
       value: { ...asset.value, link: inputValue },
     })
-    setIsOpenTool(false)
-    setActive('')
+    setIsOpenInputToolbar(false)
+    setActiveTool('')
   }
 
   const handleMouseEnter = () => {
@@ -66,21 +49,21 @@ function LinkAssetEditor({
   }
 
   const handleMouseLeave = () => {
-    if (isOpenTool) return
+    if (isOpenInputToolbar) return
     setIsOpenControl(false)
-    setIsOpenTool(false)
-    setActive('')
+    setIsOpenInputToolbar(false)
+    setActiveTool('')
   }
 
   const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsOpenTool(true)
-    setActive((e.currentTarget as HTMLButtonElement).name)
+    setIsOpenInputToolbar(true)
+    setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
   return (
     <div
       ref={outRef}
-      className="relative flex flex-1 max-w-full"
+      className="relative flex flex-1"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -97,19 +80,19 @@ function LinkAssetEditor({
           className={`relative w-full overflow-hidden ${width !== height ? 'pb-[100%]' : ''}`}
         >
           <img
-            src={info?.image}
+            src={data?.image}
             alt={`image_${id}`}
             className="absolute top-0 object-cover w-full h-full"
           />
         </div>
 
         <div className="flex flex-col gap-2 p-3 overflow-hidden">
-          <p className="body2 ellipsis2">{info?.title}</p>
+          <p className="body2 ellipsis2">{data?.title}</p>
           {(width > 1 || height > 1) && (
             <p
               className={`body3 text-gray-400  ${width > 2 || height > 2 ? 'ellipsis5' : 'ellipsis3'}`}
             >
-              {info?.description}
+              {data?.description}
             </p>
           )}
         </div>
@@ -126,12 +109,12 @@ function LinkAssetEditor({
               type="button"
               name="link"
               aria-label="edit-link-image"
-              className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'link' ? 'bg-gray-200' : ''}`}
+              className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'link' ? 'bg-gray-200' : ''}`}
               onClick={handleActiveTab}
             >
               <RxLink2 size={24} />
             </button>
-            {isOpenTool && (
+            {isOpenInputToolbar && (
               <InputToolbar
                 defaultValue={value.link}
                 buttonLabel="add-image-link"
