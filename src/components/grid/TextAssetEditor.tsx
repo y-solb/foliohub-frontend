@@ -51,8 +51,7 @@ function TextAssetEditor({
 
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value.content)
-
-  const [isTextEditorToolbarOpen, setIsTextEditorToolbarOpen, outRef] =
+  const [isOpenTextEditorToolbar, setIsOpenTextEditorToolbar, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
       onChangeEditMode()
       onUpdate({
@@ -63,7 +62,7 @@ function TextAssetEditor({
 
   const handleChangeEdit = () => {
     setIsOpenControl(false)
-    setIsTextEditorToolbarOpen(!isTextEditorToolbarOpen)
+    setIsOpenTextEditorToolbar(!isOpenTextEditorToolbar)
     onChangeEditMode()
   }
 
@@ -72,7 +71,7 @@ function TextAssetEditor({
       ref={outRef}
       className="relative flex flex-1 max-w-full"
       onMouseEnter={() => {
-        if (isTextEditorToolbarOpen) return
+        if (isOpenTextEditorToolbar) return
         setIsOpenControl(true)
       }}
       onMouseLeave={() => {
@@ -80,7 +79,7 @@ function TextAssetEditor({
       }}
     >
       <div className="relative flex flex-1 overflow-y-auto grid-item-wrapper max-w-full">
-        {isTextEditorToolbarOpen ? (
+        {isOpenTextEditorToolbar ? (
           <ReactQuill
             id="textEditor"
             modules={modules}
@@ -97,7 +96,6 @@ function TextAssetEditor({
           />
         )}
       </div>
-
       {isOpenControl && (
         <div className="control-wrapper">
           <DeleteGridItemButton
@@ -118,7 +116,7 @@ function TextAssetEditor({
           </div>
         </div>
       )}
-      {isTextEditorToolbarOpen && <TextEditorToolbar />}
+      {isOpenTextEditorToolbar && <TextEditorToolbar />}
     </div>
   )
 }
