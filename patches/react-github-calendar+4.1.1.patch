@@ -1,0 +1,18 @@
+diff --git a/node_modules/react-github-calendar/build/index.js b/node_modules/react-github-calendar/build/index.js
+index e6a348d..8921adf 100644
+--- a/node_modules/react-github-calendar/build/index.js
++++ b/node_modules/react-github-calendar/build/index.js
+@@ -96,9 +96,10 @@ const GitHubCalendar = ({
+     }
+   }
+   if (loading || !data) {
+-    return /*#__PURE__*/React__default.default.createElement(Calendar.Skeleton, _extends({}, props, {
+-      loading: true
+-    }));
++    return /*#__PURE__*/React__default.default.createElement("div", null, '');
++    // return /*#__PURE__*/React__default.default.createElement(Calendar.Skeleton, _extends({}, props, {
++    //   loading: true
++    // }));
+   }
+   const theme = props.theme ?? DEFAULT_THEME;
+   const defaultLabels = {
