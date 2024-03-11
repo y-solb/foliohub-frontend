@@ -92,7 +92,7 @@ function TextAssetEditor({
           />
         ) : (
           <div
-            className="flex flex-col flex-1 p-4 bg-white"
+            className="w-full max-w-full flex flex-col flex-1 p-4 bg-white overflow-y-auto whitespace-pre-wrap break-words"
             dangerouslySetInnerHTML={{ __html: value.content }}
           />
         )}
