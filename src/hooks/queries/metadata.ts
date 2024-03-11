@@ -18,7 +18,7 @@ const getMetadata = async (link: string): Promise<Metadata> => {
 // eslint-disable-next-line import/prefer-default-export
 export const useMetadataQuery = (link: string) => {
   return useQuery<Metadata>({
-    queryKey: ['metadata'],
+    queryKey: ['metadata', link],
     queryFn: () => getMetadata(link),
   })
 }
