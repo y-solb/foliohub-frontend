@@ -72,32 +72,6 @@ export default function EditPage({ params }: { params: { username: string } }) {
         },
       ],
     })
-    if (name === 'github') {
-      setLayouts({
-        lg: [
-          ...layouts.lg,
-          {
-            i: id,
-            x: 0,
-            y: 0,
-            w: 1,
-            h: 1,
-            maxH: 1,
-          },
-        ],
-        md: [
-          ...layouts.md,
-          {
-            i: id,
-            x: 0,
-            y: 0,
-            w: 1,
-            h: 1,
-            maxH: 1,
-          },
-        ],
-      })
-    }
   }
 
   const handleProfileChange = (name: string, value: string) => {
