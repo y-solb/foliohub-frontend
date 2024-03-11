@@ -2,10 +2,8 @@ import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
-
 import { useMetadataQuery } from '@/hooks/queries/metadata'
 import DeleteGridItemButton from '../DeleteGridItemButton'
-
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface LinkAssetEditorProps {
@@ -68,7 +66,7 @@ function LinkAssetEditor({
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="relative grid flex-1 grid-item-wrapper overflow-hidden"
+        className={`relative ${data?.image ? 'grid' : ''} flex-1 grid-item-wrapper overflow-hidden`}
         style={{
           gridTemplateColumns:
             width > height ? `${height}fr ${width - height}fr` : '',
@@ -76,16 +74,17 @@ function LinkAssetEditor({
             width < height ? `${height}fr ${width - height}fr` : '1fr 1fr',
         }}
       >
-        <div
-          className={`relative w-full overflow-hidden ${width !== height ? 'pb-[100%]' : ''}`}
-        >
-          <img
-            src={data?.image}
-            alt={`image_${id}`}
-            className="absolute top-0 object-cover w-full h-full"
-          />
-        </div>
-
+        {data?.image && (
+          <div
+            className={`relative w-full overflow-hidden ${width !== height ? 'pb-[100%]' : ''}`}
+          >
+            <img
+              src={data?.image}
+              alt={`image_${id}`}
+              className="absolute top-0 object-cover w-full h-full"
+            />
+          </div>
+        )}
         <div className="flex flex-col gap-2 p-3 overflow-hidden">
           <p className="body2 ellipsis2">{data?.title}</p>
           {(width > 1 || height > 1) && (
