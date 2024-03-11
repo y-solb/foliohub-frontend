@@ -54,15 +54,16 @@ function ImageAssetEditor({
   onDelete,
   onChangeEditMode,
 }: ImageAssetEditorProps) {
+  const { value, id } = asset
+
   const [isOpenControl, setIsOpenControl] = useState(false)
-  const [activeTab, setActive] = useState('')
-  const [isOpenTool, setIsOpenTool, outRef] = useOutsideClick<HTMLDivElement>(
-    () => {
+  const [activeTool, setActiveTool] = useState('')
+  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
+    useOutsideClick<HTMLDivElement>(() => {
       setIsOpenControl(false)
-      setActive('')
-    },
-  )
-  const [isEditMode, toggle] = useToggle(false)
+      setActiveTool('')
+    })
+  const [isCropMode, toggle] = useToggle(false)
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PercentCrop>()
 
@@ -73,15 +74,13 @@ function ImageAssetEditor({
     }
   }
 
-  const { value, id } = asset
-
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
       ...asset,
       value: { ...asset.value, link: inputValue },
     })
-    setIsOpenTool(false)
-    setActive('')
+    setIsOpenInputToolbar(false)
+    setActiveTool('')
   }
 
   const handleUploadImage = (imageUrl: string) => {
@@ -90,6 +89,7 @@ function ImageAssetEditor({
       value: { ...asset.value, imageUrl },
     })
   }
+
   const handleUploadImagePos = (x: number, y: number) => {
     onUpdate({
       ...asset,
@@ -108,11 +108,10 @@ function ImageAssetEditor({
           setIsOpenControl(true)
         }}
         onMouseLeave={() => {
-          if (isOpenTool) return
+          if (isOpenInputToolbar) return
           setIsOpenControl(false)
-          setIsOpenTool(false)
-          setActive('')
-          onChangeEditMode()
+          setIsOpenInputToolbar(false)
+          setActiveTool('')
         }}
       >
         <div className="relative flex flex-1 rounded-2xl overflow-hidden">
@@ -139,7 +138,7 @@ function ImageAssetEditor({
             </a>
           )}
         </div>
-        {isOpenControl && !isEditMode && (
+        {isOpenControl && !isCropMode && (
           <div className="control-wrapper">
             <DeleteGridItemButton
               onDelete={() => {
@@ -160,15 +159,15 @@ function ImageAssetEditor({
                 type="button"
                 name="link"
                 aria-label="edit-link-image"
-                className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'link' ? 'bg-gray-200' : ''}`}
+                className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'link' ? 'bg-gray-200' : ''}`}
                 onClick={(e) => {
-                  setIsOpenTool(true)
-                  setActive((e.currentTarget as HTMLButtonElement).name)
+                  setIsOpenInputToolbar(true)
+                  setActiveTool((e.currentTarget as HTMLButtonElement).name)
                 }}
               >
                 <RxLink2 size={24} />
               </button>
-              {isOpenTool && (
+              {isOpenInputToolbar && (
                 <InputToolbar
                   defaultValue={value.link}
                   buttonLabel="add-image-link"
@@ -182,10 +181,11 @@ function ImageAssetEditor({
       </div>
 
       <Modal
-        isOpen={isEditMode}
+        isOpen={isCropMode}
         isBorder={false}
         onClose={() => {
           toggle()
+          onChangeEditMode()
           const newX =
             completedCrop?.height === 100
               ? (completedCrop.x / (100 - completedCrop.width)) * 100
