@@ -1,5 +1,5 @@
 import { AssetType } from '@/types'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { RxLink2 } from 'react-icons/rx'
@@ -35,17 +35,19 @@ function GithubAssetEditor({
       setActiveTool('')
     })
 
-  const calculateContributions = (contributions: Activity[]) => {
-    const lastDate = new Date(contributions[contributions.length - 1].date)
-    return contributions.slice(
-      -(
-        7 * 6 * width +
-        (lastDate.getDay() + 1) +
-        7 * 2 * (width - 1) +
-        (width > 2 ? 7 * 2 : 0)
-      ),
-    )
-  }
+  const calculateContributions = useMemo(() => {
+    return (contributions: Activity[]) => {
+      const lastDate = new Date(contributions[contributions.length - 1].date)
+      return contributions.slice(
+        -(
+          7 * 6 * width +
+          (lastDate.getDay() + 1) +
+          7 * 2 * (width - 1) +
+          (width > 2 ? 7 * 2 : 0)
+        ),
+      )
+    }
+  }, [width])
 
   const handleUpdateGithubId = (inputValue: string) => {
     onUpdate({
