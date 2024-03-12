@@ -72,7 +72,6 @@ function AssetGridLayoutEditor({
               layout={layouts[breakpoint]?.find(
                 (layout) => layout.i === asset.id,
               )}
-              key={asset.id}
               onUpdate={handleUpdate}
               onDelete={handleDelete}
               onChangeEditMode={toggle}
