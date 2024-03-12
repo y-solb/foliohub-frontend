@@ -8,7 +8,7 @@ import LinkAssetEditor from './LinkAssetEditor'
 interface AssetEditorProps {
   asset: AssetType
   breakpoint: string
-  layout: Layout | undefined
+  layout?: Layout
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
   onChangeEditMode: () => void
