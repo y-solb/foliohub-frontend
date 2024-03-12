@@ -64,20 +64,23 @@ function AssetGridLayoutEditor({
           setRowHeight((width - (cols + 1) * margin[0]) / cols)
         }}
       >
-        {portfolio.assets.map((asset) => (
-          <div key={asset.id} className="flex cursor-move">
-            <GridItem
-              asset={asset}
-              breakpoint={breakpoint}
-              layout={layouts[breakpoint]?.find(
-                (layout) => layout.i === asset.id,
-              )}
-              onUpdate={handleUpdate}
-              onDelete={handleDelete}
-              onChangeEditMode={toggle}
-            />
-          </div>
-        ))}
+        {portfolio.assets.map(
+          (asset) =>
+            asset.command !== 'delete' && (
+              <div key={asset.id} className="flex cursor-move">
+                <GridItem
+                  asset={asset}
+                  breakpoint={breakpoint}
+                  layout={layouts[breakpoint]?.find(
+                    (layout) => layout.i === asset.id,
+                  )}
+                  onUpdate={handleUpdate}
+                  onDelete={handleDelete}
+                  onChangeEditMode={toggle}
+                />
+              </div>
+            ),
+        )}
       </ResponsiveGridLayout>
     </div>
   )

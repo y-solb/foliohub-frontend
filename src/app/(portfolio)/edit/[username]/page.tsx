@@ -98,7 +98,14 @@ export default function EditPage({ params }: { params: { username: string } }) {
   const handleDelete = (id: string) => {
     setPortfolio({
       ...portfolio,
-      assets: portfolio.assets.filter((asset) => asset.id !== id),
+      assets: portfolio.assets.map((asset) =>
+        asset.id === id
+          ? {
+              ...asset,
+              command: 'delete',
+            }
+          : asset,
+      ),
     })
 
     setLayouts({
@@ -134,8 +141,8 @@ export default function EditPage({ params }: { params: { username: string } }) {
   return (
     <div className="relative">
       <Toolbar onAdd={handleAdd} />
-      <div className="flex">
-        <div className="flex w-full md:flex-row flex-col justify-center">
+      <div className="flex max-w-[100rem]">
+        <div className="relative flex w-full  md:flex-row flex-col justify-center">
           <ProfileEditor
             portfolio={portfolio}
             displayNameRef={displayNameRef}
