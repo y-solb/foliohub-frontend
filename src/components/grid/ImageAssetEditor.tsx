@@ -3,6 +3,7 @@ import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
+import { MdCrop } from 'react-icons/md'
 import useToggle from '@/hooks/useToggle'
 import ReactCrop, {
   Crop,
@@ -148,12 +149,14 @@ function ImageAssetEditor({
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
               <button
                 type="button"
+                name="crop"
+                aria-label="crop-image"
                 onClick={() => {
                   toggle()
                   onChangeEditMode()
                 }}
               >
-                편집
+                <MdCrop size={24} />
               </button>
               <button
                 type="button"
@@ -186,6 +189,7 @@ function ImageAssetEditor({
         onClose={() => {
           toggle()
           onChangeEditMode()
+          setIsOpenControl(false)
           const newX =
             completedCrop?.height === 100
               ? (completedCrop.x / (100 - completedCrop.width)) * 100
