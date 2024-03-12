@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 function HeaderSkeleton() {
   return (
-    <div className="flex items-center justify-between lg:px-20 px-10 h-16">
+    <div className="animate-pulse flex items-center justify-between lg:px-20 px-10 h-16">
       <div className="flex items-center justify-center gap-2">
         <Image
           src="/foliohub_text.svg"
