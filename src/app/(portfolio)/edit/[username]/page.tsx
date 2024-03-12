@@ -141,8 +141,8 @@ export default function EditPage({ params }: { params: { username: string } }) {
   return (
     <div className="relative">
       <Toolbar onAdd={handleAdd} />
-      <div className="flex max-w-[100rem]">
-        <div className="relative flex w-full  md:flex-row flex-col justify-center">
+      <div className="flex justify-center">
+        <div className="relative flex w-full max-w-[100rem] md:flex-row flex-col">
           <ProfileEditor
             portfolio={portfolio}
             displayNameRef={displayNameRef}

@@ -83,40 +83,42 @@ function Profile({ portfolio }: ProfileProps) {
   }
 
   return (
-    <div className="flex flex-col gap-8 px-8 py-16 w-80">
-      <div className="relative flex w-48 h-48">
-        {portfolio.thumbnail ? (
-          <Image
-            src={portfolio.thumbnail}
-            alt="프로필 이미지"
-            width={192}
-            height={192}
-            priority
-            className="rounded-full border border-solid border-gray-100 shadow-md bg-white w-full h-full"
-          />
-        ) : (
-          <div className="relative rounded-full border border-solid border-gray-100 shadow-md bg-gray-200 w-full h-full">
-            <GoSmiley
-              color="white"
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
+    <div className="flex flex-col w-80 h-full md:fixed md:top-0 md:left-0">
+      <div className="flex flex-col gap-8 px-8 py-16">
+        <div className="relative flex w-48 h-48">
+          {portfolio.thumbnail ? (
+            <Image
+              src={portfolio.thumbnail}
+              alt="프로필 이미지"
+              width={192}
+              height={192}
+              priority
+              className="rounded-full border border-solid border-gray-100 shadow-md bg-white w-full h-full"
             />
-          </div>
-        )}
-      </div>
-
-      <div className="flex flex-col gap-4">
-        <h1 className="break-all">{portfolio.displayName}</h1>
-        <h3 className="text-gray-400 break-all">{portfolio.shortBio}</h3>
-      </div>
-      <div className="flex gap-1 items-center justify-end">
-        <button type="button" aria-label="좋아요" onClick={handleLike}>
-          {portfolio.isLike ? (
-            <IoMdHeart size={24} color="#ef4444" />
           ) : (
-            <IoMdHeartEmpty size={24} color="#6b7280" />
+            <div className="relative rounded-full border border-solid border-gray-100 shadow-md bg-gray-200 w-full h-full">
+              <GoSmiley
+                color="white"
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
+              />
+            </div>
           )}
-        </button>
-        <span className="text-gray-400 body2">{portfolio.likeCount}</span>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <h1 className="break-all">{portfolio.displayName}</h1>
+          <h3 className="text-gray-400 break-all">{portfolio.shortBio}</h3>
+        </div>
+        <div className="flex gap-1 items-center justify-end">
+          <button type="button" aria-label="좋아요" onClick={handleLike}>
+            {portfolio.isLike ? (
+              <IoMdHeart size={24} color="#ef4444" />
+            ) : (
+              <IoMdHeartEmpty size={24} color="#6b7280" />
+            )}
+          </button>
+          <span className="text-gray-400 body2">{portfolio.likeCount}</span>
+        </div>
       </div>
     </div>
   )
