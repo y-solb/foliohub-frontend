@@ -61,7 +61,7 @@ function LinkAssetEditor({
   return (
     <div
       ref={outRef}
-      className="relative flex flex-1"
+      className="relative flex flex-1 w-full max-width-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
