@@ -10,10 +10,10 @@ interface LinkAssetProps {
 
 function LinkAsset({ asset, width, height }: LinkAssetProps) {
   const { value, id } = asset
-  const { data, isSuccess } = useMetadataQuery(value.link)
+  const { data, isSuccess, isError } = useMetadataQuery(value.link)
   return (
     <div className="relative flex flex-1 w-full max-width-full">
-      {isSuccess ? (
+      {isSuccess && (
         <div
           className={`relative ${data?.image ? 'grid' : ''} flex-1 grid-item-wrapper overflow-hidden`}
           style={{
@@ -45,7 +45,8 @@ function LinkAsset({ asset, width, height }: LinkAssetProps) {
             )}
           </div>
         </div>
-      ) : (
+      )}
+      {isError && (
         <div className="flex flex-col justify-center items-center gap-4 grid-item-wrapper overflow-y-auto p-4">
           <div>
             <MdError size={24} />
