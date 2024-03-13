@@ -17,10 +17,10 @@ html {
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #6b7280 #f3f4f6;
+  scrollbar-color: #6b7280 #fff;
 }
 *::-webkit-scrollbar {
-  width: 16px;
+  width: 12px;
 }
 *::-webkit-scrollbar-track {
   background: #f3f4f6;
