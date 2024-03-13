@@ -1,5 +1,6 @@
 'use client'
 
+import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 import AssetGridLayout from '@/containers/portfolio/AssetGridLayout'
 import Profile from '@/containers/portfolio/Profile'
 import { usePortfolioQuery } from '@/hooks/queries/portfolio'
@@ -13,12 +14,10 @@ export default function UserPage({ params }: { params: { username: string } }) {
   }
   return (
     <>
-      <div className="flex justify-center">
-        <div className="relative flex w-full max-w-[100rem] md:flex-row flex-col">
-          <Profile portfolio={data} />
-          <AssetGridLayout portfolio={data} layouts={data.layout} />
-        </div>
-      </div>
+      <PortfolioWrapper>
+        <Profile portfolio={data} />
+        <AssetGridLayout portfolio={data} layouts={data.layout} />
+      </PortfolioWrapper>
       <Link
         href={`/edit/${params.username}`}
         className="fixed flex items-center bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"

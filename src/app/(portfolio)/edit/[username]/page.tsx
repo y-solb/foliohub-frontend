@@ -13,6 +13,7 @@ import {
 import AssetGridLayoutEditor from '@/containers/portfolio/AssetGridLayoutEditor'
 import ProfileEditor from '@/containers/portfolio/ProfileEditor'
 import { useRouter } from 'next/navigation'
+import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 
 export default function EditPage({ params }: { params: { username: string } }) {
   const { data, isLoading } = usePortfolioQuery(params.username)
@@ -149,27 +150,25 @@ export default function EditPage({ params }: { params: { username: string } }) {
   return (
     <div className="relative">
       <Toolbar onAdd={handleAdd} />
-      <div className="flex justify-center">
-        <div className="relative flex w-full max-w-[100rem] md:flex-row flex-col">
-          <ProfileEditor
-            portfolio={portfolio}
-            socialLinks={socialLinks}
-            displayNameRef={displayNameRef}
-            shortBioRef={shortBioRef}
-            onProfileChange={handleProfileChange}
-            onSocialLinkChange={handleSocialLinkChange}
-          />
-          <AssetGridLayoutEditor
-            portfolio={portfolio}
-            layouts={layouts}
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-            onLayoutChange={(currentLayout: Layouts) => {
-              setLayouts(currentLayout)
-            }}
-          />
-        </div>
-      </div>
+      <PortfolioWrapper>
+        <ProfileEditor
+          portfolio={portfolio}
+          socialLinks={socialLinks}
+          displayNameRef={displayNameRef}
+          shortBioRef={shortBioRef}
+          onProfileChange={handleProfileChange}
+          onSocialLinkChange={handleSocialLinkChange}
+        />
+        <AssetGridLayoutEditor
+          portfolio={portfolio}
+          layouts={layouts}
+          handleUpdate={handleUpdate}
+          handleDelete={handleDelete}
+          onLayoutChange={(currentLayout: Layouts) => {
+            setLayouts(currentLayout)
+          }}
+        />
+      </PortfolioWrapper>
       <button
         type="button"
         className="fixed bottom-4 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
