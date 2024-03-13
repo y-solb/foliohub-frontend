@@ -3,7 +3,7 @@ export type ToolType = 'github' | 'content' | 'image' | 'link'
 export type AssetType = {
   id: string
   type: ToolType
-  command?: 'save' | 'update'
+  command?: 'save' | 'update' | 'delete'
   value: any
   // {
   //   githubId?: string
@@ -19,6 +19,16 @@ export type AuthInfo = {
   username: string
   thumbnail: string
   accessToken: string
+}
+
+export type SocialLinks = {
+  blogLink: string | null
+  facebookLink: string | null
+  githubLink: string | null
+  instagramLink: string | null
+  linkedinLink: string | null
+  twitterLink: string | null
+  youtubeLink: string | null
 }
 
 export type UserData = {

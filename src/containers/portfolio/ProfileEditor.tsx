@@ -1,25 +1,34 @@
 import uploadImage from '@/lib/uploadImage'
-import { UserData } from '@/types'
+import { SocialLinks, UserData } from '@/types'
 import { useRef } from 'react'
 import { IoCamera } from 'react-icons/io5'
 import { GoSmiley } from 'react-icons/go'
 import Image from 'next/image'
+import {
+  FaInstagram,
+  FaFacebook,
+  FaGithub,
+  FaXTwitter,
+  FaLinkedin,
+} from 'react-icons/fa6'
+import { AiOutlineGlobal } from 'react-icons/ai'
 
 interface ProfileEditorProps {
   portfolio: UserData
+  socialLinks: SocialLinks
   displayNameRef: React.RefObject<HTMLHeadingElement>
   shortBioRef: React.RefObject<HTMLHeadingElement>
-  onProfileChange: (
-    name: 'displayName' | 'shortBio' | 'thumbnail',
-    value: string,
-  ) => void
+  onProfileChange: (name: string, value: string) => void
+  onSocialLinkChange: (name: string, value: string) => void
 }
 
 function ProfileEditor({
   portfolio,
+  socialLinks,
   displayNameRef,
   shortBioRef,
   onProfileChange,
+  onSocialLinkChange,
 }: ProfileEditorProps) {
   const imageRef = useRef<HTMLInputElement | null>(null)
 
@@ -33,16 +42,19 @@ function ProfileEditor({
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const file = e.target.files[0]
-
     if (file) {
       const imageUrl = await uploadImage(file)
       onProfileChange('thumbnail', imageUrl)
     }
   }
 
+  const handleSocialLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onSocialLinkChange(e.target.name, e.target.value)
+  }
+
   return (
-    <div className="flex flex-col w-80 h-full md:fixed md:top-0 md:left-0">
-      <div className="flex flex-col gap-8 px-8 py-16">
+    <div className="flex flex-col justify-between w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16">
+      <div className="flex flex-col gap-8">
         <button
           type="button"
           aria-label="change-thumbnail"
@@ -56,10 +68,10 @@ function ProfileEditor({
               width={192}
               height={192}
               priority
-              className="rounded-full border border-solid border-gray-100 shadow-md bg-white w-full h-full"
+              className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
             />
           ) : (
-            <div className="relative rounded-full border border-solid border-gray-100 shadow-md bg-gray-200 w-full h-full">
+            <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
               <GoSmiley
                 color="white"
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
@@ -87,17 +99,91 @@ function ProfileEditor({
           >
             {portfolio.displayName}
           </h1>
-          <h3
+          <p
             data-placeholder="간단한 소개글을 작성해주세요."
             ref={shortBioRef}
-            className="text-gray-400 break-all"
+            className="subtitle1 text-gray-400 break-all"
             contentEditable="true"
             suppressContentEditableWarning
           >
             {portfolio.shortBio}
-          </h3>
+          </p>
         </div>
       </div>
+      <ul className="w-full flex flex-col gap-4 mt-4">
+        <li className="flex gap-2">
+          <AiOutlineGlobal size={24} />
+          <input
+            type="text"
+            name="blogLink"
+            id="blogLink"
+            value={socialLinks.blogLink || ''}
+            className="body2 w-full"
+            placeholder="개인 링크 또는 블로그"
+            onChange={handleSocialLinkChange}
+          />
+        </li>
+        <li className="flex gap-2">
+          <FaInstagram size={24} />
+          <input
+            type="text"
+            name="instagramLink"
+            id="instagramLink"
+            value={socialLinks.instagramLink || ''}
+            className="body2 w-full"
+            placeholder="인스타그램"
+            onChange={handleSocialLinkChange}
+          />
+        </li>
+        <li className="flex gap-2">
+          <FaFacebook size={24} />
+          <input
+            type="text"
+            name="facebookLink"
+            id="facebookLink"
+            value={socialLinks.facebookLink || ''}
+            className="body2 w-full"
+            placeholder="페이스북"
+            onChange={handleSocialLinkChange}
+          />
+        </li>
+        <li className="flex gap-2">
+          <FaGithub size={24} />
+          <input
+            type="text"
+            name="githubLink"
+            id="githubLink"
+            value={socialLinks.githubLink || ''}
+            className="body2 w-full"
+            placeholder="깃허브"
+            onChange={handleSocialLinkChange}
+          />
+        </li>
+        <li className="flex gap-2">
+          <FaXTwitter size={24} />
+          <input
+            type="text"
+            name="twitterLink"
+            id="twitterLink"
+            value={socialLinks.twitterLink || ''}
+            className="body2 w-full"
+            placeholder="트위터"
+            onChange={handleSocialLinkChange}
+          />
+        </li>
+        <li className="flex gap-2">
+          <FaLinkedin size={24} />
+          <input
+            type="text"
+            name="linkedinLink"
+            id="linkedinLink"
+            value={socialLinks.linkedinLink || ''}
+            className="body2 w-full"
+            placeholder="링크드인"
+            onChange={handleSocialLinkChange}
+          />
+        </li>
+      </ul>
     </div>
   )
 }

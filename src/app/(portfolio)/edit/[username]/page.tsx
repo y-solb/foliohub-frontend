@@ -2,7 +2,7 @@
 
 import 'react-grid-layout/css/styles.css'
 import Toolbar from '@/components/toolbar/Toolbar'
-import { AssetType, ToolType, UserData } from '@/types'
+import { AssetType, SocialLinks, ToolType, UserData } from '@/types'
 import React, { useEffect, useRef, useState } from 'react'
 import { Layouts } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
@@ -19,6 +19,7 @@ export default function EditPage({ params }: { params: { username: string } }) {
   const displayNameRef = useRef<HTMLHeadingElement | null>(null)
   const shortBioRef = useRef<HTMLHeadingElement | null>(null)
   const [portfolio, setPortfolio] = useState<UserData | null>(null)
+  const [socialLinks, setSocialLinks] = useState<SocialLinks | null>(null)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],
     md: [],
@@ -38,6 +39,7 @@ export default function EditPage({ params }: { params: { username: string } }) {
         likeCount,
         assets,
         layout,
+        socialLink,
       } = data
       setPortfolio({
         id,
@@ -49,17 +51,17 @@ export default function EditPage({ params }: { params: { username: string } }) {
         likeCount,
         assets,
       })
+      setSocialLinks(socialLink)
       setLayouts(layout)
     }
   }, [data])
 
-  if (isLoading || !portfolio) {
+  if (isLoading || !portfolio || !socialLinks) {
     return null
   }
 
   const handleAdd = (name: ToolType, value?: string) => {
     const id = uuidv4()
-
     setPortfolio({
       ...portfolio,
       assets: [
@@ -81,6 +83,12 @@ export default function EditPage({ params }: { params: { username: string } }) {
     })
   }
 
+  const handleSocialLinkChange = (name: string, value: string) => {
+    setSocialLinks({
+      ...socialLinks,
+      [name]: value,
+    })
+  }
   const handleUpdate = (updatedAsset: AssetType) => {
     setPortfolio({
       ...portfolio,
@@ -107,7 +115,6 @@ export default function EditPage({ params }: { params: { username: string } }) {
           : asset,
       ),
     })
-
     setLayouts({
       lg: layouts?.lg.filter((layout) => layout.i !== id),
       md: layouts?.md.filter((layout) => layout.i !== id),
@@ -128,6 +135,7 @@ export default function EditPage({ params }: { params: { username: string } }) {
           displayName: displayNameRef.current?.innerHTML,
           shortBio: shortBioRef.current?.innerHTML,
           layout: layouts,
+          socialLink: socialLinks,
         },
       },
       {
@@ -145,9 +153,11 @@ export default function EditPage({ params }: { params: { username: string } }) {
         <div className="relative flex w-full max-w-[100rem] md:flex-row flex-col">
           <ProfileEditor
             portfolio={portfolio}
+            socialLinks={socialLinks}
             displayNameRef={displayNameRef}
             shortBioRef={shortBioRef}
             onProfileChange={handleProfileChange}
+            onSocialLinkChange={handleSocialLinkChange}
           />
           <AssetGridLayoutEditor
             portfolio={portfolio}
@@ -162,7 +172,7 @@ export default function EditPage({ params }: { params: { username: string } }) {
       </div>
       <button
         type="button"
-        className="fixed bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
+        className="fixed bottom-4 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
         onClick={handleSavePortfolio}
       >
         저장하기

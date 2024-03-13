@@ -1,5 +1,5 @@
 import httpClient from '@/lib/httpClient'
-import { AssetType } from '@/types'
+import { AssetType, SocialLinks } from '@/types'
 import {
   InfiniteData,
   UseMutationOptions,
@@ -29,6 +29,7 @@ type PortfolioData = {
     total: number
   }
 }
+
 export type Portfolio = {
   id: string
   username: string
@@ -39,6 +40,7 @@ export type Portfolio = {
   likeCount: number
   assets: AssetType[]
   layout: Layouts
+  socialLink: SocialLinks
 }
 type UpdatePortfolioVariables = {
   username: string
