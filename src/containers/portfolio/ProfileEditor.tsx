@@ -53,7 +53,7 @@ function ProfileEditor({
   }
 
   return (
-    <div className="flex flex-col justify-between w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16">
+    <div className="flex flex-col justify-between w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16 overflow-y-scroll">
       <div className="flex flex-col gap-8">
         <button
           type="button"
