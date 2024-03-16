@@ -1,5 +1,10 @@
 import RegisterForm from '@/containers/register/RegisterForm'
+import { Metadata } from 'next'
 import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: '회원가입 | FolioHub',
+}
 
 export default function RegisterPage() {
   return (

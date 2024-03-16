@@ -1,29 +1,25 @@
-'use client'
+import Portfolio from '@/containers/portfolio/Portfolio'
+import { getPortfolio } from '@/fetch/getPortfolio'
+import { Metadata } from 'next'
 
-import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
-import AssetGridLayout from '@/containers/portfolio/AssetGridLayout'
-import Profile from '@/containers/portfolio/Profile'
-import { usePortfolioQuery } from '@/hooks/queries/portfolio'
-import Link from 'next/link'
+type Props = {
+  params: { username: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username } = params
+  const portfolio = await getPortfolio(username)
+
+  if (!portfolio) {
+    return {}
+  }
+
+  return {
+    title: portfolio.displayName,
+    description: portfolio.shortBio,
+  }
+}
 
 export default function UserPage({ params }: { params: { username: string } }) {
-  const { data, isLoading } = usePortfolioQuery(params.username)
-
-  if (isLoading || !data) {
-    return null
-  }
-  return (
-    <>
-      <PortfolioWrapper>
-        <Profile portfolio={data} />
-        <AssetGridLayout portfolio={data} layouts={data.layout} />
-      </PortfolioWrapper>
-      <Link
-        href={`/edit/${params.username}`}
-        className="fixed flex items-center bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
-      >
-        편집하기
-      </Link>
-    </>
-  )
+  return <Portfolio username={params.username} />
 }

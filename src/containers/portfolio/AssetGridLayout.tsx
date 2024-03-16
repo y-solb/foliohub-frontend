@@ -1,3 +1,5 @@
+'use client'
+
 import Asset from '@/components/grid/Asset'
 import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants'
 import { UserData } from '@/types'
