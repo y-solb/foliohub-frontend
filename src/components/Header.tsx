@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuthQuery } from '@/hooks/queries/auth'
-import httpClient from '@/lib/httpClient'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import authModalState from '@/recoil/atoms/authModalState'
 import Image from 'next/image'
@@ -24,11 +23,8 @@ function Header() {
   }
 
   const currentUser = data ?? null
-  console.log(authInfo)
+
   useEffect(() => {
-    if (currentUser?.accessToken) {
-      httpClient.defaults.headers.common.Authorization = `Bearer ${currentUser.accessToken}`
-    }
     setAuthInfo(currentUser)
   }, [setAuthInfo, currentUser])
 

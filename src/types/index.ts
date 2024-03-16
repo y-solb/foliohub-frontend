@@ -15,10 +15,8 @@ export type AssetType = {
 
 export type AuthInfo = {
   id: string
-  email: string
   username: string
   thumbnail: string
-  accessToken: string
 }
 
 export type SocialLinks = {

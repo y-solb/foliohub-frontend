@@ -1,6 +1,5 @@
 'use client'
 
-import httpClient from '@/lib/httpClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import useOutsideClick from '@/hooks/useOutsideClick'
@@ -26,7 +25,6 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
   const handleLogout = () => {
     mutate()
     setAuthInfo(null)
-    httpClient.defaults.headers.common.Authorization = ''
   }
 
   return (
