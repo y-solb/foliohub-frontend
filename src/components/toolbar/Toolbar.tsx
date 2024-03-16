@@ -42,7 +42,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
   }
 
   return (
-    <div ref={outRef} className="fixed top-2 left-1/2 toolbar-wrapper z-auto">
+    <div ref={outRef} className="fixed top-2 left-1/2 toolbar-wrapper z-30">
       <button
         type="button"
         name="github"
