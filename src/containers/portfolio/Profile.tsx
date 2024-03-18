@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { GoSmiley } from 'react-icons/go'
 import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
 import {
-  Portfolio,
+  PortfolioView,
   useLikePorfolioMutation,
   useUnlikePorfolioMutation,
 } from '@/hooks/queries/portfolio'
@@ -18,7 +18,7 @@ import { AiOutlineGlobal } from 'react-icons/ai'
 import Link from 'next/link'
 
 interface ProfileProps {
-  portfolio: Portfolio
+  portfolio: PortfolioView
 }
 
 function Profile({
@@ -40,20 +40,20 @@ function Profile({
         queryKey: ['portfolio', username],
       })
 
-      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
         'portfolio',
         username,
       ])
       if (!prevPortfolio) return
 
-      queryClient.setQueryData<Portfolio>(['portfolio', username], {
+      queryClient.setQueryData<PortfolioView>(['portfolio', username], {
         ...prevPortfolio,
         isLike: true,
         likeCount: prevPortfolio.likeCount + 1,
       })
     },
     onError: () => {
-      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
         'portfolio',
         username,
       ])
@@ -67,20 +67,20 @@ function Profile({
         queryKey: ['portfolio', username],
       })
 
-      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
         'portfolio',
         username,
       ])
       if (!prevPortfolio) return
 
-      queryClient.setQueryData<Portfolio>(['portfolio', username], {
+      queryClient.setQueryData<PortfolioView>(['portfolio', username], {
         ...prevPortfolio,
         isLike: false,
         likeCount: prevPortfolio.likeCount - 1,
       })
     },
     onError: () => {
-      const prevPortfolio = queryClient.getQueryData<Portfolio>([
+      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
         'portfolio',
         username,
       ])
@@ -196,7 +196,11 @@ function Profile({
         <div className="flex gap-1 items-center justify-end">
           <button type="button" aria-label="좋아요" onClick={handleLike}>
             {isLike ? (
-              <IoMdHeart size={24} color="#ef4444" />
+              <IoMdHeart
+                size={24}
+                color="#ef4444"
+                className="animate-heartbeat"
+              />
             ) : (
               <IoMdHeartEmpty size={24} color="#6b7280" />
             )}

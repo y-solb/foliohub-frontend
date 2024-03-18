@@ -12,6 +12,7 @@ const config: Config = {
       fadeIn: 'fadeIn 0.2s ease-out',
       fadeOut: 'fadeOut 0.2s ease-out',
       pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      heartbeat: 'heartbeat 0.5s ease forwards',
     },
     keyframes: {
       fadeIn: {
@@ -36,6 +37,14 @@ const config: Config = {
         },
         '50%': {
           opacity: '.5',
+        },
+      },
+      heartbeat: {
+        '0%, 100%': {
+          transform: 'scale(1)',
+        },
+        '50%': {
+          transform: 'scale(1.2)',
         },
       },
     },
