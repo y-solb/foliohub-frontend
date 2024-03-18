@@ -24,7 +24,7 @@ export default function Portfolio({ username }: PortfolioProps) {
       </PortfolioWrapper>
       <Link
         href={`/edit/${username}`}
-        className="fixed flex items-center bottom-8 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
+        className="absolute flex items-center top-5 right-5 md:right-10 h-10 px-6 rounded-full text-white bg-black"
       >
         편집하기
       </Link>

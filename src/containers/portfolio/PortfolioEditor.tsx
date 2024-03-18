@@ -1,7 +1,6 @@
 'use client'
 
 import 'react-grid-layout/css/styles.css'
-import Toolbar from '@/components/toolbar/Toolbar'
 import { AssetType, SocialLinks, ToolType, UserData } from '@/types'
 import React, { useEffect, useRef, useState } from 'react'
 import { Layouts } from 'react-grid-layout'
@@ -58,7 +57,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
       setSocialLinks(socialLink)
       setLayouts(layout)
     }
-  }, [data])
+  }, [data, username])
 
   if (isLoading || !portfolio || !socialLinks) {
     return null
@@ -152,7 +151,6 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
 
   return (
     <div className="relative">
-      <Toolbar onAdd={handleAdd} />
       <PortfolioWrapper>
         <ProfileEditor
           portfolio={portfolio}
@@ -165,6 +163,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
         <AssetGridLayoutEditor
           portfolio={portfolio}
           layouts={layouts}
+          handleAdd={handleAdd}
           handleUpdate={handleUpdate}
           handleDelete={handleDelete}
           onLayoutChange={(currentLayout: Layouts) => {
@@ -174,7 +173,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
       </PortfolioWrapper>
       <button
         type="button"
-        className="fixed bottom-4 left-8 h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
+        className="fixed md:absolute flex items-center bottom-5 md:top-5 right-5 md:right-10 h-10 px-6 rounded-full text-white bg-black"
         onClick={handleSavePortfolio}
       >
         저장하기

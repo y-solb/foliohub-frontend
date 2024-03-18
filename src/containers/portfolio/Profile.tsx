@@ -102,7 +102,7 @@ function Profile({
   }
 
   return (
-    <div className="flex flex-col justify-between md:w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16 overflow-y-scroll">
+    <div className="flex flex-col justify-between md:w-80 h-full md:fixed md:top-0 md:left-0 px-8 pt-16 pb-8 overflow-y-scroll">
       <div className="flex flex-col gap-8">
         <div className="flex justify-center w-full">
           <div className="relative flex w-48 h-48">

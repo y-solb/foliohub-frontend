@@ -1,12 +1,13 @@
 import GridItem from '@/components/grid/AssetEditor'
 import ResizeHandler from '@/components/grid/ResizeHandler'
+import Toolbar from '@/components/toolbar/Toolbar'
 import {
   LG_BREAKPOINT,
   MD_BREAKPOINT,
   PREVENT_DRAG_DEFAULTS,
 } from '@/constants'
 import useToggle from '@/hooks/useToggle'
-import { AssetType, UserData } from '@/types'
+import { AssetType, ToolType, UserData } from '@/types'
 import { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 
@@ -15,6 +16,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 interface AssetGridLayoutEditorProps {
   portfolio: UserData
   layouts: Layouts
+  handleAdd: (name: ToolType, value?: string) => void
   handleUpdate: (updatedAsset: AssetType) => void
   handleDelete: (id: string) => void
   onLayoutChange: (currentLayout: Layouts) => void
@@ -23,6 +25,7 @@ interface AssetGridLayoutEditorProps {
 function AssetGridLayoutEditor({
   portfolio,
   layouts,
+  handleAdd,
   handleUpdate,
   handleDelete,
   onLayoutChange,
@@ -43,6 +46,7 @@ function AssetGridLayoutEditor({
 
   return (
     <div className="w-full max-w-7xl px-8 py-16 md:ml-80">
+      <Toolbar onAdd={handleAdd} />
       <ResponsiveGridLayout
         useCSSTransforms
         breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
