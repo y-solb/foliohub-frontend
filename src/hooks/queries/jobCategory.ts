@@ -1,7 +1,7 @@
 import httpClient from '@/lib/httpClient'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-export type JobCategory = {
+export type JobCategoryData = {
   code: string
   name: string
   sub: { code: string; name: string }[]
@@ -10,7 +10,7 @@ type UpdateJobCodeVariables = {
   jobCode: string
 }
 
-const getJobCategoryList = async (): Promise<JobCategory[]> => {
+const getJobCategoryList = async (): Promise<JobCategoryData[]> => {
   const { data } = await httpClient.get('/v1/job-category/list')
   return data
 }
@@ -23,7 +23,7 @@ const editJobCategory = async ({ jobCode }: UpdateJobCodeVariables) => {
 }
 
 export const useJobCategoryListQuery = () => {
-  return useQuery<JobCategory[]>({
+  return useQuery<JobCategoryData[]>({
     queryKey: ['jobCategoryList'],
     queryFn: getJobCategoryList,
   })

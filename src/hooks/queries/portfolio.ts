@@ -1,5 +1,5 @@
 import httpClient from '@/lib/httpClient'
-import { AssetType, SocialLinks } from '@/types'
+import { AssetType, PortfolioItem, SocialLinks } from '@/types'
 import {
   InfiniteData,
   UseMutationOptions,
@@ -10,16 +10,6 @@ import {
 } from '@tanstack/react-query'
 import { Layouts } from 'react-grid-layout'
 
-export type PortfolioItem = {
-  id: string
-  displayName: string
-  shortBio: string
-  thumbnail: string
-  username: string
-  userJob: string
-  likeCount: number
-  updatedAt: string
-}
 type PortfolioData = {
   data: PortfolioItem[]
   meta: {
@@ -29,8 +19,7 @@ type PortfolioData = {
     total: number
   }
 }
-
-export type Portfolio = {
+type PortfolioView = {
   id: string
   username: string
   displayName: string
@@ -44,7 +33,7 @@ export type Portfolio = {
 }
 type UpdatePortfolioVariables = {
   username: string
-  updatedPortfolio: Portfolio
+  updatedPortfolio: PortfolioView
 }
 type UpdatelikePortfolioData = {
   success: boolean
@@ -78,7 +67,7 @@ const getLikePortfolioList = async (
   return data
 }
 
-const getPortfolio = async (username: string): Promise<Portfolio> => {
+const getPortfolio = async (username: string): Promise<PortfolioView> => {
   const { data } = await httpClient.get(`/v1/portfolio/${username}`)
   return data
 }
@@ -134,7 +123,7 @@ export const useInfiniteLikePortfolioQuery = () => {
 }
 
 export const usePortfolioQuery = (username: string) => {
-  return useQuery<Portfolio>({
+  return useQuery<PortfolioView>({
     queryKey: ['portfolio', username],
     queryFn: () => getPortfolio(username),
     enabled: !!username,

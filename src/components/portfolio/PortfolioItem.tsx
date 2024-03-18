@@ -1,4 +1,4 @@
-import { PortfolioItem } from '@/hooks/queries/portfolio'
+import { PortfolioItem } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoMdHeart } from 'react-icons/io'

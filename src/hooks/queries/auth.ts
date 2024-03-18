@@ -2,7 +2,7 @@ import httpClient from '@/lib/httpClient'
 import { AuthInfo } from '@/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-type RegType = {
+type AuthData = {
   success: boolean
 }
 
@@ -11,14 +11,14 @@ const getAuthInfo = async (): Promise<AuthInfo> => {
   return data
 }
 
-const register = async (username: string): Promise<RegType> => {
+const register = async (username: string): Promise<AuthData> => {
   const { data } = await httpClient.post('/v1/auth/register', {
     username,
   })
   return data
 }
 
-const logout = async (): Promise<RegType> => {
+const logout = async (): Promise<AuthData> => {
   const { data } = await httpClient.post('/v1/auth/logout')
   return data
 }

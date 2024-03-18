@@ -1,16 +1,10 @@
-import { AssetType } from '@/types'
+import { Activity, AssetType } from '@/types'
 import { useMemo, useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { RxLink2 } from 'react-icons/rx'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
-
-type Activity = {
-  date: string
-  count: number
-  level: number
-}
 
 interface GithubAssetEditorProps {
   asset: AssetType

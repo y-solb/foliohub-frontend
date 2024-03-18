@@ -3,7 +3,7 @@
 'use client'
 
 import PortFolioItem from '@/components/portfolio/PortfolioItem'
-import { PortfolioItem } from '@/hooks/queries/portfolio'
+import { PortfolioItem } from '@/types'
 import PortfolioItemSkeleton from './PortfolioItemSkeleton'
 
 interface PortFolioListProps {

@@ -39,3 +39,20 @@ export type UserData = {
   likeCount: number
   assets: AssetType[]
 }
+
+export type Activity = {
+  date: string
+  count: number
+  level: number
+}
+
+export type PortfolioItem = {
+  id: string
+  displayName: string
+  shortBio: string
+  thumbnail: string
+  username: string
+  userJob: string
+  likeCount: number
+  updatedAt: string
+}
