@@ -19,7 +19,7 @@ type PortfolioData = {
     total: number
   }
 }
-type PortfolioView = {
+export type PortfolioView = {
   id: string
   username: string
   displayName: string
