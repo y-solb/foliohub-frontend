@@ -17,6 +17,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: portfolio.displayName,
     description: portfolio.shortBio,
+    icons: {
+      icon: portfolio.thumbnail,
+    },
   }
 }
 

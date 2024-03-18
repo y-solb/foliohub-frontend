@@ -19,6 +19,29 @@ export const metadata: Metadata = {
   title: 'FolioHub',
   description:
     '뛰어난 당신의 이력을 나눌 수 있는 포트폴리오 서비스. 자신만의 이야기를 그려봐요.',
+  keywords: ['포트폴리오', '이력서'],
+  openGraph: {
+    title: 'FolioHub',
+    description:
+      '뛰어난 당신의 이력을 나눌 수 있는 포트폴리오 서비스. 자신만의 이야기를 그려봐요.',
+    url: 'https://nextjs.org',
+    siteName: 'FolioHub',
+    type: 'website',
+    images: [
+      {
+        url: '/foliohub_text.png', // Must be an absolute URL
+        width: 800,
+        height: 600,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'FolioHub',
+    description:
+      '뛰어난 당신의 이력을 나눌 수 있는 포트폴리오 서비스. 자신만의 이야기를 그려봐요.',
+    images: ['/foliohub_text.png'],
+  },
 }
 
 export default function RootLayout({

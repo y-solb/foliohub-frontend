@@ -1,4 +1,5 @@
 type PortfolioData = {
+  thumbnail: string
   displayName: string
   shortBio: string
 }
