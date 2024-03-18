@@ -16,18 +16,18 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 interface AssetGridLayoutEditorProps {
   portfolio: UserData
   layouts: Layouts
-  handleAdd: (name: ToolType, value?: string) => void
-  handleUpdate: (updatedAsset: AssetType) => void
-  handleDelete: (id: string) => void
+  onAdd: (name: ToolType, value?: string) => void
+  onUpdate: (updatedAsset: AssetType) => void
+  onDelete: (id: string) => void
   onLayoutChange: (currentLayout: Layouts) => void
 }
 
 function AssetGridLayoutEditor({
   portfolio,
   layouts,
-  handleAdd,
-  handleUpdate,
-  handleDelete,
+  onAdd,
+  onUpdate,
+  onDelete,
   onLayoutChange,
 }: AssetGridLayoutEditorProps) {
   const [breakpoint, setBreakpoint] = useState('')
@@ -46,7 +46,7 @@ function AssetGridLayoutEditor({
 
   return (
     <div className="w-full max-w-7xl px-8 py-16 md:ml-80">
-      <Toolbar onAdd={handleAdd} />
+      <Toolbar onAdd={onAdd} />
       <ResponsiveGridLayout
         useCSSTransforms
         breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
@@ -78,8 +78,8 @@ function AssetGridLayoutEditor({
                   layout={layouts[breakpoint]?.find(
                     (layout) => layout.i === asset.id,
                   )}
-                  onUpdate={handleUpdate}
-                  onDelete={handleDelete}
+                  onUpdate={onUpdate}
+                  onDelete={onDelete}
                   onChangeEditMode={toggle}
                 />
               </div>

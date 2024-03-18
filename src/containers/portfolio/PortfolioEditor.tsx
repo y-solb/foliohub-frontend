@@ -163,9 +163,9 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
         <AssetGridLayoutEditor
           portfolio={portfolio}
           layouts={layouts}
-          handleAdd={handleAdd}
-          handleUpdate={handleUpdate}
-          handleDelete={handleDelete}
+          onAdd={handleAdd}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
           onLayoutChange={(currentLayout: Layouts) => {
             setLayouts(currentLayout)
           }}
