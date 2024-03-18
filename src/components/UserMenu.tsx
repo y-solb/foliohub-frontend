@@ -5,8 +5,6 @@ import Link from 'next/link'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { AuthInfo } from '@/types'
 import { useLogoutMutation } from '@/hooks/queries/auth'
-import { useSetRecoilState } from 'recoil'
-import authInfoState from '@/recoil/atoms/authInfoState'
 import { BiLogOutCircle, BiUser, BiPencil } from 'react-icons/bi'
 
 interface UserMenuProps {
@@ -14,7 +12,7 @@ interface UserMenuProps {
 }
 
 function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
-  const setAuthInfo = useSetRecoilState(authInfoState)
+  // const setAuthInfo = useSetRecoilState(authInfoState)
   const { mutate } = useLogoutMutation()
   const [isOpenNav, setIsOpenNav, outRef] = useOutsideClick<HTMLDivElement>(
     () => {
@@ -24,7 +22,6 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
 
   const handleLogout = () => {
     mutate()
-    setAuthInfo(null)
   }
 
   return (
