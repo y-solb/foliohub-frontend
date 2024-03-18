@@ -102,28 +102,29 @@ function Profile({
   }
 
   return (
-    <div className="flex flex-col justify-between w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16 overflow-y-scroll">
+    <div className="flex flex-col justify-between md:w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16 overflow-y-scroll">
       <div className="flex flex-col gap-8">
-        <div className="relative flex w-48 h-48">
-          {thumbnail ? (
-            <Image
-              src={thumbnail}
-              alt="프로필 이미지"
-              width={192}
-              height={192}
-              priority
-              className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
-            />
-          ) : (
-            <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
-              <GoSmiley
-                color="white"
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
+        <div className="flex justify-center w-full">
+          <div className="relative flex w-48 h-48">
+            {thumbnail ? (
+              <Image
+                src={thumbnail}
+                alt="프로필 이미지"
+                width={192}
+                height={192}
+                priority
+                className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
               />
-            </div>
-          )}
+            ) : (
+              <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
+                <GoSmiley
+                  color="white"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
+                />
+              </div>
+            )}
+          </div>
         </div>
-
         <div className="flex flex-col gap-4">
           <h1 className="break-all">{displayName}</h1>
           <p className="subtitle1 text-gray-400 break-all">{shortBio}</p>

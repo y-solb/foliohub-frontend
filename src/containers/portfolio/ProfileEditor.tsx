@@ -53,42 +53,44 @@ function ProfileEditor({
   }
 
   return (
-    <div className="flex flex-col justify-between w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16 overflow-y-scroll">
+    <div className="flex flex-col justify-between md:w-80 h-full md:fixed md:top-0 md:left-0 px-8 py-16 overflow-y-scroll">
       <div className="flex flex-col gap-8">
-        <button
-          type="button"
-          aria-label="change-thumbnail"
-          className="relative flex w-48 h-48"
-          onClick={handleClickInputRef}
-        >
-          {portfolio.thumbnail ? (
-            <Image
-              src={portfolio.thumbnail}
-              alt="프로필 이미지"
-              width={192}
-              height={192}
-              priority
-              className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
-            />
-          ) : (
-            <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
-              <GoSmiley
-                color="white"
-                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
+        <div className="flex justify-center w-full">
+          <button
+            type="button"
+            aria-label="change-thumbnail"
+            className="relative flex w-48 h-48"
+            onClick={handleClickInputRef}
+          >
+            {portfolio.thumbnail ? (
+              <Image
+                src={portfolio.thumbnail}
+                alt="프로필 이미지"
+                width={192}
+                height={192}
+                priority
+                className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
               />
+            ) : (
+              <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
+                <GoSmiley
+                  color="white"
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
+                />
+              </div>
+            )}
+            <div className="absolute bottom-0 right-4 rounded-full border border-solid border-gray-100 shadow-md bg-white p-2">
+              <IoCamera size={24} />
             </div>
-          )}
-          <div className="absolute bottom-0 right-4 rounded-full border border-solid border-gray-100 shadow-md bg-white p-2">
-            <IoCamera size={24} />
-          </div>
-        </button>
-        <input
-          type="file"
-          accept="image/*"
-          ref={imageRef}
-          className="hidden"
-          onChange={handleUploadImage}
-        />
+          </button>
+          <input
+            type="file"
+            accept="image/*"
+            ref={imageRef}
+            className="hidden"
+            onChange={handleUploadImage}
+          />
+        </div>
         <div className="flex flex-col gap-4">
           <h1
             data-placeholder="이름을 입력해주세요."
