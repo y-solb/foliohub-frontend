@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { RxLink2 } from 'react-icons/rx'
 import { useMetadataQuery } from '@/hooks/queries/metadata'
 import { MdError } from 'react-icons/md'
+import { useRecoilState } from 'recoil'
+import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
@@ -26,11 +28,13 @@ function LinkAssetEditor({
 
   const { data, isSuccess } = useMetadataQuery(value.link)
 
+  const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
   const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
       setIsOpenControl(false)
+      setActiveAssetId('')
       setActiveTool('')
     })
 
@@ -40,10 +44,12 @@ function LinkAssetEditor({
       value: { ...asset.value, link: inputValue },
     })
     setIsOpenInputToolbar(false)
+    setActiveAssetId('')
     setActiveTool('')
   }
 
   const handleMouseEnter = () => {
+    if (activeAssetId.length && activeAssetId !== id) return
     setIsOpenControl(true)
   }
 
@@ -56,6 +62,7 @@ function LinkAssetEditor({
 
   const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsOpenInputToolbar(true)
+    setActiveAssetId(id)
     setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
@@ -116,7 +123,7 @@ function LinkAssetEditor({
               onDelete(id)
             }}
           />
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
+          <div className="asset-toolbar-wrapper">
             <button
               type="button"
               name="link"

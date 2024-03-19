@@ -1,4 +1,4 @@
-import GridItem from '@/components/grid/AssetEditor'
+import AssetEditor from '@/components/grid/AssetEditor'
 import ResizeHandler from '@/components/grid/ResizeHandler'
 import Toolbar from '@/components/toolbar/Toolbar'
 import {
@@ -7,9 +7,11 @@ import {
   PREVENT_DRAG_DEFAULTS,
 } from '@/constants'
 import useToggle from '@/hooks/useToggle'
+import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import { AssetType, ToolType, UserData } from '@/types'
 import { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
+import { useRecoilValue } from 'recoil'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -33,6 +35,7 @@ function AssetGridLayoutEditor({
   const [breakpoint, setBreakpoint] = useState('')
   const [rowHeight, setRowHeight] = useState(168)
   const [isEditMode, toggle] = useToggle(false)
+  const activeAssetId = useRecoilValue(activeAssetIdState)
 
   useEffect(() => {
     const windowWidth = window.innerWidth
@@ -71,8 +74,11 @@ function AssetGridLayoutEditor({
         {portfolio.assets.map(
           (asset) =>
             asset.command !== 'delete' && (
-              <div key={asset.id} className="flex cursor-move">
-                <GridItem
+              <div
+                key={asset.id}
+                className={`flex cursor-move ${activeAssetId === asset.id ? 'z-50' : 'hover:z-40'}`}
+              >
+                <AssetEditor
                   asset={asset}
                   breakpoint={breakpoint}
                   layout={layouts[breakpoint]?.find(

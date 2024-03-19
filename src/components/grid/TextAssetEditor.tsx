@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
 import { PiNotePencil } from 'react-icons/pi'
 import useOutsideClick from '@/hooks/useOutsideClick'
+import { useRecoilState } from 'recoil'
+import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
@@ -49,10 +51,12 @@ function TextAssetEditor({
 }: TextAssetEditorProps) {
   const { value, id } = asset
 
+  const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value.content)
   const [isOpenTextEditorToolbar, setIsOpenTextEditorToolbar, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
+      setActiveAssetId('')
       onChangeEditMode()
       onUpdate({
         ...asset,
@@ -63,6 +67,7 @@ function TextAssetEditor({
   const handleChangeEdit = () => {
     setIsOpenControl(false)
     setIsOpenTextEditorToolbar(!isOpenTextEditorToolbar)
+    setActiveAssetId(id)
     onChangeEditMode()
   }
 
@@ -71,7 +76,11 @@ function TextAssetEditor({
       ref={outRef}
       className="relative flex flex-1 max-w-full"
       onMouseEnter={() => {
-        if (isOpenTextEditorToolbar) return
+        if (
+          isOpenTextEditorToolbar ||
+          (activeAssetId.length && activeAssetId !== id)
+        )
+          return
         setIsOpenControl(true)
       }}
       onMouseLeave={() => {
@@ -103,7 +112,7 @@ function TextAssetEditor({
               onDelete(id)
             }}
           />
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
+          <div className="asset-toolbar-wrapper">
             <button
               type="button"
               name="edit"

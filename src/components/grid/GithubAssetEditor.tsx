@@ -3,6 +3,8 @@ import { useMemo, useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { RxLink2 } from 'react-icons/rx'
+import { useRecoilState } from 'recoil'
+import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
@@ -21,11 +23,13 @@ function GithubAssetEditor({
 }: GithubAssetEditorProps) {
   const { value, id } = asset
 
+  const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
   const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
       setIsOpenControl(false)
+      setActiveAssetId('')
       setActiveTool('')
     })
 
@@ -49,19 +53,22 @@ function GithubAssetEditor({
       value: { ...asset.value, githubId: inputValue },
     })
     setIsOpenInputToolbar(false)
+    setActiveAssetId('')
     setActiveTool('')
   }
 
-  const handleClickTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsOpenInputToolbar(true)
+    setActiveAssetId(id)
     setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
   return (
     <div
       ref={outRef}
-      className="relative flex flex-1"
+      className="relative flex flex-1 max-w-full"
       onMouseEnter={() => {
+        if (activeAssetId.length && activeAssetId !== id) return
         setIsOpenControl(true)
       }}
       onMouseLeave={() => {
@@ -93,13 +100,13 @@ function GithubAssetEditor({
               onDelete(id)
             }}
           />
-          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
+          <div className="asset-toolbar-wrapper">
             <button
               type="button"
               name="githubId"
               aria-label="edit-githubId"
               className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'githubId' ? 'bg-gray-200' : ''}`}
-              onClick={handleClickTab}
+              onClick={handleActiveTab}
             >
               <RxLink2 size={24} />
             </button>

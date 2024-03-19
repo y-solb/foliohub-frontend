@@ -36,6 +36,7 @@ export default function InputToolbar({
       <input
         type="text"
         ref={inputRef}
+        className="body2"
         defaultValue={defaultValue}
         onKeyUp={handleEnterKey}
       />

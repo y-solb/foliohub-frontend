@@ -11,6 +11,9 @@ import ReactCrop, {
   centerCrop,
   makeAspectCrop,
 } from 'react-image-crop'
+import Link from 'next/link'
+import { useRecoilState } from 'recoil'
+import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from '../toolbar/InputToolbar'
@@ -57,11 +60,13 @@ function ImageAssetEditor({
 }: ImageAssetEditorProps) {
   const { value, id } = asset
 
+  const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
   const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
       setIsOpenControl(false)
+      setActiveAssetId('')
       setActiveTool('')
     })
   const [isCropMode, toggle] = useToggle(false)
@@ -81,6 +86,7 @@ function ImageAssetEditor({
       value: { ...asset.value, link: inputValue },
     })
     setIsOpenInputToolbar(false)
+    setActiveAssetId('')
     setActiveTool('')
   }
 
@@ -100,12 +106,19 @@ function ImageAssetEditor({
       },
     })
   }
+  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsOpenInputToolbar(true)
+    setActiveAssetId(id)
+    setActiveTool((e.currentTarget as HTMLButtonElement).name)
+  }
+
   return (
     <>
       <div
         ref={outRef}
         className="relative flex flex-1"
         onMouseEnter={() => {
+          if (activeAssetId.length && activeAssetId !== id) return
           setIsOpenControl(true)
         }}
         onMouseLeave={() => {
@@ -128,7 +141,7 @@ function ImageAssetEditor({
           </div>
 
           {value.link && (
-            <a
+            <Link
               href={value.link}
               target="_blank"
               rel="noopener noreferrer"
@@ -136,7 +149,7 @@ function ImageAssetEditor({
               className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1"
             >
               <RxLink2 size={20} />
-            </a>
+            </Link>
           )}
         </div>
         {isOpenControl && !isCropMode && (
@@ -146,11 +159,12 @@ function ImageAssetEditor({
                 onDelete(id)
               }}
             />
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex toolbar-wrapper">
+            <div className="asset-toolbar-wrapper">
               <button
                 type="button"
                 name="crop"
                 aria-label="crop-image"
+                className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
                 onClick={() => {
                   toggle()
                   onChangeEditMode()
@@ -163,10 +177,7 @@ function ImageAssetEditor({
                 name="link"
                 aria-label="edit-link-image"
                 className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'link' ? 'bg-gray-200' : ''}`}
-                onClick={(e) => {
-                  setIsOpenInputToolbar(true)
-                  setActiveTool((e.currentTarget as HTMLButtonElement).name)
-                }}
+                onClick={handleActiveTab}
               >
                 <RxLink2 size={24} />
               </button>
@@ -182,7 +193,6 @@ function ImageAssetEditor({
           </div>
         )}
       </div>
-
       <Modal
         isOpen={isCropMode}
         isBorder={false}
