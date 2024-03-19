@@ -49,7 +49,7 @@ const getPortfolioList = async (pageParam: number): Promise<PortfolioData> => {
   const { data } = await httpClient.get('/v1/portfolio/list', {
     params: {
       page: pageParam,
-      count: 3,
+      count: 12,
     },
   })
   return data
@@ -61,7 +61,7 @@ const getLikePortfolioList = async (
   const { data } = await httpClient.get('/v1/portfolio/like/list', {
     params: {
       page: pageParam,
-      count: 3,
+      count: 12,
     },
   })
   return data
