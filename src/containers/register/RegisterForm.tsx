@@ -20,12 +20,17 @@ function RegisterForm() {
   }
 
   return (
-    <div className="flex items-center justify-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden  h-12 pl-4 pr-2 py-2">
-      <span>https://www.foliohub.me/</span>
-      <input type="text" ref={inputRef} placeholder="ID" />
+    <div className="flex items-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden max-w-80 w-full h-12 pl-4 pr-2 py-2">
+      <p className="body1">https://www.foliohub.me/</p>
+      <input
+        type="text"
+        className="body1 w-full"
+        ref={inputRef}
+        placeholder="ID"
+      />
       <button
         type="button"
-        className="flex items-center justify-center rounded-full bg-black w-8 h-8"
+        className="flex items-center justify-center rounded-full bg-black min-w-8 min-h-8"
         onClick={handleSubmit}
         aria-label="회원가입"
       >
