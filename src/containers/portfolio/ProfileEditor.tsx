@@ -1,7 +1,6 @@
 import uploadImage from '@/lib/uploadImage'
 import { SocialLinks, UserData } from '@/types'
 import { useRef } from 'react'
-import { IoCamera } from 'react-icons/io5'
 import { GoSmiley } from 'react-icons/go'
 import Image from 'next/image'
 import {
@@ -12,6 +11,7 @@ import {
   FaLinkedin,
 } from 'react-icons/fa6'
 import { AiOutlineGlobal } from 'react-icons/ai'
+import { TbCamera } from 'react-icons/tb'
 
 interface ProfileEditorProps {
   portfolio: UserData
@@ -80,7 +80,7 @@ function ProfileEditor({
               </div>
             )}
             <div className="absolute bottom-0 right-4 rounded-full border border-solid border-gray-100 shadow-md bg-white p-2">
-              <IoCamera size={24} />
+              <TbCamera size={24} />
             </div>
           </button>
           <input

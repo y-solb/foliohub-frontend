@@ -1,7 +1,7 @@
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
-import { RxLink2 } from 'react-icons/rx'
+import { TbLink } from 'react-icons/tb'
 import { useMetadataQuery } from '@/hooks/queries/metadata'
 import { MdError } from 'react-icons/md'
 import { useRecoilState } from 'recoil'
@@ -130,7 +130,7 @@ function LinkAssetEditor({
               className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'link' ? 'bg-gray-200' : ''}`}
               onClick={handleActiveTab}
             >
-              <RxLink2 size={24} />
+              <TbLink size={24} />
             </button>
             {isOpenInputToolbar && (
               <InputToolbar

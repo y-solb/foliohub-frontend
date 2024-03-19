@@ -2,8 +2,7 @@
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState } from 'react'
-import { RxLink2 } from 'react-icons/rx'
-import { MdCrop } from 'react-icons/md'
+import { TbLink, TbCrop } from 'react-icons/tb'
 import useToggle from '@/hooks/useToggle'
 import ReactCrop, {
   Crop,
@@ -171,7 +170,7 @@ function ImageAssetEditor({
               aria-label="related-image-link"
               className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1"
             >
-              <RxLink2 size={20} />
+              <TbLink size={20} />
             </Link>
           )}
         </div>
@@ -190,7 +189,7 @@ function ImageAssetEditor({
                 className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
                 onClick={handleOpenCropModal}
               >
-                <MdCrop size={24} />
+                <TbCrop size={24} />
               </button>
               <button
                 type="button"
@@ -199,7 +198,7 @@ function ImageAssetEditor({
                 className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'link' ? 'bg-gray-200' : ''}`}
                 onClick={handleActiveTab}
               >
-                <RxLink2 size={24} />
+                <TbLink size={24} />
               </button>
               {isOpenInputToolbar && (
                 <InputToolbar

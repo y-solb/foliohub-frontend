@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { AssetType } from '@/types'
-import { RxLink2 } from 'react-icons/rx'
+import { TbLink } from 'react-icons/tb'
 
 interface ImageAssetProps {
   breakpoint: string
@@ -31,7 +31,7 @@ function ImageAsset({ asset, breakpoint }: ImageAssetProps) {
             aria-label="related-image-link"
             className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1"
           >
-            <RxLink2 size={20} />
+            <TbLink size={20} />
           </a>
         )}
       </div>

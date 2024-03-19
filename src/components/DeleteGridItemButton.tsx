@@ -1,4 +1,4 @@
-import { FiMinus } from 'react-icons/fi'
+import { TbMinus } from 'react-icons/tb'
 
 interface DeleteGridItemButtonProps {
   onDelete: () => void
@@ -12,7 +12,7 @@ function DeleteGridItemButton({ onDelete }: DeleteGridItemButtonProps) {
       className="absolute -top-4 left-0 transform -translate-x-1/2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1"
       onClick={onDelete}
     >
-      <FiMinus size={20} />
+      <TbMinus size={20} />
     </button>
   )
 }

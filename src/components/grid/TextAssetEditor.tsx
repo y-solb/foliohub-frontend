@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { AssetType } from '@/types'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
-import { PiNotePencil } from 'react-icons/pi'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
+import { TbEdit } from 'react-icons/tb'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
@@ -124,7 +124,7 @@ function TextAssetEditor({
               className="p-1 rounded-lg hover:bg-gray-200"
               onClick={handleChangeEdit}
             >
-              <PiNotePencil size={24} />
+              <TbEdit size={24} />
             </button>
           </div>
         </div>

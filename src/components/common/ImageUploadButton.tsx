@@ -1,6 +1,6 @@
-import { LuImagePlus } from 'react-icons/lu'
 import { useRef } from 'react'
 import uploadImage from '@/lib/uploadImage'
+import { TbPhotoEdit } from 'react-icons/tb'
 
 interface ImageUploadButtonProps {
   onUpload: (imageUrl: string) => void
@@ -34,7 +34,7 @@ function ImageUploadButton({ onUpload }: ImageUploadButtonProps) {
         className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
         onClick={handleClickInputRef}
       >
-        <LuImagePlus size={24} />
+        <TbPhotoEdit size={24} />
       </button>
       <input
         type="file"

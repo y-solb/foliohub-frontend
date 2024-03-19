@@ -2,9 +2,9 @@ import { Activity, AssetType } from '@/types'
 import { useMemo, useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { RxLink2 } from 'react-icons/rx'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
+import { TbLink } from 'react-icons/tb'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
@@ -112,7 +112,7 @@ function GithubAssetEditor({
               className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'githubId' ? 'bg-gray-200' : ''}`}
               onClick={handleActiveTab}
             >
-              <RxLink2 size={24} />
+              <TbLink size={24} />
             </button>
             {isOpenInputToolbar && (
               <InputToolbar

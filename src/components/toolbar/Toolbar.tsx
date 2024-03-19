@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { FaGithub } from 'react-icons/fa'
-import { MdOutlineTitle } from 'react-icons/md'
+import { FaGithub } from 'react-icons/fa6'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
-import { RxLink2 } from 'react-icons/rx'
+import { TbEdit, TbLink } from 'react-icons/tb'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from './InputToolbar'
 
@@ -63,7 +62,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
           onAdd('content', { content: null })
         }}
       >
-        <MdOutlineTitle size={24} />
+        <TbEdit size={24} />
       </button>
       <ImageUploadButton onUpload={handleUploadImage} />
 
@@ -74,7 +73,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
         aria-label="link"
         onClick={handleActiveTab}
       >
-        <RxLink2 size={24} />
+        <TbLink size={24} />
       </button>
       {isOpen && (
         <InputToolbar
