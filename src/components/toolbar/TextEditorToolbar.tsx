@@ -16,7 +16,7 @@ export function QuillToolbar() {
   return (
     <div
       id="toolbar"
-      className="absolute -top-[5.5rem] md:-top-12 left-1/2 transform -translate-x-1/2 -translate-y toolbar-wrapper w-[218px] md:w-[430px] flex flex-wrap"
+      className="shadow-wrapper absolute -top-[5.5rem] md:-top-12 left-1/2 transform -translate-x-1/2 -translate-y w-[218px] md:w-[430px] p-3 flex flex-wrap gap-2 z-10"
     >
       <span className="ql-formats">
         <select className="ql-header" defaultValue="3">

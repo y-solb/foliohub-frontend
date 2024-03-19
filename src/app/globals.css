@@ -221,8 +221,8 @@ html {
   .grid-item-wrapper {
     @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white;
   }
-  .toolbar-wrapper {
-    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white p-3 flex gap-2 z-10;
+  .shadow-wrapper {
+    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white;
   }
   .asset-toolbar-wrapper {
     @apply absolute -top-6 left-1/2 transform -translate-x-1/2 rounded-2xl border border-solid border-gray-100 shadow-md bg-white p-2 flex gap-2;

@@ -32,7 +32,7 @@ export default function InputToolbar({
   }
 
   return (
-    <div className="absolute -bottom-16 left-0 toolbar-wrapper flex">
+    <div className="absolute -bottom-16 left-0 shadow-wrapper p-3 flex gap-2 z-10 ">
       <input
         type="text"
         ref={inputRef}
