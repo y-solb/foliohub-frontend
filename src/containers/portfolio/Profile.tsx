@@ -19,6 +19,7 @@ import Link from 'next/link'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import { useRecoilValue } from 'recoil'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
+import SmallLogo from '@/components/common/SmallLogo'
 
 interface ProfileProps {
   portfolio: PortfolioView
@@ -203,19 +204,24 @@ function Profile({
             </Link>
           )}
         </ul>
-        <div className="flex gap-1 items-center justify-end">
-          <button type="button" aria-label="좋아요" onClick={handleLike}>
-            {isLike ? (
-              <IoMdHeart
-                size={24}
-                color="#ef4444"
-                className="animate-heartbeat"
-              />
-            ) : (
-              <IoMdHeartEmpty size={24} color="#6b7280" />
-            )}
-          </button>
-          <span className="text-gray-400 body2">{likeCount}</span>
+        <div className="flex-column">
+          <div className="flex gap-1 items-center justify-end">
+            <button type="button" aria-label="좋아요" onClick={handleLike}>
+              {isLike ? (
+                <IoMdHeart
+                  size={24}
+                  color="#ef4444"
+                  className="animate-heartbeat"
+                />
+              ) : (
+                <IoMdHeartEmpty size={24} color="#6b7280" />
+              )}
+            </button>
+            <span className="text-gray-400 body2">{likeCount}</span>
+          </div>
+          <div className="hidden md:block">
+            <SmallLogo />
+          </div>
         </div>
       </div>
     </div>

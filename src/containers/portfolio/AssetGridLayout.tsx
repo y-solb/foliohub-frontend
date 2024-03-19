@@ -1,5 +1,6 @@
 'use client'
 
+import SmallLogo from '@/components/common/SmallLogo'
 import Asset from '@/components/grid/Asset'
 import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants'
 import { UserData } from '@/types'
@@ -44,27 +45,32 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
   )
 
   return (
-    <div className="w-full max-w-7xl px-8 py-16 md:ml-80">
-      <ResponsiveGridLayout
-        useCSSTransforms
-        breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
-        cols={{ lg: 6, md: 2 }}
-        rowHeight={rowHeight}
-        layouts={layouts}
-        verticalCompact
-        compactType={null}
-        isDraggable={false}
-        isResizable={false}
-        onBreakpointChange={(newBreakpoint) => {
-          setBreakpoint(newBreakpoint)
-        }}
-        onWidthChange={(width, margin, cols) => {
-          setRowHeight((width - (cols + 1) * margin[0]) / cols)
-        }}
-      >
-        {assetsGrid}
-      </ResponsiveGridLayout>
-    </div>
+    <>
+      <div className="w-full max-w-7xl px-8 py-16 md:ml-80">
+        <ResponsiveGridLayout
+          useCSSTransforms
+          breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
+          cols={{ lg: 6, md: 2 }}
+          rowHeight={rowHeight}
+          layouts={layouts}
+          verticalCompact
+          compactType={null}
+          isDraggable={false}
+          isResizable={false}
+          onBreakpointChange={(newBreakpoint) => {
+            setBreakpoint(newBreakpoint)
+          }}
+          onWidthChange={(width, margin, cols) => {
+            setRowHeight((width - (cols + 1) * margin[0]) / cols)
+          }}
+        >
+          {assetsGrid}
+        </ResponsiveGridLayout>
+      </div>
+      <div className="flex justify-center items-center pb-16 md:hidden">
+        <SmallLogo />
+      </div>
+    </>
   )
 }
 

@@ -19,7 +19,7 @@ function AuthModal() {
       <div className="flex flex-col items-center justify-center gap-8 w-96 p-10">
         <div className="flex flex-col items-center justify-center gap-4">
           <Image
-            src="/foliohub_text.svg"
+            src="/foliohub_text_logo.svg"
             alt="text_logo"
             width={120}
             height={32}

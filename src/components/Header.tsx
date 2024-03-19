@@ -52,7 +52,7 @@ function Header() {
       <div className="flex items-center justify-center gap-2">
         <Link href="/">
           <Image
-            src="/foliohub_text.svg"
+            src="/foliohub_text_logo.svg"
             alt="text_logo"
             width={120}
             height={32}
