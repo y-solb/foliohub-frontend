@@ -9,13 +9,12 @@ import Modal from './common/Modal'
 function AuthModal() {
   const [authModal, setAuthModal] = useRecoilState(authModalState)
 
+  const handleClose = () => {
+    setAuthModal(false)
+  }
+
   return (
-    <Modal
-      isOpen={authModal}
-      onClose={() => {
-        setAuthModal(false)
-      }}
-    >
+    <Modal isOpen={authModal} onClose={handleClose}>
       <div className="flex flex-col items-center justify-center gap-8 w-96 p-10">
         <div className="flex flex-col items-center justify-center gap-4">
           <Image

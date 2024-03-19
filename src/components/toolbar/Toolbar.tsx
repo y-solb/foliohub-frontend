@@ -22,7 +22,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
     setActive((e.currentTarget as HTMLButtonElement).name)
   }
 
-  const handleAddGithubId = (inputValue: string) => {
+  const handleAddValue = (inputValue: string) => {
     if (activeTab === 'github') {
       onAdd('github', { githubId: inputValue })
     } else if (activeTab === 'link') {
@@ -80,7 +80,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
         <InputToolbar
           defaultValue=""
           buttonLabel="add-input"
-          onAdd={handleAddGithubId}
+          onAdd={handleAddValue}
         />
       )}
     </div>

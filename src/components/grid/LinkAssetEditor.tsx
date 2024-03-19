@@ -47,6 +47,11 @@ function LinkAssetEditor({
     setActiveAssetId('')
     setActiveTool('')
   }
+  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsOpenInputToolbar(true)
+    setActiveAssetId(id)
+    setActiveTool((e.currentTarget as HTMLButtonElement).name)
+  }
 
   const handleMouseEnter = () => {
     if (activeAssetId.length && activeAssetId !== id) return
@@ -58,12 +63,6 @@ function LinkAssetEditor({
     setIsOpenControl(false)
     setIsOpenInputToolbar(false)
     setActiveTool('')
-  }
-
-  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsOpenInputToolbar(true)
-    setActiveAssetId(id)
-    setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
   return (

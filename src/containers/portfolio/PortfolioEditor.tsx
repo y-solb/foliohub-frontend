@@ -124,6 +124,10 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
     })
   }
 
+  const handleLayoutChange = (currentLayout: Layouts) => {
+    setLayouts(currentLayout)
+  }
+
   const handleSavePortfolio = () => {
     if (!displayNameRef.current?.innerHTML || !shortBioRef.current?.innerHTML) {
       alert('displayNameRef, shortBioRef값을 입력해 주세요')
@@ -166,9 +170,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
-          onLayoutChange={(currentLayout: Layouts) => {
-            setLayouts(currentLayout)
-          }}
+          onLayoutChange={handleLayoutChange}
         />
       </PortfolioWrapper>
       <button

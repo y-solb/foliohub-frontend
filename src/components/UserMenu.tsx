@@ -22,6 +22,10 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
     },
   )
 
+  const handleOpenNav = () => {
+    setIsOpenNav(true)
+  }
+
   const handleLogout = () => {
     mutate()
     setAuthInfo(null)
@@ -32,7 +36,7 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
       <button
         type="button"
         className="relative w-10 h-10 rounded-full border border-solid border-gray-100 overflow-hidden"
-        onClick={() => setIsOpenNav(true)}
+        onClick={handleOpenNav}
       >
         <Image src={thumbnail} alt={`image_${id}`} priority fill />
       </button>

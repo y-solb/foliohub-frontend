@@ -71,21 +71,25 @@ function TextAssetEditor({
     onChangeEditMode()
   }
 
+  const handleMouseEnter = () => {
+    if (
+      isOpenTextEditorToolbar ||
+      (activeAssetId.length && activeAssetId !== id)
+    )
+      return
+    setIsOpenControl(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsOpenControl(false)
+  }
+
   return (
     <div
       ref={outRef}
       className="relative flex flex-1 max-w-full"
-      onMouseEnter={() => {
-        if (
-          isOpenTextEditorToolbar ||
-          (activeAssetId.length && activeAssetId !== id)
-        )
-          return
-        setIsOpenControl(true)
-      }}
-      onMouseLeave={() => {
-        setIsOpenControl(false)
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="relative flex flex-1 overflow-y-auto grid-item-wrapper max-w-full">
         {isOpenTextEditorToolbar ? (

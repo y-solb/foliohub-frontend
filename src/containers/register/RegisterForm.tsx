@@ -15,10 +15,10 @@ function RegisterForm() {
       alert('ID를 입력해주세요.') // TODO: alert로 교체 && 쿠키에 registerToken이 없는 경우 return
       return
     }
-
     mutate(inputRef.current.value)
     router.push('/')
   }
+
   return (
     <div className="flex items-center justify-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden  h-12 pl-4 pr-2 py-2">
       <span>https://www.foliohub.me/</span>

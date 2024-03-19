@@ -106,27 +106,51 @@ function ImageAssetEditor({
       },
     })
   }
+
   const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsOpenInputToolbar(true)
     setActiveAssetId(id)
     setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
+  const handleMouseEnter = () => {
+    if (activeAssetId.length && activeAssetId !== id) return
+    setIsOpenControl(true)
+  }
+
+  const handleMouseLeave = () => {
+    if (isOpenInputToolbar) return
+    setIsOpenControl(false)
+    setIsOpenInputToolbar(false)
+    setActiveTool('')
+  }
+
+  const handleOpenCropModal = () => {
+    toggle()
+    onChangeEditMode()
+  }
+
+  const handleCloseCropModal = () => {
+    toggle()
+    onChangeEditMode()
+    setIsOpenControl(false)
+    const newX =
+      completedCrop?.height === 100
+        ? (completedCrop.x / (100 - completedCrop.width)) * 100
+        : 50
+    const newY =
+      completedCrop?.width === 100
+        ? (completedCrop.y / (100 - completedCrop.height)) * 100
+        : 50
+    handleUploadImagePos(newX, newY)
+  }
   return (
     <>
       <div
         ref={outRef}
         className="relative flex flex-1"
-        onMouseEnter={() => {
-          if (activeAssetId.length && activeAssetId !== id) return
-          setIsOpenControl(true)
-        }}
-        onMouseLeave={() => {
-          if (isOpenInputToolbar) return
-          setIsOpenControl(false)
-          setIsOpenInputToolbar(false)
-          setActiveTool('')
-        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <div className="relative flex flex-1 rounded-2xl overflow-hidden">
           <div className="relative w-full overflow-hidden">
@@ -139,7 +163,6 @@ function ImageAssetEditor({
               }}
             />
           </div>
-
           {value.link && (
             <Link
               href={value.link}
@@ -165,10 +188,7 @@ function ImageAssetEditor({
                 name="crop"
                 aria-label="crop-image"
                 className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
-                onClick={() => {
-                  toggle()
-                  onChangeEditMode()
-                }}
+                onClick={handleOpenCropModal}
               >
                 <MdCrop size={24} />
               </button>
@@ -196,20 +216,7 @@ function ImageAssetEditor({
       <Modal
         isOpen={isCropMode}
         isBorder={false}
-        onClose={() => {
-          toggle()
-          onChangeEditMode()
-          setIsOpenControl(false)
-          const newX =
-            completedCrop?.height === 100
-              ? (completedCrop.x / (100 - completedCrop.width)) * 100
-              : 50
-          const newY =
-            completedCrop?.width === 100
-              ? (completedCrop.y / (100 - completedCrop.height)) * 100
-              : 50
-          handleUploadImagePos(newX, newY)
-        }}
+        onClose={handleCloseCropModal}
       >
         <div
           id="cropImageAsset"

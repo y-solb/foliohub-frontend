@@ -63,20 +63,24 @@ function GithubAssetEditor({
     setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
+  const handleMouseEnter = () => {
+    if (activeAssetId.length && activeAssetId !== id) return
+    setIsOpenControl(true)
+  }
+
+  const handleMouseLeave = () => {
+    if (isOpenInputToolbar) return
+    setIsOpenControl(false)
+    setIsOpenInputToolbar(false)
+    setActiveTool('')
+  }
+
   return (
     <div
       ref={outRef}
       className="relative flex flex-1 max-w-full"
-      onMouseEnter={() => {
-        if (activeAssetId.length && activeAssetId !== id) return
-        setIsOpenControl(true)
-      }}
-      onMouseLeave={() => {
-        if (isOpenInputToolbar) return
-        setIsOpenControl(false)
-        setIsOpenInputToolbar(false)
-        setActiveTool('')
-      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="github-calendar-wrapper relative flex flex-1 grid-item-wrapper overflow-hidden p-4 justify-center items-center">
         <GitHubCalendar
