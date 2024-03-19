@@ -1,26 +1,28 @@
 'use client'
 
 import { useAuthQuery } from '@/hooks/queries/auth'
-import authModalState from '@/recoil/atoms/authModalState'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { useEffect, useState } from 'react'
 import { throttle } from 'throttle-debounce'
+import authInfoState from '@/recoil/atoms/authInfoState'
+import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 import HeaderSkeleton from './HeaderSkeleton'
 import UserMenu from './UserMenu'
 
 function Header() {
   const [isHeaderVisible, setHeaderVisible] = useState(true)
   const [lastScrollTop, setLastScrollTop] = useState(0)
-  const setAuthModal = useSetRecoilState(authModalState)
+  const [authInfo, setAuthInfo] = useRecoilState(authInfoState)
   const { data, isLoading } = useAuthQuery()
-
-  const openModal = () => {
-    setAuthModal(true)
-  }
+  const openModal = useOpenAuthModal()
 
   const currentUser = data ?? null
+
+  useEffect(() => {
+    setAuthInfo(currentUser)
+  }, [setAuthInfo, currentUser])
 
   useEffect(() => {
     const handleScroll = throttle(100, () => {
@@ -57,8 +59,8 @@ function Header() {
           />
         </Link>
       </div>
-      {currentUser ? (
-        <UserMenu authInfo={currentUser} />
+      {authInfo ? (
+        <UserMenu authInfo={authInfo} />
       ) : (
         <button
           type="button"

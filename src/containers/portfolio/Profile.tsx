@@ -16,6 +16,9 @@ import {
 } from 'react-icons/fa6'
 import { AiOutlineGlobal } from 'react-icons/ai'
 import Link from 'next/link'
+import authInfoState from '@/recoil/atoms/authInfoState'
+import { useRecoilValue } from 'recoil'
+import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 
 interface ProfileProps {
   portfolio: PortfolioView
@@ -33,6 +36,8 @@ function Profile({
     socialLink,
   },
 }: ProfileProps) {
+  const authInfo = useRecoilValue(authInfoState)
+  const openModal = useOpenAuthModal()
   const queryClient = useQueryClient()
   const { mutate: like } = useLikePorfolioMutation({
     onMutate() {
@@ -90,6 +95,11 @@ function Profile({
   })
 
   const handleLike = () => {
+    if (!authInfo) {
+      openModal()
+      return
+    }
+
     if (isLike) {
       unlike({
         portfolioId: id,
