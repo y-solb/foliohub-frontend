@@ -7,6 +7,7 @@ import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from './InputToolbar'
 
 interface ToolbarProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAdd: (name: ToolType, value?: any) => void
 }
 

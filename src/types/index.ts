@@ -4,6 +4,7 @@ export type AssetType = {
   id: string
   type: ToolType
   command?: 'save' | 'update' | 'delete'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any
   // {
   //   githubId?: string
