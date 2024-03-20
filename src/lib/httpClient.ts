@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const httpClient = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: `${process.env.NEXT_PUBLIC_API_HOST}`,
   withCredentials: true,
 })
 
@@ -37,7 +37,7 @@ httpClient.interceptors.response.use(
       if (!isTokenRefreshing) {
         isTokenRefreshing = true
 
-        await httpClient.post(`http://localhost:3001/v1/auth/refresh`)
+        await httpClient.post('/v1/auth/refresh')
 
         isTokenRefreshing = false
         onTokenRefreshed()

@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build:dev": "env-cmd -f .env.development next build",
+    "build:production": "env-cmd -f .env.production next build",
+    "start:dev": "env-cmd -f .env.development next start",
+    "start:production": "env-cmd -f .env.production next start",
     "postinstall": "patch-package",
     "lint": "next lint"
   },
@@ -13,6 +15,7 @@
     "@tanstack/react-query": "^5.22.2",
     "@tanstack/react-query-devtools": "^5.24.0",
     "axios": "^1.6.7",
+    "env-cmd": "^10.1.0",
     "next": "14.1.0",
     "patch-package": "^8.0.0",
     "react": "^18",
