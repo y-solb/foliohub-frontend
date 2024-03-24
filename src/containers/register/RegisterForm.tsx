@@ -16,7 +16,7 @@ function RegisterForm() {
       return
     }
     mutate(inputRef.current.value)
-    router.push('/')
+    router.push(`/edit/${inputRef.current.value}`)
   }
 
   return (
