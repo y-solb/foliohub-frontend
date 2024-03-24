@@ -47,7 +47,7 @@ function MyProfile() {
               </div>
               <Link
                 href={`${data?.username}`}
-                className="flex items-center h-11 px-6 rounded-3xl text-white brand-gradient subtitle2"
+                className="flex items-center h-10 px-6 rounded-full text-white bg-black"
               >
                 포트폴리오 보러가기
               </Link>
