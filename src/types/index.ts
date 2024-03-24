@@ -51,9 +51,9 @@ export type PortfolioItem = {
   id: string
   displayName: string
   shortBio: string
-  thumbnail?: string
+  thumbnail: string | null
   username: string
-  userJob: string
+  userJob: string | null
   likeCount: number
   updatedAt: string
 }

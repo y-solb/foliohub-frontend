@@ -36,9 +36,11 @@ function PortFolioItem({
           <h2>{displayName}</h2>
           <p className="body2 text-gray-400 ellipsis2">{shortBio}</p>
         </div>
-        <div className="flex items-center min-h-8 px-4 rounded-3xl text-gray-400 border border-solid border-gray-200 body2 font-medium mt-6">
-          {userJob}
-        </div>
+        {userJob && (
+          <div className="flex items-center min-h-8 px-4 rounded-3xl text-gray-400 border border-solid border-gray-200 body2 font-medium mt-6">
+            {userJob}
+          </div>
+        )}
         <div className="absolute bottom-3 right-6 flex gap-1 items-center justify-end">
           <IoMdHeart size={16} className="text-gray-300" />
           <span className="text-gray-300 body2">{likeCount}</span>
