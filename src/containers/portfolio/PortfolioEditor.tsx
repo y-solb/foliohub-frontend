@@ -129,11 +129,22 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   }
 
   const handleSavePortfolio = () => {
-    if (!displayNameRef.current?.innerHTML || !shortBioRef.current?.innerHTML) {
-      alert('displayNameRef, shortBioRef값을 입력해 주세요')
+    if (!displayNameRef.current?.innerHTML) {
+      alert('이름을 알려주세요! 😊')
       return
     }
-
+    if (!shortBioRef.current?.innerHTML) {
+      alert(
+        '어라! 소개글이 비어있네요! 😊 포트폴리오에 자신의 이야기를 담아보세요.',
+      )
+      return
+    }
+    if (!portfolio.thumbnail) {
+      alert(
+        '프로필 사진이 없네요. 📸 자신을 나타낼 수 있는 멋진 사진을 업로드해주세요',
+      )
+      return
+    }
     mutate(
       {
         username,
