@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { GoSmiley } from 'react-icons/go'
 import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
 import {
   PortfolioView,
@@ -20,6 +19,7 @@ import authInfoState from '@/recoil/atoms/authInfoState'
 import { useRecoilValue } from 'recoil'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 import SmallLogo from '@/components/common/SmallLogo'
+import EmptyThumbnail from '@/components/EmptyThumbnail'
 
 interface ProfileProps {
   portfolio: PortfolioView
@@ -127,12 +127,7 @@ function Profile({
                 className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
               />
             ) : (
-              <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
-                <GoSmiley
-                  color="white"
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
-                />
-              </div>
+              <EmptyThumbnail />
             )}
           </div>
         </div>

@@ -8,6 +8,7 @@ import { useLogoutMutation } from '@/hooks/queries/auth'
 import { BiLogOutCircle, BiUser, BiPencil } from 'react-icons/bi'
 import { useSetRecoilState } from 'recoil'
 import authInfoState from '@/recoil/atoms/authInfoState'
+import EmptyThumbnail from './EmptyThumbnail'
 
 interface UserMenuProps {
   authInfo: AuthInfo
@@ -38,7 +39,11 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
         className="relative w-10 h-10 rounded-full border border-solid border-gray-100 overflow-hidden"
         onClick={handleOpenNav}
       >
-        <Image src={thumbnail} alt={`image_${id}`} priority fill />
+        {thumbnail ? (
+          <Image src={thumbnail} alt={`image_${id}`} priority fill />
+        ) : (
+          <EmptyThumbnail />
+        )}
       </button>
       {isOpenNav && (
         <nav

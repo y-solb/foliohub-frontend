@@ -5,6 +5,7 @@ import { MdModeEdit } from 'react-icons/md'
 import { useMyQuery } from '@/hooks/queries/user'
 import useToggle from '@/hooks/useToggle'
 import Image from 'next/image'
+import EmptyThumbnail from '@/components/EmptyThumbnail'
 import JobCategoryModal from './JobCategoryModal'
 import MyProfileSkeleton from './MyProfileSkeleton'
 
@@ -20,13 +21,15 @@ function MyProfile() {
         <div className="flex items-center justify-center">
           <div className="flex gap-8">
             <div className="relative flex w-32 h-32 rounded-full border border-solid border-gray-100 overflow-hidden">
-              {data?.thumbnail && (
+              {data?.thumbnail ? (
                 <Image
                   src={data?.thumbnail}
                   alt={`image_${data?.id}`}
                   priority
                   fill
                 />
+              ) : (
+                <EmptyThumbnail />
               )}
             </div>
             <div className="flex flex-col justify-center gap-2">

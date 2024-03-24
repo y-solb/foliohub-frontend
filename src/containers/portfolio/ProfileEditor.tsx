@@ -1,7 +1,6 @@
 import uploadImage from '@/lib/uploadImage'
 import { SocialLinks, UserData } from '@/types'
 import { useRef } from 'react'
-import { GoSmiley } from 'react-icons/go'
 import Image from 'next/image'
 import {
   FaInstagram,
@@ -12,6 +11,7 @@ import {
 } from 'react-icons/fa6'
 import { AiOutlineGlobal } from 'react-icons/ai'
 import { TbCamera } from 'react-icons/tb'
+import EmptyThumbnail from '@/components/EmptyThumbnail'
 
 interface ProfileEditorProps {
   portfolio: UserData
@@ -72,12 +72,7 @@ function ProfileEditor({
                 className="rounded-full border border-solid border-gray-100 bg-white w-full h-full"
               />
             ) : (
-              <div className="relative rounded-full border border-solid border-gray-100 bg-gray-200 w-full h-full">
-                <GoSmiley
-                  color="white"
-                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-36 h-36"
-                />
-              </div>
+              <EmptyThumbnail />
             )}
             <div className="absolute bottom-0 right-4 rounded-full border border-solid border-gray-100 shadow-md bg-white p-2">
               <TbCamera size={24} />

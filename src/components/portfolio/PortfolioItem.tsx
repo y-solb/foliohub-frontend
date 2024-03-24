@@ -2,6 +2,7 @@ import { PortfolioItem } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoMdHeart } from 'react-icons/io'
+import EmptyThumbnail from '../EmptyThumbnail'
 
 interface PortFolioItemProps {
   portfolio: PortfolioItem
@@ -25,8 +26,10 @@ function PortFolioItem({
         className="relative flex flex-col items-center px-10 py-8 w-full h-full"
       >
         <div className="relative flex min-w-32 min-h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
-          {thumbnail && (
+          {thumbnail ? (
             <Image src={thumbnail} alt={`image_${id}`} priority fill />
+          ) : (
+            <EmptyThumbnail />
           )}
         </div>
         <div className="w-full flex flex-col items-center mt-4 gap-2 h-20">

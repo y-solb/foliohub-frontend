@@ -17,7 +17,7 @@ export type AssetType = {
 export type AuthInfo = {
   id: string
   username: string
-  thumbnail: string
+  thumbnail: string | null
 }
 
 export type SocialLinks = {
@@ -51,7 +51,7 @@ export type PortfolioItem = {
   id: string
   displayName: string
   shortBio: string
-  thumbnail: string
+  thumbnail?: string
   username: string
   userJob: string
   likeCount: number
