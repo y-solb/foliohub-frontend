@@ -11,17 +11,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = params
   const portfolio = await getPortfolio(username)
 
-  if (!portfolio) {
-    return {}
+  const metadata: Metadata = {
+    title: portfolio?.displayName ?? username,
+    description: portfolio?.shortBio ?? `${username}의 포트폴리오`,
   }
 
-  return {
-    title: portfolio.displayName,
-    description: portfolio.shortBio,
-    icons: {
+  if (portfolio && portfolio.thumbnail) {
+    metadata.icons = {
       icon: transformImageToCircle(portfolio.thumbnail),
-    },
+    }
   }
+
+  return metadata
 }
 
 export default function UserPage({ params }: { params: { username: string } }) {
