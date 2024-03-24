@@ -11,7 +11,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 
 interface AssetGridLayoutProps {
   portfolio: UserData
-  layouts: Layouts
+  layouts?: Layouts
 }
 
 function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
@@ -35,9 +35,10 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
           <Asset
             asset={asset}
             breakpoint={breakpoint}
-            layout={layouts[breakpoint]?.find(
-              (layout) => layout.i === asset.id,
-            )}
+            layout={
+              layouts &&
+              layouts[breakpoint]?.find((layout) => layout.i === asset.id)
+            }
           />
         </div>
       )),
@@ -52,7 +53,7 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
           breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
           cols={{ lg: 6, md: 2 }}
           rowHeight={rowHeight}
-          layouts={layouts}
+          layouts={layouts || undefined}
           verticalCompact
           compactType={null}
           isDraggable={false}

@@ -17,7 +17,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 
 interface AssetGridLayoutEditorProps {
   portfolio: UserData
-  layouts: Layouts
+  layouts?: Layouts
   onAdd: (name: ToolType, value?: string) => void
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string) => void
@@ -55,7 +55,7 @@ function AssetGridLayoutEditor({
         breakpoints={{ lg: LG_BREAKPOINT, md: MD_BREAKPOINT }}
         cols={{ lg: 6, md: 2 }}
         rowHeight={rowHeight}
-        layouts={layouts}
+        layouts={layouts || undefined}
         verticalCompact
         compactType={null}
         isDraggable={!isEditMode}
@@ -81,9 +81,10 @@ function AssetGridLayoutEditor({
                 <AssetEditor
                   asset={asset}
                   breakpoint={breakpoint}
-                  layout={layouts[breakpoint]?.find(
-                    (layout) => layout.i === asset.id,
-                  )}
+                  layout={
+                    layouts &&
+                    layouts[breakpoint]?.find((layout) => layout.i === asset.id)
+                  }
                   onUpdate={onUpdate}
                   onDelete={onDelete}
                   onChangeEditMode={toggle}
