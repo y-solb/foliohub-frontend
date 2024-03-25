@@ -12,7 +12,7 @@ function MyProfileSkeleton() {
               <SkeletonText variant="body1" width="180px" />
               <div className="w-9 h-9 bg-gray-100 rounded-full " />
             </div>
-            <div className="flex items-center h-11 px-6 rounded-3xl text-white subtitle2 bg-gray-100" />
+            <div className="flex items-center h-10 px-6 rounded-3xl text-white subtitle2 bg-gray-100" />
           </div>
         </div>
       </div>
