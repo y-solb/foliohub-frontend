@@ -48,7 +48,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
   return (
     <div
       ref={outRef}
-      className="md:fixed sticky top-2 left-1/2 transform -translate-x-1/2 w-fit shadow-wrapper p-3 flex gap-2 z-10"
+      className={`md:fixed sticky top-2 left-1/2 transform -translate-x-1/2 w-fit shadow-wrapper p-3 flex gap-2 ${isOpenInputToolbar ? 'z-50' : 'z-10'}`}
     >
       <button
         type="button"
