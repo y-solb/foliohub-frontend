@@ -24,7 +24,7 @@ interface ImageAssetEditorProps {
   h: number
   breakpoint: string
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
   onChangeEditMode: () => void
 }
 
@@ -57,7 +57,7 @@ function ImageAssetEditor({
   onDelete,
   onChangeEditMode,
 }: ImageAssetEditorProps) {
-  const { value, id } = asset
+  const { value, id, command } = asset
 
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
@@ -178,7 +178,7 @@ function ImageAssetEditor({
           <div className="control-wrapper">
             <DeleteGridItemButton
               onDelete={() => {
-                onDelete(id)
+                onDelete(id, command)
               }}
             />
             <div className="asset-toolbar-wrapper">

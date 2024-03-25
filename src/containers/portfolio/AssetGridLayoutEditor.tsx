@@ -20,7 +20,7 @@ interface AssetGridLayoutEditorProps {
   layouts?: Layouts
   onAdd: (name: ToolType, value?: string) => void
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
   onLayoutChange: (currentLayout: Layouts) => void
 }
 

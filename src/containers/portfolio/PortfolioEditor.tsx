@@ -109,18 +109,28 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
     })
   }
 
-  const handleDelete = (id: string) => {
-    setPortfolio({
-      ...portfolio,
-      assets: portfolio.assets.map((asset) =>
-        asset.id === id
-          ? {
-              ...asset,
-              command: 'delete',
-            }
-          : asset,
-      ),
-    })
+  const handleDelete = (id: string, command?: 'save' | 'update' | 'delete') => {
+    if (command === 'save') {
+      // 새로 저장된 경우 filter로 삭제
+      setPortfolio({
+        ...portfolio,
+        assets: portfolio.assets.filter((asset) => asset.id !== id),
+      })
+    } else {
+      // 기존에 있던 데이터인 경우 command: 'delete' 추가
+      setPortfolio({
+        ...portfolio,
+        assets: portfolio.assets.map((asset) =>
+          asset.id === id
+            ? {
+                ...asset,
+                command: 'delete',
+              }
+            : asset,
+        ),
+      })
+    }
+
     setLayouts({
       lg: layouts?.lg.filter((layout) => layout.i !== id),
       md: layouts?.md.filter((layout) => layout.i !== id),
@@ -153,6 +163,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
       )
       return
     }
+
     mutate(
       {
         username,

@@ -10,7 +10,7 @@ interface AssetEditorProps {
   breakpoint: string
   layout?: Layout
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
   onChangeEditMode: () => void
 }
 

@@ -14,7 +14,7 @@ interface LinkAssetEditorProps {
   width: number
   height: number
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
 }
 
 function LinkAssetEditor({
@@ -24,7 +24,7 @@ function LinkAssetEditor({
   onUpdate,
   onDelete,
 }: LinkAssetEditorProps) {
-  const { value, id } = asset
+  const { value, id, command } = asset
 
   const { data, isSuccess } = useMetadataQuery(value.link)
 
@@ -119,7 +119,7 @@ function LinkAssetEditor({
         <div className="control-wrapper">
           <DeleteGridItemButton
             onDelete={() => {
-              onDelete(id)
+              onDelete(id, command)
             }}
           />
           <div className="asset-toolbar-wrapper">

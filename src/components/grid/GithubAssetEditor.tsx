@@ -12,7 +12,7 @@ interface GithubAssetEditorProps {
   asset: AssetType
   width: number
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string) => void
+  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
 }
 
 function GithubAssetEditor({
@@ -21,7 +21,7 @@ function GithubAssetEditor({
   onUpdate,
   onDelete,
 }: GithubAssetEditorProps) {
-  const { value, id } = asset
+  const { value, id, command } = asset
 
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
@@ -101,7 +101,7 @@ function GithubAssetEditor({
         <div className="control-wrapper">
           <DeleteGridItemButton
             onDelete={() => {
-              onDelete(id)
+              onDelete(id, command)
             }}
           />
           <div className="asset-toolbar-wrapper">
