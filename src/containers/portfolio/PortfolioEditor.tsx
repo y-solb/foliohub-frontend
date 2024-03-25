@@ -13,12 +13,14 @@ import AssetGridLayoutEditor from '@/containers/portfolio/AssetGridLayoutEditor'
 import ProfileEditor from '@/containers/portfolio/ProfileEditor'
 import { useRouter } from 'next/navigation'
 import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
+import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 
 interface PortfolioEditorProps {
   username: string
 }
 
 export default function PortfolioEditor({ username }: PortfolioEditorProps) {
+  const { openAlert } = useOpenAlertModal()
   const { data, isLoading } = usePortfolioQuery(username)
   const displayNameRef = useRef<HTMLHeadingElement | null>(null)
   const shortBioRef = useRef<HTMLHeadingElement | null>(null)
@@ -130,18 +132,20 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
 
   const handleSavePortfolio = () => {
     if (!displayNameRef.current?.innerHTML) {
-      alert('이름을 알려주세요! 😊')
+      openAlert('이름을 알려주세요!')
       return
     }
     if (!shortBioRef.current?.innerHTML) {
-      alert(
-        '어라! 소개글이 비어있네요! 😊 포트폴리오에 자신의 이야기를 담아보세요.',
+      openAlert(
+        '어라! 소개글이 비어있네요!',
+        '포트폴리오에 자신의 이야기를 담아보세요.😊',
       )
       return
     }
     if (!portfolio.thumbnail) {
-      alert(
-        '프로필 사진이 없네요. 📸 자신을 나타낼 수 있는 멋진 사진을 업로드해주세요',
+      openAlert(
+        '프로필 사진이 없네요.',
+        '자신을 나타낼 수 있는 멋진 사진을 업로드해주세요.📸',
       )
       return
     }

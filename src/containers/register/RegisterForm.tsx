@@ -4,15 +4,17 @@ import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { FaArrowRight } from 'react-icons/fa6'
 import { useRegisterMutation } from '@/hooks/queries/auth'
+import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 
 function RegisterForm() {
+  const { openAlert } = useOpenAlertModal()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const router = useRouter()
   const { mutate } = useRegisterMutation()
 
   const handleSubmit = async () => {
     if (!inputRef.current || !inputRef.current.value) {
-      alert('ID를 입력해주세요.') // TODO: alert로 교체 && 쿠키에 registerToken이 없는 경우 return
+      openAlert('ID을 입력주세요.') // TODO: 쿠키에 registerToken이 없는 경우 return
       return
     }
     mutate(inputRef.current.value)
