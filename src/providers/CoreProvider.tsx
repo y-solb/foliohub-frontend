@@ -1,4 +1,4 @@
-import AuthModal from '@/components/AuthModal'
+import ModalProvider from './ModalProvider'
 import ReactQueryProvider from './ReactQueryProvider'
 import RecoilProvider from './RecoilProvider'
 import 'react-image-crop/dist/ReactCrop.css'
@@ -12,7 +12,7 @@ function CoreProvider({
     <ReactQueryProvider>
       <RecoilProvider>
         {children}
-        <AuthModal />
+        <ModalProvider />
         <div id="modal-root" />
       </RecoilProvider>
     </ReactQueryProvider>
