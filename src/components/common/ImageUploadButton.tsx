@@ -3,13 +3,17 @@ import uploadImage from '@/lib/uploadImage'
 import { TbPhotoEdit } from 'react-icons/tb'
 
 interface ImageUploadButtonProps {
+  onClick?: () => void
   onUpload: (imageUrl: string) => void
 }
 
-function ImageUploadButton({ onUpload }: ImageUploadButtonProps) {
+function ImageUploadButton({ onClick, onUpload }: ImageUploadButtonProps) {
   const imageRef = useRef<HTMLInputElement | null>(null)
 
   const handleClickInputRef = () => {
+    if (onClick) {
+      onClick()
+    }
     if (!imageRef.current) {
       return
     }

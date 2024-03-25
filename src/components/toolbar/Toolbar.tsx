@@ -12,14 +12,20 @@ interface ToolbarProps {
 }
 
 function Toolbar({ onAdd }: ToolbarProps) {
-  const [activeTab, setActive] = useState('')
-  const [isOpen, setIsOpen, outRef] = useOutsideClick<HTMLDivElement>(() => {
-    setActive('')
-  })
+  const [activeTab, setActiveTab] = useState('')
+  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
+    useOutsideClick<HTMLDivElement>(() => {
+      setActiveTab('')
+    })
 
-  const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setIsOpen(true)
-    setActive((e.currentTarget as HTMLButtonElement).name)
+  const resetToolbar = () => {
+    setActiveTab('')
+    setIsOpenInputToolbar(false)
+  }
+
+  const handleActiveTabAndInput = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsOpenInputToolbar(true)
+    setActiveTab((e.currentTarget as HTMLButtonElement).name)
   }
 
   const handleAddValue = (inputValue: string) => {
@@ -28,9 +34,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
     } else if (activeTab === 'link') {
       onAdd('link', { link: inputValue })
     }
-
-    setActive('')
-    setIsOpen(false)
+    resetToolbar()
   }
 
   const handleUploadImage = (imageUrl: string) => {
@@ -51,7 +55,7 @@ function Toolbar({ onAdd }: ToolbarProps) {
         name="github"
         className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'github' ? 'bg-gray-200' : ''}`}
         aria-label="github"
-        onClick={handleActiveTab}
+        onClick={handleActiveTabAndInput}
       >
         <FaGithub size={24} />
       </button>
@@ -61,22 +65,22 @@ function Toolbar({ onAdd }: ToolbarProps) {
         aria-label="content"
         onClick={() => {
           onAdd('content', { content: null })
+          resetToolbar()
         }}
       >
         <TbEdit size={24} />
       </button>
-      <ImageUploadButton onUpload={handleUploadImage} />
-
+      <ImageUploadButton onClick={resetToolbar} onUpload={handleUploadImage} />
       <button
         type="button"
         name="link"
         className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'link' ? 'bg-gray-200' : ''}`}
         aria-label="link"
-        onClick={handleActiveTab}
+        onClick={handleActiveTabAndInput}
       >
         <TbLink size={24} />
       </button>
-      {isOpen && (
+      {isOpenInputToolbar && (
         <InputToolbar
           defaultValue=""
           buttonLabel="add-input"
