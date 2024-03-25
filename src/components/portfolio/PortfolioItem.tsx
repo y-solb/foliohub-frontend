@@ -23,7 +23,7 @@ function PortFolioItem({
     <li className="grid-item-wrapper">
       <Link
         href={`/${username}`}
-        className="relative flex flex-col items-center px-10 py-8 w-full h-full"
+        className="relative flex flex-col items-center px-10 py-8 w-full md:h-[344px] h-[301px]"
       >
         <div className="relative flex min-w-32 min-h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
           {thumbnail ? (
@@ -33,7 +33,7 @@ function PortFolioItem({
           )}
         </div>
         <div className="w-full flex flex-col items-center mt-4 gap-2 h-20">
-          <h2>{displayName}</h2>
+          <h2 className="ellipsis1">{displayName}</h2>
           <p className="body2 text-gray-400 ellipsis2">{shortBio}</p>
         </div>
         {userJob && (
