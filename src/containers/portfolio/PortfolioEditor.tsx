@@ -14,6 +14,7 @@ import ProfileEditor from '@/containers/portfolio/ProfileEditor'
 import { useRouter } from 'next/navigation'
 import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
+import { trimHTML } from '@/lib/utils'
 
 interface PortfolioEditorProps {
   username: string
@@ -131,11 +132,14 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   }
 
   const handleSavePortfolio = () => {
-    if (!displayNameRef.current?.innerHTML) {
+    const newDisplayName = trimHTML(displayNameRef.current?.innerHTML ?? '')
+    const newShortBio = trimHTML(shortBioRef.current?.innerHTML ?? '')
+
+    if (!newDisplayName) {
       openAlert('이름을 알려주세요!')
       return
     }
-    if (!shortBioRef.current?.innerHTML) {
+    if (!newShortBio) {
       openAlert(
         '어라! 소개글이 비어있네요!',
         '포트폴리오에 자신의 이야기를 담아보세요.😊',
@@ -154,8 +158,8 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
         username,
         updatedPortfolio: {
           ...portfolio,
-          displayName: displayNameRef.current?.innerHTML,
-          shortBio: shortBioRef.current?.innerHTML,
+          displayName: newDisplayName,
+          shortBio: newShortBio,
           layout: layouts,
           socialLink: socialLinks,
         },

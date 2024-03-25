@@ -1,5 +1,18 @@
-// eslint-disable-next-line import/prefer-default-export
+/**
+ * 이미지 URL을 받아와 원 모양 이미지로 변환
+ * @param {string} imageUrl - 변환할 이미지의 URL
+ * @returns {string} 변환된 이미지 URL
+ */
 export const transformImageToCircle = (imageUrl: string) => {
   const params = 'w_100,h_100,c_thumb,f_auto,g_face,r_max'
   return imageUrl.replace(/\/upload\/.*?\//, `/upload/${params}/`)
+}
+
+/**
+ * HTML 문자열에서 모든 &nbsp;를 제거
+ * @param {string} str - 변환할 HTML 문자열
+ * @returns {string} 변환된 HTML 문자열
+ */
+export const trimHTML = (str: string) => {
+  return str.replace(/&nbsp;/g, '').trim()
 }
