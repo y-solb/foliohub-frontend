@@ -35,7 +35,9 @@ function MyProfile() {
             <div className="flex flex-col justify-center gap-2">
               <h1>{data?.username}</h1>
               <div className="flex items-center gap-2">
-                <p className="body1 text-gray-400">{data?.job}</p>
+                <p className="body1 text-gray-400">
+                  {data?.job ? data?.job : '직업을 선택해주세요!'}
+                </p>
                 <button
                   type="button"
                   aria-label="edit-job"

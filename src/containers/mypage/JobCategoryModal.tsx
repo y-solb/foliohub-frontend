@@ -19,7 +19,9 @@ function JobCategoryModal({ jobCode, isOpen, onClose }: JobCategoryModalProps) {
   const { mutate } = useJobCategoryMutation()
 
   const [selectedCategory, setSelectedCategory] = useState<JobCategoryData>()
-  const [selectedSubCategory, setSelectedSubCategory] = useState('')
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
+    '',
+  )
 
   const handleSelectCategory = (mainCategory: JobCategoryData) => {
     setSelectedCategory(mainCategory)
@@ -30,6 +32,7 @@ function JobCategoryModal({ jobCode, isOpen, onClose }: JobCategoryModalProps) {
   }
 
   const handleUpdateJob = () => {
+    if (!selectedSubCategory) return
     mutate({
       jobCode: selectedSubCategory,
     })
@@ -37,13 +40,14 @@ function JobCategoryModal({ jobCode, isOpen, onClose }: JobCategoryModalProps) {
   }
 
   useEffect(() => {
-    if (jobCode && categoryList) {
-      setSelectedSubCategory(jobCode)
-      const mainCategoryCode = jobCode.slice(0, 2)
-      setSelectedCategory(
-        categoryList.find((category) => category.code === mainCategoryCode),
-      )
-    }
+    if (!categoryList) return
+    setSelectedSubCategory(jobCode)
+    const mainCategoryCode = jobCode ? jobCode.slice(0, 2) : null
+    setSelectedCategory(
+      mainCategoryCode
+        ? categoryList.find((category) => category.code === mainCategoryCode)
+        : categoryList[0],
+    )
   }, [categoryList, jobCode])
 
   return (
