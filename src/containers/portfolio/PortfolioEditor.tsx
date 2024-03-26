@@ -34,6 +34,16 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   const router = useRouter()
   const { mutate } = usePortfolioMutation()
 
+  const handleBeforeUnload = (event: Event) => {
+    event.preventDefault()
+  }
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [])
+
   useEffect(() => {
     if (data) {
       const {
