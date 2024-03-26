@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { useState } from 'react'
-import { TbLink, TbCrop } from 'react-icons/tb'
+import { useState, useRef } from 'react'
+import { TbLink, TbCrop, TbPhotoEdit } from 'react-icons/tb'
 import useToggle from '@/hooks/useToggle'
 import ReactCrop, {
   Crop,
@@ -13,8 +13,8 @@ import ReactCrop, {
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
+import uploadImage from '@/lib/uploadImage'
 import DeleteGridItemButton from '../DeleteGridItemButton'
-import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from '../toolbar/InputToolbar'
 import Modal from '../common/Modal'
 
@@ -68,6 +68,7 @@ function ImageAssetEditor({
       setActiveAssetId('')
       setActiveTool('')
     })
+  const imageRef = useRef<HTMLInputElement | null>(null)
   const [isCropMode, toggle] = useToggle(false)
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PercentCrop>()
@@ -89,11 +90,23 @@ function ImageAssetEditor({
     setActiveTool('')
   }
 
-  const handleUploadImage = (imageUrl: string) => {
-    onUpdate({
-      ...asset,
-      value: { ...asset.value, imageUrl },
-    })
+  const handleClickInputRef = () => {
+    if (!imageRef.current) {
+      return
+    }
+    imageRef.current.click()
+  }
+
+  const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) return
+    const file = e.target.files[0]
+    if (file) {
+      const imageUrl = await uploadImage(file)
+      onUpdate({
+        ...asset,
+        value: { ...asset.value, imageUrl },
+      })
+    }
   }
 
   const handleUploadImagePos = (x: number, y: number) => {
@@ -162,6 +175,14 @@ function ImageAssetEditor({
               }}
             />
           </div>
+          <input
+            id={`image_change_${id}`}
+            type="file"
+            accept="image/*"
+            ref={imageRef}
+            className="hidden"
+            onChange={handleUploadImage}
+          />
           {value.link && (
             <Link
               href={value.link}
@@ -207,7 +228,14 @@ function ImageAssetEditor({
                   onAdd={handleUpdateImageLink}
                 />
               )}
-              <ImageUploadButton onUpload={handleUploadImage} />
+              <button
+                type="button"
+                aria-label="change-image"
+                className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
+                onClick={handleClickInputRef}
+              >
+                <TbPhotoEdit size={24} />
+              </button>
             </div>
           </div>
         )}
