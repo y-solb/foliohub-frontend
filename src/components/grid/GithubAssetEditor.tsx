@@ -116,8 +116,9 @@ function GithubAssetEditor({
             </button>
             {isOpenInputToolbar && (
               <InputToolbar
-                defaultValue={value.githubId}
                 buttonLabel="edit-githubId"
+                placeholder="github id"
+                defaultValue={value.githubId}
                 onAdd={handleUpdateGithubId}
               />
             )}

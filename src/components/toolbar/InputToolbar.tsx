@@ -2,13 +2,15 @@ import React, { useRef } from 'react'
 import { FaCirclePlus } from 'react-icons/fa6'
 
 interface InputToolbarProps {
-  defaultValue: string
   buttonLabel: string
+  placeholder: string
+  defaultValue: string
   onAdd: (inputValue: string) => void
 }
 
 export default function InputToolbar({
   buttonLabel,
+  placeholder,
   defaultValue,
   onAdd,
 }: InputToolbarProps) {
@@ -37,6 +39,7 @@ export default function InputToolbar({
         type="text"
         ref={inputRef}
         className="body2"
+        placeholder={placeholder}
         defaultValue={defaultValue}
         onKeyUp={handleEnterKey}
       />

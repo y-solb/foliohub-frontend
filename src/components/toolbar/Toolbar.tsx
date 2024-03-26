@@ -82,8 +82,9 @@ function Toolbar({ onAdd }: ToolbarProps) {
       </button>
       {isOpenInputToolbar && (
         <InputToolbar
-          defaultValue=""
           buttonLabel="add-input"
+          placeholder={activeTab === 'github' ? 'github id' : 'link'}
+          defaultValue=""
           onAdd={handleAddValue}
         />
       )}

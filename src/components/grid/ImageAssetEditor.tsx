@@ -223,8 +223,9 @@ function ImageAssetEditor({
               </button>
               {isOpenInputToolbar && (
                 <InputToolbar
-                  defaultValue={value.link}
                   buttonLabel="add-image-link"
+                  placeholder="link"
+                  defaultValue={value.link}
                   onAdd={handleUpdateImageLink}
                 />
               )}
