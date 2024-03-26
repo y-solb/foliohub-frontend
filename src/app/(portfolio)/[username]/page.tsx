@@ -10,16 +10,35 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = params
   const portfolio = await getPortfolio(username)
+  const title = portfolio?.displayName
+  const description = portfolio?.shortBio ?? `${username}의 포트폴리오`
+  const thumbnail = portfolio.thumbnail
+    ? transformImageToCircle(portfolio.thumbnail)
+    : '/foliohub_logo.svg'
 
   const metadata: Metadata = {
-    title: portfolio?.displayName ?? username,
-    description: portfolio?.shortBio ?? `${username}의 포트폴리오`,
-  }
-
-  if (portfolio && portfolio.thumbnail) {
-    metadata.icons = {
-      icon: transformImageToCircle(portfolio.thumbnail),
-    }
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      siteName: 'FolioHub',
+      type: 'website',
+      images: [
+        {
+          url: thumbnail,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      images: [thumbnail],
+    },
+    icons: {
+      icon: thumbnail,
+    },
   }
 
   return metadata
