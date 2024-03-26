@@ -32,6 +32,11 @@ export const metadata: Metadata = {
       },
     ],
   },
+  verification: {
+    other: {
+      'naver-site-verification': '874d543c8e97826f850e8b90f77339c06b4cacd1',
+    },
+  },
   twitter: {
     card: 'summary',
     title: 'FolioHub',
