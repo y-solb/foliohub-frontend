@@ -19,26 +19,26 @@ export const metadata: Metadata = {
   title: 'FolioHub',
   description: '당신의 여정을 기록하고, 성장을 공유해 봐요!',
   keywords: ['포트폴리오', '이력서'],
-  metadataBase: new URL('https://nextjs.org'),
+  metadataBase: new URL('https://www.foliohub.me'),
   openGraph: {
     title: 'FolioHub',
     description: '당신의 여정을 기록하고, 성장을 공유해 봐요!',
-    url: 'https://nextjs.org',
+    url: 'https://www.foliohub.me',
     siteName: 'FolioHub',
     type: 'website',
-    // images: [
-    //   {
-    //     url: '/foliohub_text_logo.png', // 절대경로를 사용해야하지만 metadataBase를 적용했다면 상대경로로도 가능
-    //     width: 800,
-    //     height: 600,
-    //   },
-    // ],
+    images: [
+      {
+        url: '/foliohub_text_logo.png', // 절대경로를 사용해야하지만 metadataBase를 적용했다면 상대경로로도 가능
+        width: 800,
+        height: 600,
+      },
+    ],
   },
   twitter: {
     card: 'summary',
     title: 'FolioHub',
     description: '당신의 여정을 기록하고, 성장을 공유해 봐요!',
-    // images: ['/foliohub_text_logo.png'],
+    images: ['/foliohub_text_logo.png'],
   },
 }
 
