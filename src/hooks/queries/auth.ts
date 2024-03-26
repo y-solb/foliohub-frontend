@@ -5,16 +5,20 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 type AuthData = {
   success: boolean
 }
+type RegisterVariables = {
+  displayName: string
+  username: string
+}
 
 const getAuthInfo = async (): Promise<AuthInfo> => {
   const { data } = await httpClient.get('/v1/auth')
   return data
 }
 
-const register = async (username: string): Promise<AuthData> => {
-  const { data } = await httpClient.post('/v1/auth/register', {
-    username,
-  })
+const register = async (
+  registerVariables: RegisterVariables,
+): Promise<AuthData> => {
+  const { data } = await httpClient.post('/v1/auth/register', registerVariables)
   return data
 }
 
@@ -33,7 +37,7 @@ export const useAuthQuery = () => {
 export const useRegisterMutation = () => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (username: string) => register(username),
+    mutationFn: (variables: RegisterVariables) => register(variables),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['authInfo'] })
     },
