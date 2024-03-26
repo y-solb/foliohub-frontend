@@ -47,7 +47,7 @@ function Modal({ isOpen, isBorder = true, children, onClose }: ModalProps) {
   return ReactDOM.createPortal(
     <div
       ref={backgroundRef}
-      className={`fixed top-0 left-0 w-full h-full flex items-center justify-center z-20 bg-black/60 p-4 ${
+      className={`fixed top-0 left-0 w-full h-full flex items-center justify-center z-[100] bg-black/60 p-4 ${
         isOpen ? 'animate-fadeIn' : 'animate-fadeOut'
       }`}
       role="presentation"
