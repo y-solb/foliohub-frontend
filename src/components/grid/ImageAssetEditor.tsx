@@ -158,7 +158,7 @@ function ImageAssetEditor({
               src={value.imageUrl}
               alt={`image_${id}`}
               style={{
-                objectPosition: `${value.pos[breakpoint]?.x}% ${value.pos[breakpoint]?.y}%`,
+                objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
               }}
             />
           </div>
