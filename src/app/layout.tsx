@@ -28,9 +28,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/foliohub_text_logo.png', // 절대경로를 사용해야하지만 metadataBase를 적용했다면 상대경로로도 가능
-        width: 800,
-        height: 600,
+        url: '/foliohub_logo.svg',
       },
     ],
   },
@@ -38,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'FolioHub',
     description: '당신의 여정을 기록하고, 성장을 공유해 봐요!',
-    images: ['/foliohub_text_logo.png'],
+    images: ['/foliohub_logo.svg'],
   },
 }
 
