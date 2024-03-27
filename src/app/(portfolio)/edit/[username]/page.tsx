@@ -1,6 +1,5 @@
 import PortfolioEditor from '@/containers/portfolio/PortfolioEditor'
 import { getPortfolio } from '@/fetch/getPortfolio'
-import { transformImageToCircle } from '@/lib/utils'
 import { Metadata } from 'next'
 
 type Props = {
@@ -13,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = portfolio?.displayName
   const description = portfolio?.shortBio ?? `${username}의 포트폴리오`
   const thumbnail = portfolio.thumbnail
-    ? transformImageToCircle(portfolio.thumbnail)
+    ? portfolio.thumbnail
     : '/foliohub_logo.svg'
 
   const metadata: Metadata = {
