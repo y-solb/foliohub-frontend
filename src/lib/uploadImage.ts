@@ -1,24 +1,25 @@
-import axios from 'axios'
+import httpClient from './httpClient'
 
-const uploadImage = async (file: File) => {
-  if (
-    !process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET ||
-    !process.env.NEXT_PUBLIC_CLOUDINARY_URL
-  )
+const uploadImage = async (
+  files: FileList | null,
+  type: 'thumbnail' | 'asset',
+) => {
+  if (!files || !files[0])
     throw new Error('CLOUDINARY environment variable is not set')
 
+  const file = files[0]
   const formData = new FormData()
   formData.append('file', file)
-  formData.append(
-    'upload_preset',
-    process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
-  )
 
   try {
     const {
-      data: { url },
-    } = await axios.post(process.env.NEXT_PUBLIC_CLOUDINARY_URL, formData)
-    return url
+      data: { imageUrl },
+    } = await httpClient.post(`/v1/image/upload/${type}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    return imageUrl
   } catch (error) {
     console.error('Image upload failed:', error)
     throw error

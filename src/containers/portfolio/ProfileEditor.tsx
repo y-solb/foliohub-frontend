@@ -40,12 +40,8 @@ function ProfileEditor({
   }
 
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-    if (file) {
-      const imageUrl = await uploadImage(file)
-      onProfileChange('thumbnail', imageUrl)
-    }
+    const imageUrl = await uploadImage(e.target.files, 'thumbnail')
+    onProfileChange('thumbnail', imageUrl)
   }
 
   const handleSocialLinkChange = (e: React.ChangeEvent<HTMLInputElement>) => {

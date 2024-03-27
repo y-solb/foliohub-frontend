@@ -98,15 +98,11 @@ function ImageAssetEditor({
   }
 
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-    if (file) {
-      const imageUrl = await uploadImage(file)
-      onUpdate({
-        ...asset,
-        value: { ...asset.value, imageUrl },
-      })
-    }
+    const imageUrl = await uploadImage(e.target.files, 'asset')
+    onUpdate({
+      ...asset,
+      value: { ...asset.value, imageUrl },
+    })
   }
 
   const handleUploadImagePos = (x: number, y: number) => {

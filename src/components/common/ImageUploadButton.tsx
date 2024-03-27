@@ -21,13 +21,8 @@ function ImageUploadButton({ onClick, onUpload }: ImageUploadButtonProps) {
   }
 
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-    const file = e.target.files[0]
-
-    if (file) {
-      const imageUrl = await uploadImage(file)
-      onUpload(imageUrl)
-    }
+    const imageUrl = await uploadImage(e.target.files, 'asset')
+    onUpload(imageUrl)
   }
 
   return (
