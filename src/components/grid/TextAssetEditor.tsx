@@ -103,10 +103,14 @@ function TextAssetEditor({
             formats={formats}
           />
         ) : (
-          <div
-            className="w-full max-w-full flex flex-col flex-1 p-4 bg-white overflow-y-auto whitespace-pre-wrap break-words"
-            dangerouslySetInnerHTML={{ __html: value.content }}
-          />
+          <div id="textEditor">
+            <div className="ql-container ql-snow">
+              <div
+                className="ql-editor w-full max-w-full flex flex-col flex-1 p-4 bg-white overflow-y-auto whitespace-pre-wrap break-words body1"
+                dangerouslySetInnerHTML={{ __html: value.content }}
+              />
+            </div>
+          </div>
         )}
       </div>
       {isOpenControl && (
