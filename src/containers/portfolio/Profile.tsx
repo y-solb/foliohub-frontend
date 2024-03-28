@@ -132,8 +132,14 @@ function Profile({
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <h1 className="break-all">{displayName}</h1>
-          <p className="subtitle1 text-gray-400 break-all">{shortBio}</p>
+          <h1
+            className="break-all"
+            dangerouslySetInnerHTML={{ __html: displayName }}
+          />
+          <p
+            className="subtitle1 text-gray-400 break-all"
+            dangerouslySetInnerHTML={{ __html: shortBio }}
+          />
         </div>
       </div>
       <div className="w-full flex flex-col gap-4 mt-4">

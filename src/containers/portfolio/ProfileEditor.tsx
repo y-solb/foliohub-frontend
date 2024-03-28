@@ -48,6 +48,26 @@ function ProfileEditor({
     onSocialLinkChange(e.target.name, e.target.value)
   }
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLElement>) => {
+    e.preventDefault()
+    const clipboardData = e.clipboardData || window.Clipboard
+    const pastedText = clipboardData.getData('text/plain')
+    const selection = window.getSelection()
+    if (selection) {
+      const range = selection.getRangeAt(0)
+      range.deleteContents()
+      range.insertNode(document.createTextNode(pastedText))
+
+      // 붙여 넣은 텍스트 위치로 포커스 이동
+      const newRange = document.createRange()
+      const newNode = range.endContainer.childNodes[range.endOffset - 1]
+      newRange.setStart(newNode, pastedText.length)
+      newRange.setEnd(newNode, pastedText.length)
+      selection.removeAllRanges()
+      selection.addRange(newRange)
+    }
+  }
+
   return (
     <div className="flex flex-col justify-between md:w-80 h-full md:fixed md:top-0 md:left-0 px-8 pt-16 pb-8 overflow-y-scroll">
       <div className="flex flex-col gap-8">
@@ -88,19 +108,20 @@ function ProfileEditor({
             ref={displayNameRef}
             className="break-all"
             contentEditable="true"
+            onPaste={handlePaste}
             suppressContentEditableWarning
-          >
-            {portfolio.displayName}
-          </h1>
+            dangerouslySetInnerHTML={{ __html: portfolio.displayName }}
+          />
           <p
+            id="shortBio"
             data-placeholder="간단한 소개글을 작성해주세요."
             ref={shortBioRef}
             className="subtitle1 text-gray-400 break-all"
             contentEditable="true"
+            onPaste={handlePaste}
             suppressContentEditableWarning
-          >
-            {portfolio.shortBio}
-          </p>
+            dangerouslySetInnerHTML={{ __html: portfolio.shortBio }}
+          />
         </div>
       </div>
       <ul className="w-full flex flex-col gap-4 mt-4">
