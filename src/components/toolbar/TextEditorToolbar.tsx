@@ -53,7 +53,7 @@ export function QuillToolbar() {
       <span className="ql-formats">
         <select className="ql-color" aria-label="ql-color">
           <option value="#000000" aria-label="ql-color-black" />
-          <option value="#6b7280" aria-label="ql-color-gray" />
+          <option value="#9ca3af" aria-label="ql-color-gray" />
           <option value="#ef4444" aria-label="ql-color-red" />
           <option value="#f97316" aria-label="ql-color-orange" />
           <option value="#facc15" aria-label="ql-color-yellow" />
@@ -64,14 +64,14 @@ export function QuillToolbar() {
         </select>
         <select className="ql-background" aria-label="ql-background">
           <option value="#ffffff" aria-label="ql-background-white" />
-          <option value="#E5E7EB" aria-label="ql-background-gray" />
-          <option value="#FEE2E2" aria-label="ql-background-red" />
-          <option value="#FFEDD5" aria-label="ql-background-orange" />
-          <option value="#FEF9C3" aria-label="ql-background-yellow" />
-          <option value="#DCFCE7" aria-label="ql-background-green" />
-          <option value="#E0F2FE" aria-label="ql-background-sky" />
-          <option value="#E0E7FF" aria-label="ql-background-navy" />
-          <option value="#F3E8FF" aria-label="ql-background-purple" />
+          <option value="#e5e7eb" aria-label="ql-background-gray" />
+          <option value="#fee2e2" aria-label="ql-background-red" />
+          <option value="#ffedd5" aria-label="ql-background-orange" />
+          <option value="#fef9c3" aria-label="ql-background-yellow" />
+          <option value="#dcfce7" aria-label="ql-background-green" />
+          <option value="#e0f2fe" aria-label="ql-background-sky" />
+          <option value="#e0e7ff" aria-label="ql-background-navy" />
+          <option value="#f3e8ff" aria-label="ql-background-purple" />
         </select>
       </span>
       <span className="ql-formats">
