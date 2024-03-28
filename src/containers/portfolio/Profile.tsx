@@ -137,7 +137,7 @@ function Profile({
         </div>
       </div>
       <div className="w-full flex flex-col gap-4 mt-4">
-        <ul className="w-full flex gap-4">
+        <ul className="w-full flex flex-wrap gap-4">
           {socialLink.blogLink && (
             <Link
               href={socialLink.blogLink}
