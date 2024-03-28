@@ -2,6 +2,7 @@ import { PortfolioItem } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoMdHeart } from 'react-icons/io'
+import { removeTagsText } from '@/lib/utils'
 import EmptyThumbnail from '../EmptyThumbnail'
 
 interface PortFolioItemProps {
@@ -33,8 +34,10 @@ function PortFolioItem({
           )}
         </div>
         <div className="w-full flex flex-col items-center mt-4 gap-2 h-20">
-          <h2 className="ellipsis1">{displayName}</h2>
-          <p className="body2 text-gray-400 ellipsis2">{shortBio}</p>
+          <h2 className="ellipsis1">{removeTagsText(displayName)}</h2>
+          <p className="body2 text-gray-400 ellipsis2">
+            {removeTagsText(shortBio)}
+          </p>
         </div>
         {userJob && (
           <div className="flex items-center min-h-8 px-4 rounded-3xl text-gray-400 border border-solid border-gray-200 body2 font-medium mt-6">

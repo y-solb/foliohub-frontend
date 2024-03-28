@@ -16,3 +16,12 @@ export const transformImageToCircle = (imageUrl: string) => {
 export const trimHTML = (str: string) => {
   return str.replace(/&nbsp;/g, '').trim()
 }
+
+/**
+ * HTML 태그를 제거
+ * @param {string} str - HTML 태그가 포함된 문자열
+ * @returns {string} HTML 태그가 제거된 순수한 텍스트
+ */
+export const removeTagsText = (str: string) => {
+  return str.replace(/<[^>]+>/g, '')
+}

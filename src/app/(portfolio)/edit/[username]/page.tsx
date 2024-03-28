@@ -1,5 +1,6 @@
 import PortfolioEditor from '@/containers/portfolio/PortfolioEditor'
 import { getPortfolio } from '@/fetch/getPortfolio'
+import { removeTagsText } from '@/lib/utils'
 import { Metadata } from 'next'
 
 type Props = {
@@ -9,8 +10,9 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = params
   const portfolio = await getPortfolio(username)
-  const title = portfolio?.displayName
-  const description = portfolio?.shortBio ?? `${username}의 포트폴리오`
+  const title = removeTagsText(portfolio?.displayName)
+  const description =
+    removeTagsText(portfolio?.shortBio) ?? `${username}의 포트폴리오`
   const thumbnail = portfolio.thumbnail
     ? portfolio.thumbnail
     : '/foliohub_logo.svg'
