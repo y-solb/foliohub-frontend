@@ -99,6 +99,10 @@ html {
 #textEditor .ql-editor ul {
   padding-left: 0;
 }
+.ql-editor ol li:not(.ql-direction-rtl),
+.ql-editor ul li:not(.ql-direction-rtl) {
+  padding: 0.2rem 0 0.2rem 1.5rem;
+}
 #textEditor .ql-snow .ql-editor h1 {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -208,6 +212,8 @@ html {
   .subtitle2 {
     @apply text-base font-medium;
   }
+  #textEditor .ql-editor ol,
+  #textEditor .ql-editor ul,
   #textEditor .ql-snow .ql-editor p,
   .body1 {
     @apply text-base font-normal;

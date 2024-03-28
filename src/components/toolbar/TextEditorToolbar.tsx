@@ -64,14 +64,14 @@ export function QuillToolbar() {
         </select>
         <select className="ql-background" aria-label="ql-background">
           <option value="#ffffff" aria-label="ql-background-white" />
-          <option value="#a7a9ac" aria-label="ql-background-gray" />
-          <option value="#f77a7a" aria-label="ql-background-red" />
-          <option value="#fcc288" aria-label="ql-background-orange" />
-          <option value="#fcf3b1" aria-label="ql-background-yellow" />
-          <option value="#c7ebc1" aria-label="ql-background-green" />
-          <option value="#b8dffc" aria-label="ql-background-sky" />
-          <option value="#c6cfff" aria-label="ql-background-navy" />
-          <option value="#d6d2f5" aria-label="ql-background-purple" />
+          <option value="#E5E7EB" aria-label="ql-background-gray" />
+          <option value="#FEE2E2" aria-label="ql-background-red" />
+          <option value="#FFEDD5" aria-label="ql-background-orange" />
+          <option value="#FEF9C3" aria-label="ql-background-yellow" />
+          <option value="#DCFCE7" aria-label="ql-background-green" />
+          <option value="#E0F2FE" aria-label="ql-background-sky" />
+          <option value="#E0E7FF" aria-label="ql-background-navy" />
+          <option value="#F3E8FF" aria-label="ql-background-purple" />
         </select>
       </span>
       <span className="ql-formats">
