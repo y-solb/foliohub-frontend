@@ -199,7 +199,7 @@ function CardAssetEditor({
             )}
             <div className="flex flex-col gap-2 overflow-hidden">
               {value?.title && (
-                <p className="body2 ellipsis2">{value?.title}</p>
+                <p className="body2 ellipsis2 font-medium">{value?.title}</p>
               )}
               {(width > 1 || height > 1) && value?.description && (
                 <p

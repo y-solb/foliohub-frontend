@@ -46,7 +46,9 @@ function CardAsset({ asset, width, height }: CardAssetProps) {
             </div>
           )}
           <div className="flex flex-col gap-2 overflow-hidden">
-            {value?.title && <p className="body2 ellipsis2">{value?.title}</p>}
+            {value?.title && (
+              <p className="body2 ellipsis2 font-medium">{value?.title}</p>
+            )}
             {(width > 1 || height > 1) && value?.description && (
               <p
                 className={`body3 text-gray-400  ${width > 2 || height > 2 ? 'ellipsis5' : 'ellipsis3'}`}
@@ -94,7 +96,9 @@ function CardAsset({ asset, width, height }: CardAssetProps) {
             </div>
           )}
           <div className="flex flex-col gap-2 overflow-hidden">
-            {value?.title && <p className="body2 ellipsis2">{value?.title}</p>}
+            {value?.title && (
+              <p className="body2 ellipsis2 font-medium">{value?.title}</p>
+            )}
             {(width > 1 || height > 1) && value?.description && (
               <p
                 className={`body3 text-gray-400  ${width > 2 || height > 2 ? 'ellipsis5' : 'ellipsis3'}`}
