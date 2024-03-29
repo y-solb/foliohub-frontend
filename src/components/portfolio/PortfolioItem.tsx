@@ -36,7 +36,7 @@ function PortFolioItem({
         <div className="w-full flex flex-col items-center mt-4 gap-2 h-20">
           <h2 className="ellipsis1">{removeTagsText(displayName)}</h2>
           <p className="body2 text-gray-400 ellipsis2">
-            {removeTagsText(shortBio)}
+            {shortBio && removeTagsText(shortBio)}
           </p>
         </div>
         {userJob && (
