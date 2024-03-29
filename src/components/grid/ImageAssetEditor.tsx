@@ -4,19 +4,13 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState, useRef } from 'react'
 import { TbLink, TbCrop, TbPhotoPlus } from 'react-icons/tb'
 import useToggle from '@/hooks/useToggle'
-import ReactCrop, {
-  Crop,
-  PercentCrop,
-  centerCrop,
-  makeAspectCrop,
-} from 'react-image-crop'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import uploadImage from '@/lib/uploadImage'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
-import Modal from '../common/Modal'
+import ImageCropModal from '../ImageCropModal'
 
 interface ImageAssetEditorProps {
   asset: AssetType
@@ -26,26 +20,6 @@ interface ImageAssetEditorProps {
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
   onChangeEditMode: () => void
-}
-
-function centerAspectCrop(
-  mediaWidth: number,
-  mediaHeight: number,
-  aspect: number,
-) {
-  return centerCrop(
-    makeAspectCrop(
-      {
-        unit: '%',
-        width: 100,
-      },
-      aspect,
-      mediaWidth,
-      mediaHeight,
-    ),
-    mediaWidth,
-    mediaHeight,
-  )
 }
 
 function ImageAssetEditor({
@@ -70,15 +44,6 @@ function ImageAssetEditor({
     })
   const imageRef = useRef<HTMLInputElement | null>(null)
   const [isCropMode, toggle] = useToggle(false)
-  const [crop, setCrop] = useState<Crop>()
-  const [completedCrop, setCompletedCrop] = useState<PercentCrop>()
-
-  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
-    if (w / h) {
-      const { width, height } = e.currentTarget
-      setCrop(centerAspectCrop(width, height, w / h))
-    }
-  }
 
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
@@ -138,20 +103,13 @@ function ImageAssetEditor({
     onChangeEditMode()
   }
 
-  const handleCloseCropModal = () => {
+  const handleCropModalClose = (newX: number, newY: number) => {
     toggle()
     onChangeEditMode()
     setIsOpenControl(false)
-    const newX =
-      completedCrop?.height === 100
-        ? (completedCrop.x / (100 - completedCrop.width)) * 100
-        : 50
-    const newY =
-      completedCrop?.width === 100
-        ? (completedCrop.y / (100 - completedCrop.height)) * 100
-        : 50
     handleUploadImagePos(newX, newY)
   }
+
   return (
     <>
       <div
@@ -237,31 +195,14 @@ function ImageAssetEditor({
           </div>
         )}
       </div>
-      <Modal
+      <ImageCropModal
         isOpen={isCropMode}
-        isBorder={false}
-        onClose={handleCloseCropModal}
-      >
-        <div
-          id="cropImageAsset"
-          className="max-h-[90vh] overflow-scroll rounded-2xl"
-        >
-          <ReactCrop
-            crop={crop}
-            onChange={(_, c) => setCrop(c)}
-            onComplete={(_, c) => setCompletedCrop(c)}
-            aspect={w / h}
-            locked
-          >
-            <img
-              src={value.imageUrl}
-              alt={`image_${id}`}
-              onLoad={onImageLoad}
-              className="w-full h-full overflow-hidden object-cover	"
-            />
-          </ReactCrop>
-        </div>
-      </Modal>
+        imageUrl={value.imageUrl}
+        ratio={w / h}
+        onCropModalClose={(newX, newY) => {
+          handleCropModalClose(newX, newY)
+        }}
+      />
     </>
   )
 }
