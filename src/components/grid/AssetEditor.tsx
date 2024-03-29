@@ -4,6 +4,7 @@ import ImageAssetEditor from './ImageAssetEditor'
 import GithubAssetEditor from './GithubAssetEditor'
 import TextAssetEditor from './TextAssetEditor'
 import LinkAssetEditor from './LinkAssetEditor'
+import CardAssetEditor from './CardAssetEditor'
 
 interface AssetEditorProps {
   asset: AssetType
@@ -61,6 +62,17 @@ function AssetEditor({
           height={layout?.h ?? 1}
           onUpdate={onUpdate}
           onDelete={onDelete}
+        />
+      )
+    case 'card':
+      return (
+        <CardAssetEditor
+          asset={asset}
+          width={layout?.w ?? 1}
+          height={layout?.h ?? 1}
+          onUpdate={onUpdate}
+          onDelete={onDelete}
+          onChangeEditMode={onChangeEditMode}
         />
       )
     default:

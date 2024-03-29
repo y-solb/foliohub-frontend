@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
-import { TbEdit, TbLink } from 'react-icons/tb'
+import { TbEdit, TbLink, TbSlideshow } from 'react-icons/tb'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from './InputToolbar'
 
@@ -71,6 +71,22 @@ function Toolbar({ onAdd }: ToolbarProps) {
         <TbEdit size={24} />
       </button>
       <ImageUploadButton onClick={resetToolbar} onUpload={handleUploadImage} />
+      <button
+        type="button"
+        className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
+        aria-label="card"
+        onClick={() => {
+          onAdd('card', {
+            imageUrl: null,
+            title: null,
+            content: null,
+            link: null,
+          })
+          resetToolbar()
+        }}
+      >
+        <TbSlideshow size={24} />
+      </button>
       <button
         type="button"
         name="link"
