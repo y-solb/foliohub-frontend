@@ -104,14 +104,14 @@ html {
   padding: 0.2rem 0 0.2rem 1.5rem;
 }
 #textEditor .ql-snow .ql-editor h1 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   font-weight: 600;
 }
 #textEditor .ql-snow .ql-editor h2 {
   font-size: 1.125rem;
   line-height: 1.75rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 #toolbar.ql-snow .ql-picker-options,
 #toolbar.ql-snow .ql-color-picker .ql-picker-item {
@@ -212,12 +212,12 @@ html {
   .subtitle2 {
     @apply text-base font-medium;
   }
-  #textEditor .ql-editor ol,
-  #textEditor .ql-editor ul,
-  #textEditor .ql-snow .ql-editor p,
   .body1 {
     @apply text-base font-normal;
   }
+  #textEditor .ql-editor ol,
+  #textEditor .ql-editor ul,
+  #textEditor .ql-snow .ql-editor p,
   .body2 {
     @apply text-sm font-normal;
   }
