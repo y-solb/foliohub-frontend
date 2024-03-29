@@ -28,7 +28,13 @@ function PortFolioItem({
       >
         <div className="relative flex min-w-32 min-h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
           {thumbnail ? (
-            <Image src={thumbnail} alt={`image_${id}`} priority fill />
+            <Image
+              src={thumbnail}
+              alt={`image_${id}`}
+              priority
+              fill
+              className="object-cover"
+            />
           ) : (
             <EmptyThumbnail />
           )}

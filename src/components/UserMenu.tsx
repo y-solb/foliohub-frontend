@@ -40,7 +40,13 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
         onClick={handleOpenNav}
       >
         {thumbnail ? (
-          <Image src={thumbnail} alt={`image_${id}`} priority fill />
+          <Image
+            src={thumbnail}
+            alt={`image_${id}`}
+            priority
+            fill
+            className="object-cover"
+          />
         ) : (
           <EmptyThumbnail />
         )}

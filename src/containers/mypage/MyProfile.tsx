@@ -27,6 +27,7 @@ function MyProfile() {
                   alt={`image_${data?.id}`}
                   priority
                   fill
+                  className="object-cover"
                 />
               ) : (
                 <EmptyThumbnail />

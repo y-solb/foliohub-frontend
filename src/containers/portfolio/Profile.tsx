@@ -124,7 +124,7 @@ function Profile({
                 width={192}
                 height={192}
                 priority
-                className="rounded-full border border-solid border-gray-100 bg-white w-full h-full object-fit"
+                className="rounded-full border border-solid border-gray-100 bg-white w-full h-full object-cover"
               />
             ) : (
               <EmptyThumbnail />
