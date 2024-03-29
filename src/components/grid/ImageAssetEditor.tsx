@@ -2,7 +2,7 @@
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState, useRef } from 'react'
-import { TbLink, TbCrop, TbPhotoEdit } from 'react-icons/tb'
+import { TbLink, TbCrop, TbPhoto } from 'react-icons/tb'
 import useToggle from '@/hooks/useToggle'
 import ReactCrop, {
   Crop,
@@ -231,7 +231,7 @@ function ImageAssetEditor({
                 className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
                 onClick={handleClickInputRef}
               >
-                <TbPhotoEdit size={24} />
+                <TbPhoto size={24} />
               </button>
             </div>
           </div>
