@@ -116,7 +116,7 @@ function CardAssetEditor({
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`relative flex-1 ${value?.imageUrl ? 'grid' : ''}  grid-item-wrapper overflow-hidden p-3 gap-2`}
+        className={`relative flex-1 ${value?.imageUrl || isOpenCardEditor ? 'grid' : ''}  grid-item-wrapper overflow-hidden p-3 gap-2`}
         style={{
           gridTemplateColumns:
             width > height ? `${height}fr ${width - height}fr` : '',
