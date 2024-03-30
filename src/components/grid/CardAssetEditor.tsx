@@ -234,16 +234,12 @@ function CardAssetEditor({
                 )}
               </div>
             )}
-            <div className="flex flex-col gap-2 overflow-hidden">
+            <div className="flex flex-col gap-2 overflow-scroll">
               {value?.title && (
-                <p className="body2 ellipsis2 font-medium">{value?.title}</p>
+                <p className="body2 font-medium">{value?.title}</p>
               )}
               {(width > 1 || height > 1) && value?.description && (
-                <p
-                  className={`body3 text-gray-400  ${width > 2 || height > 2 ? 'ellipsis5' : 'ellipsis3'}`}
-                >
-                  {value?.description}
-                </p>
+                <p className="body3 text-gray-400">{value?.description}</p>
               )}
             </div>
           </>
