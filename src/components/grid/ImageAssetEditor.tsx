@@ -70,16 +70,6 @@ function ImageAssetEditor({
     })
   }
 
-  const handleUploadImagePos = (x: number, y: number) => {
-    onUpdate({
-      ...asset,
-      value: {
-        ...asset.value,
-        pos: { ...asset.value.pos, [breakpoint]: { x, y } },
-      },
-    })
-  }
-
   const handleActiveTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsOpenInputToolbar(true)
     setActiveAssetId(id)
@@ -98,7 +88,7 @@ function ImageAssetEditor({
     setActiveTool('')
   }
 
-  const handleOpenCropModal = () => {
+  const handleCropModalOpen = () => {
     toggle()
     onChangeEditMode()
   }
@@ -107,7 +97,13 @@ function ImageAssetEditor({
     toggle()
     onChangeEditMode()
     setIsOpenControl(false)
-    handleUploadImagePos(newX, newY)
+    onUpdate({
+      ...asset,
+      value: {
+        ...asset.value,
+        pos: { ...asset.value.pos, [breakpoint]: { x: newX, y: newY } },
+      },
+    })
   }
 
   return (
@@ -162,7 +158,7 @@ function ImageAssetEditor({
                 name="crop"
                 aria-label="crop-image"
                 className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
-                onClick={handleOpenCropModal}
+                onClick={handleCropModalOpen}
               >
                 <TbCrop size={24} />
               </button>
