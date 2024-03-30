@@ -201,15 +201,13 @@ function CardAssetEditor({
                 onChange={handleInputChange}
                 placeholder="제목"
               />
-              {(width > 1 || height > 1) && (
-                <textarea
-                  name="description"
-                  className="body3 h-full rounded-lg border border-solid border-gray-300 bg-white text-gray-400 w-full p-2"
-                  value={cardInputs?.description}
-                  onChange={handleInputChange}
-                  placeholder="내용"
-                />
-              )}
+              <textarea
+                name="description"
+                className="body3 h-full rounded-lg border border-solid border-gray-300 bg-white text-gray-400 w-full p-2"
+                value={cardInputs?.description}
+                onChange={handleInputChange}
+                placeholder="내용"
+              />
             </div>
           </>
         ) : (
@@ -238,7 +236,7 @@ function CardAssetEditor({
               {value?.title && (
                 <p className="body2 font-medium">{value?.title}</p>
               )}
-              {(width > 1 || height > 1) && value?.description && (
+              {value?.description && (
                 <p className="body3 text-gray-400">{value?.description}</p>
               )}
             </div>

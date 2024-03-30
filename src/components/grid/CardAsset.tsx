@@ -53,7 +53,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
             {value?.title && (
               <p className="body2 font-medium">{value?.title}</p>
             )}
-            {(width > 1 || height > 1) && value?.description && (
+            {value?.description && (
               <p className="body3 text-gray-400">{value?.description}</p>
             )}
           </div>
@@ -102,7 +102,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
             {value?.title && (
               <p className="body2 font-medium">{value?.title}</p>
             )}
-            {(width > 1 || height > 1) && value?.description && (
+            {value?.description && (
               <p className="body3 text-gray-400">{value?.description}</p>
             )}
           </div>
