@@ -1,17 +1,20 @@
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRef, useState } from 'react'
-import { TbLink, TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
+import { TbLink, TbCrop, TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import uploadImage from '@/lib/uploadImage'
+import useToggle from '@/hooks/useToggle'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
+import ImageCropModal from '../ImageCropModal'
 
 interface CardAssetEditorProps {
   asset: AssetType
   width: number
   height: number
+  breakpoint: string
   onUpdate: (updatedAsset: AssetType) => void
   onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
   onChangeEditMode: () => void
@@ -21,12 +24,14 @@ function CardAssetEditor({
   asset,
   width,
   height,
+  breakpoint,
   onUpdate,
   onDelete,
   onChangeEditMode,
 }: CardAssetEditorProps) {
   const { value, id, command } = asset
 
+  const [ratio, setRatio] = useState(0)
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
@@ -48,9 +53,10 @@ function CardAssetEditor({
       onChangeEditMode()
       onUpdate({
         ...asset,
-        value: { ...cardInputs },
+        value: { ...asset.value, ...cardInputs },
       })
     })
+  const [isCropMode, toggle] = useToggle(false)
 
   const handleClickInputRef = () => {
     if (!imageRef.current) {
@@ -108,6 +114,28 @@ function CardAssetEditor({
     setActiveTool('')
   }
 
+  const handleCropModalOpen = () => {
+    const divElement = document.getElementById(`image_${id}`)
+    if (!divElement) return
+
+    const newRatio = divElement.offsetWidth / divElement.offsetHeight
+    setRatio(newRatio)
+    toggle()
+    onChangeEditMode()
+  }
+
+  const handleCropModalClose = (newX: number, newY: number) => {
+    toggle()
+    onChangeEditMode()
+    setIsOpenControl(false)
+    onUpdate({
+      ...asset,
+      value: {
+        ...asset.value,
+        pos: { ...asset.value.pos, [breakpoint]: { x: newX, y: newY } },
+      },
+    })
+  }
   return (
     <div
       ref={outCardRef}
@@ -123,7 +151,7 @@ function CardAssetEditor({
           gridTemplateRows:
             // eslint-disable-next-line no-nested-ternary
             width < height
-              ? `${height}fr ${width - height}fr`
+              ? `${height}fr ${height - width}fr`
               : width === height
                 ? '1fr 1fr'
                 : '',
@@ -137,7 +165,10 @@ function CardAssetEditor({
                   <img
                     src={cardInputs?.imageUrl}
                     alt={`image_${id}`}
-                    className="absolute top-0 object-cover w-full h-full"
+                    className="object-cover w-full h-full"
+                    style={{
+                      objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
+                    }}
                   />
                 </div>
               ) : (
@@ -184,11 +215,17 @@ function CardAssetEditor({
         ) : (
           <>
             {value?.imageUrl && (
-              <div className="relative w-full h-full rounded-xl overflow-hidden">
+              <div
+                id={`image_${id}`}
+                className="relative w-full h-full rounded-xl overflow-hidden"
+              >
                 <img
                   src={value?.imageUrl}
                   alt={`image_${id}`}
-                  className="absolute top-0 object-cover w-full h-full"
+                  className="object-cover w-full h-full"
+                  style={{
+                    objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
+                  }}
                 />
                 {value.link && (
                   <div className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1">
@@ -212,8 +249,7 @@ function CardAssetEditor({
           </>
         )}
       </div>
-
-      {isOpenControl && (
+      {isOpenControl && !isCropMode && (
         <div className="control-wrapper" ref={outRef}>
           <DeleteGridItemButton
             onDelete={() => {
@@ -229,6 +265,15 @@ function CardAssetEditor({
               onClick={handleActiveCardTab}
             >
               <TbPhotoEdit size={24} />
+            </button>
+            <button
+              type="button"
+              name="crop"
+              aria-label="crop-image"
+              className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
+              onClick={handleCropModalOpen}
+            >
+              <TbCrop size={24} />
             </button>
             <button
               type="button"
@@ -250,6 +295,14 @@ function CardAssetEditor({
           </div>
         </div>
       )}
+      <ImageCropModal
+        isOpen={isCropMode}
+        imageUrl={value.imageUrl}
+        ratio={ratio}
+        onCropModalClose={(newX, newY) => {
+          handleCropModalClose(newX, newY)
+        }}
+      />
     </div>
   )
 }

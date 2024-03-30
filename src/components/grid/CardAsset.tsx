@@ -6,9 +6,10 @@ interface CardAssetProps {
   asset: AssetType
   width: number
   height: number
+  breakpoint: string
 }
 
-function CardAsset({ asset, width, height }: CardAssetProps) {
+function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
   const { value, id } = asset
 
   return (
@@ -38,7 +39,10 @@ function CardAsset({ asset, width, height }: CardAssetProps) {
               <img
                 src={value?.imageUrl}
                 alt={`image_${id}`}
-                className="absolute top-0 object-cover w-full h-full"
+                className="object-cover w-full h-full"
+                style={{
+                  objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
+                }}
               />
               <div className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1">
                 <TbLink size={20} />
@@ -80,7 +84,10 @@ function CardAsset({ asset, width, height }: CardAssetProps) {
               <img
                 src={value?.imageUrl}
                 alt={`image_${id}`}
-                className="absolute top-0 object-cover w-full h-full"
+                className="object-cover w-full h-full"
+                style={{
+                  objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
+                }}
               />
               {value.link && (
                 <a

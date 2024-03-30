@@ -70,6 +70,7 @@ function AssetEditor({
           asset={asset}
           width={layout?.w ?? 1}
           height={layout?.h ?? 1}
+          breakpoint={breakpoint}
           onUpdate={onUpdate}
           onDelete={onDelete}
           onChangeEditMode={onChangeEditMode}

@@ -34,6 +34,7 @@ function Asset({ asset, breakpoint, layout }: AssetProps) {
           asset={asset}
           width={layout?.w ?? 1}
           height={layout?.h ?? 1}
+          breakpoint={breakpoint}
         />
       )
     default:
