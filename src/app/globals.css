@@ -225,7 +225,7 @@ html {
     @apply text-xs font-normal;
   }
   .grid-item-wrapper {
-    @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white;
+    @apply rounded-2xl border border-solid border-gray-100 shadow-sm bg-white;
   }
   .shadow-wrapper {
     @apply rounded-2xl border border-solid border-gray-100 shadow-md bg-white;
