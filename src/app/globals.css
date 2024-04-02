@@ -20,7 +20,7 @@ html {
   scrollbar-color: #6b7280 #fff;
 }
 *::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 *::-webkit-scrollbar-track {
   background: #f3f4f6;
@@ -28,6 +28,7 @@ html {
 }
 *::-webkit-scrollbar-thumb {
   border-radius: 999px;
+  background: #9d9d9d;
 }
 /* react-image-crop */
 #cropImageAsset .ReactCrop {
@@ -50,9 +51,6 @@ html {
   width: 100%;
   max-width: 100%;
   border-radius: 1rem;
-}
-#textEditor .ql-container {
-  font-family: 'Noto Sans KR', 'Noto Sans';
 }
 #textEditor .ql-container.ql-snow {
   border-radius: 1rem;
@@ -200,6 +198,9 @@ html {
   [data-empty='true']:empty:before {
     content: attr(data-placeholder);
     @apply text-gray-300;
+  }
+  #textEditor .ql-container {
+    @apply font-noto-sans-kr font-noto-sans;
   }
 }
 @layer components {
