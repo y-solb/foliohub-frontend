@@ -49,7 +49,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
               </div>
             </div>
           )}
-          <div className="flex flex-col gap-2 overflow-scroll">
+          <div className="flex flex-col gap-2 overflow-x-hidden overflow-y-auto">
             {value?.title && (
               <p className="body2 font-medium">{value?.title}</p>
             )}
@@ -98,7 +98,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
               )}
             </div>
           )}
-          <div className="flex flex-col gap-2 overflow-scroll">
+          <div className="flex flex-col gap-2 overflow-x-hidden	overflow-y-auto">
             {value?.title && (
               <p className="body2 font-medium">{value?.title}</p>
             )}
