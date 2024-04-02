@@ -107,7 +107,7 @@ function TextAssetEditor({
             formats={formats}
           />
         ) : (
-          <div id="textEditor" className="w-full pr-1">
+          <div id="textEditor" className="w-full pr-1 pointer-events-none">
             <div className="ql-container ql-snow w-full">
               <div
                 className="ql-editor w-full max-w-full flex flex-col flex-1 p-4 bg-white overflow-y-auto whitespace-pre-wrap break-words body1"
