@@ -8,7 +8,7 @@ import { useLogoutMutation } from '@/hooks/queries/auth'
 import { BiLogOutCircle, BiUser, BiPencil } from 'react-icons/bi'
 import { useSetRecoilState } from 'recoil'
 import authInfoState from '@/recoil/atoms/authInfoState'
-import EmptyThumbnail from './EmptyThumbnail'
+import EmptyThumbnail from '../common/EmptyThumbnail'
 
 interface UserMenuProps {
   authInfo: AuthInfo

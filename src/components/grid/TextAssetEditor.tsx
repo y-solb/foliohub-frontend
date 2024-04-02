@@ -6,7 +6,7 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import { TbEdit } from 'react-icons/tb'
-import DeleteGridItemButton from '../DeleteGridItemButton'
+import DeleteGridItemButton from './DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const TextEditorToolbar = dynamic(

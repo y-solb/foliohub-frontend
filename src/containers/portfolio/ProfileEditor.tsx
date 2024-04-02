@@ -11,7 +11,7 @@ import {
 } from 'react-icons/fa6'
 import { AiOutlineGlobal } from 'react-icons/ai'
 import { TbCamera } from 'react-icons/tb'
-import EmptyThumbnail from '@/components/EmptyThumbnail'
+import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 
 interface ProfileEditorProps {
   portfolio: UserData

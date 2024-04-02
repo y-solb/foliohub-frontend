@@ -8,9 +8,9 @@ import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import uploadImage from '@/lib/uploadImage'
-import DeleteGridItemButton from '../DeleteGridItemButton'
+import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
-import ImageCropModal from '../ImageCropModal'
+import ImageCropModal from '../common/ImageCropModal'
 
 interface ImageAssetEditorProps {
   asset: AssetType

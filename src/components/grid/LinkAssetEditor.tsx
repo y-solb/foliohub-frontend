@@ -6,7 +6,7 @@ import { useMetadataQuery } from '@/hooks/queries/metadata'
 import { MdError } from 'react-icons/md'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
-import DeleteGridItemButton from '../DeleteGridItemButton'
+import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface LinkAssetEditorProps {

@@ -19,7 +19,7 @@ import authInfoState from '@/recoil/atoms/authInfoState'
 import { useRecoilValue } from 'recoil'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 import SmallLogo from '@/components/common/SmallLogo'
-import EmptyThumbnail from '@/components/EmptyThumbnail'
+import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 
 interface ProfileProps {
   portfolio: PortfolioView

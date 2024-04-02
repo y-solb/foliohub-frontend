@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { IoMdHeart } from 'react-icons/io'
 import { removeTagsText } from '@/lib/utils'
-import EmptyThumbnail from '../EmptyThumbnail'
+import EmptyThumbnail from '../common/EmptyThumbnail'
 
 interface PortFolioItemProps {
   portfolio: PortfolioItem

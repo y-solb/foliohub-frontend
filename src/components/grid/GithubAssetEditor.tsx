@@ -5,7 +5,7 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import { TbLink } from 'react-icons/tb'
-import DeleteGridItemButton from '../DeleteGridItemButton'
+import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
 interface GithubAssetEditorProps {

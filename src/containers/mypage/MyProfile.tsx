@@ -5,7 +5,7 @@ import { MdModeEdit } from 'react-icons/md'
 import { useMyQuery } from '@/hooks/queries/user'
 import useToggle from '@/hooks/useToggle'
 import Image from 'next/image'
-import EmptyThumbnail from '@/components/EmptyThumbnail'
+import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 import JobCategoryModal from './JobCategoryModal'
 import MyProfileSkeleton from './MyProfileSkeleton'
 
