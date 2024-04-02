@@ -153,9 +153,9 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
     })
   }
 
-  // const handleLayoutChange = (currentLayout: Layouts) => {
-  //   setLayouts(currentLayout)
-  // }
+  const handleLayoutChange = (currentLayout: Layouts) => {
+    setLayouts(currentLayout)
+  }
 
   const handleSavePortfolio = () => {
     const newDisplayName = trimHTML(displayNameRef.current?.innerHTML ?? '')
@@ -216,7 +216,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
           onAdd={handleAdd}
           onUpdate={handleUpdate}
           onDelete={handleDelete}
-          // onLayoutChange={handleLayoutChange}
+          onLayoutChange={handleLayoutChange}
         />
       </PortfolioWrapper>
       <button
