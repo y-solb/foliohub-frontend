@@ -25,7 +25,7 @@ interface AssetGridLayoutEditorProps {
     layoutId: string,
     command?: 'save' | 'update' | 'delete',
   ) => void
-  onLayoutChange: (currentLayout: Layouts) => void
+  // onLayoutChange: (currentLayout: Layouts) => void
 }
 
 function AssetGridLayoutEditor({
@@ -34,7 +34,7 @@ function AssetGridLayoutEditor({
   onAdd,
   onUpdate,
   onDelete,
-  onLayoutChange,
+  // onLayoutChange,
 }: AssetGridLayoutEditorProps) {
   const [breakpoint, setBreakpoint] = useState('')
   const [rowHeight, setRowHeight] = useState(168)
@@ -68,9 +68,9 @@ function AssetGridLayoutEditor({
         onBreakpointChange={(newBreakpoint) => {
           setBreakpoint(newBreakpoint)
         }}
-        onLayoutChange={(_, currentLayout) => {
-          onLayoutChange(currentLayout)
-        }}
+        // onLayoutChange={(_, currentLayout) => {
+        //   onLayoutChange(currentLayout)
+        // }}
         onWidthChange={(width, margin, cols) => {
           setRowHeight((width - (cols + 1) * margin[0]) / cols)
         }}
