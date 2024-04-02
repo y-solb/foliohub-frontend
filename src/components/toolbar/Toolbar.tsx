@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
-import { TbEdit, TbLink, TbSlideshow } from 'react-icons/tb'
+import { TbEdit, TbSlideshow } from 'react-icons/tb'
 import ImageUploadButton from '../common/ImageUploadButton'
 import InputToolbar from './InputToolbar'
 
@@ -31,8 +31,6 @@ function Toolbar({ onAdd }: ToolbarProps) {
   const handleAddValue = (inputValue: string) => {
     if (activeTab === 'github') {
       onAdd('github', { githubId: inputValue })
-    } else if (activeTab === 'link') {
-      onAdd('link', { link: inputValue })
     }
     resetToolbar()
   }
@@ -87,19 +85,10 @@ function Toolbar({ onAdd }: ToolbarProps) {
       >
         <TbSlideshow size={24} />
       </button>
-      <button
-        type="button"
-        name="link"
-        className={`p-1 rounded-lg hover:bg-gray-200 ${activeTab === 'link' ? 'bg-gray-200' : ''}`}
-        aria-label="link"
-        onClick={handleActiveTabAndInput}
-      >
-        <TbLink size={24} />
-      </button>
       {isOpenInputToolbar && (
         <InputToolbar
           buttonLabel="add-input"
-          placeholder={activeTab === 'github' ? 'github id' : 'link'}
+          placeholder="github id"
           defaultValue=""
           onAdd={handleAddValue}
         />

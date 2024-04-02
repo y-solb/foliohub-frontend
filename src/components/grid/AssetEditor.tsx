@@ -3,7 +3,6 @@ import { Layout } from 'react-grid-layout'
 import ImageAssetEditor from './ImageAssetEditor'
 import GithubAssetEditor from './GithubAssetEditor'
 import TextAssetEditor from './TextAssetEditor'
-import LinkAssetEditor from './LinkAssetEditor'
 import CardAssetEditor from './CardAssetEditor'
 
 interface AssetEditorProps {
@@ -52,16 +51,6 @@ function AssetEditor({
           onUpdate={onUpdate}
           onDelete={onDelete}
           onChangeEditMode={onChangeEditMode}
-        />
-      )
-    case 'link':
-      return (
-        <LinkAssetEditor
-          asset={asset}
-          width={layout?.w ?? 1}
-          height={layout?.h ?? 1}
-          onUpdate={onUpdate}
-          onDelete={onDelete}
         />
       )
     case 'card':

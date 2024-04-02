@@ -3,7 +3,6 @@ import { Layout } from 'react-grid-layout'
 import GithubAsset from './GithubAsset'
 import TextAsset from './TextAsset'
 import ImageAsset from './ImageAsset'
-import LinkAsset from './LinkAsset'
 import CardAsset from './CardAsset'
 
 interface AssetProps {
@@ -20,14 +19,6 @@ function Asset({ asset, breakpoint, layout }: AssetProps) {
       return <TextAsset asset={asset} />
     case 'image':
       return <ImageAsset asset={asset} breakpoint={breakpoint} />
-    case 'link':
-      return (
-        <LinkAsset
-          asset={asset}
-          width={layout?.w ?? 1}
-          height={layout?.h ?? 1}
-        />
-      )
     case 'card':
       return (
         <CardAsset
