@@ -2,6 +2,7 @@ export type ToolType = 'github' | 'content' | 'image' | 'card'
 
 export type AssetType = {
   id: string
+  layoutId: string
   type: ToolType
   command?: 'save' | 'update' | 'delete'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

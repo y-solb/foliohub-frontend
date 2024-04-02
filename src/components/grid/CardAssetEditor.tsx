@@ -16,7 +16,11 @@ interface CardAssetEditorProps {
   height: number
   breakpoint: string
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
+  onDelete: (
+    id: string,
+    layoutId: string,
+    command?: 'save' | 'update' | 'delete',
+  ) => void
   onChangeEditMode: () => void
 }
 
@@ -29,7 +33,7 @@ function CardAssetEditor({
   onDelete,
   onChangeEditMode,
 }: CardAssetEditorProps) {
-  const { value, id, command } = asset
+  const { value, id, layoutId, command } = asset
 
   const [ratio, setRatio] = useState(0)
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
@@ -247,7 +251,7 @@ function CardAssetEditor({
         <div className="control-wrapper" ref={outRef}>
           <DeleteGridItemButton
             onDelete={() => {
-              onDelete(id, command)
+              onDelete(id, layoutId, command)
             }}
           />
           <div className="asset-toolbar-wrapper">

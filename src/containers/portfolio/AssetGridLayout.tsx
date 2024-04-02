@@ -31,13 +31,13 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
   const assetsGrid = useMemo(
     () =>
       portfolio.assets.map((asset) => (
-        <div key={asset.id} className="flex">
+        <div key={asset.layoutId} className="flex">
           <Asset
             asset={asset}
             breakpoint={breakpoint}
             layout={
               layouts &&
-              layouts[breakpoint]?.find((layout) => layout.i === asset.id)
+              layouts[breakpoint]?.find((layout) => layout.i === asset.layoutId)
             }
           />
         </div>

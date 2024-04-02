@@ -78,12 +78,14 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
 
   const handleAdd = (name: ToolType, value?: string) => {
     const id = uuidv4()
+    const layoutId = uuidv4()
     setPortfolio({
       ...portfolio,
       assets: [
         ...portfolio.assets,
         {
           id,
+          layoutId,
           type: name,
           command: 'save',
           value,
@@ -119,7 +121,11 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
     })
   }
 
-  const handleDelete = (id: string, command?: 'save' | 'update' | 'delete') => {
+  const handleDelete = (
+    id: string,
+    layoutId: string,
+    command?: 'save' | 'update' | 'delete',
+  ) => {
     if (command === 'save') {
       // 새로 저장된 경우 filter로 삭제
       setPortfolio({
@@ -142,8 +148,8 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
     }
 
     setLayouts({
-      lg: layouts?.lg.filter((layout) => layout.i !== id),
-      md: layouts?.md.filter((layout) => layout.i !== id),
+      lg: layouts?.lg.filter((layout) => layout.i !== layoutId),
+      md: layouts?.md.filter((layout) => layout.i !== layoutId),
     })
   }
 

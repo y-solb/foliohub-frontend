@@ -75,10 +75,10 @@ function Toolbar({ onAdd }: ToolbarProps) {
         aria-label="card"
         onClick={() => {
           onAdd('card', {
-            imageUrl: null,
-            title: null,
-            content: null,
-            link: null,
+            imageUrl: '',
+            title: '',
+            content: '',
+            link: '',
           })
           resetToolbar()
         }}

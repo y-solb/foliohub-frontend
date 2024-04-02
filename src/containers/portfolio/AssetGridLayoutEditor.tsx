@@ -20,7 +20,11 @@ interface AssetGridLayoutEditorProps {
   layouts?: Layouts
   onAdd: (name: ToolType, value?: string) => void
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (id: string, command?: 'save' | 'update' | 'delete') => void
+  onDelete: (
+    id: string,
+    layoutId: string,
+    command?: 'save' | 'update' | 'delete',
+  ) => void
   onLayoutChange: (currentLayout: Layouts) => void
 }
 
@@ -75,7 +79,7 @@ function AssetGridLayoutEditor({
           (asset) =>
             asset.command !== 'delete' && (
               <div
-                key={asset.id}
+                key={asset.layoutId}
                 className={`flex cursor-move ${activeAssetId === asset.id ? 'z-50' : 'hover:z-40'}`}
               >
                 <AssetEditor
@@ -83,7 +87,9 @@ function AssetGridLayoutEditor({
                   breakpoint={breakpoint}
                   layout={
                     layouts &&
-                    layouts[breakpoint]?.find((layout) => layout.i === asset.id)
+                    layouts[breakpoint]?.find(
+                      (layout) => layout.i === asset.layoutId,
+                    )
                   }
                   onUpdate={onUpdate}
                   onDelete={onDelete}
