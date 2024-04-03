@@ -45,6 +45,7 @@
 - 로딩 시 스켈레톤 UI를 적용했습니다.
 - useInfiniteQuery와 IntersectionObserver를 활용하여 무한 스크롤을 구현했습니다.
 - [react-github-calendar 라이브러리를 수정하기 위해 patch-package 사용](https://sollogging.tistory.com/78)했습니다.
+- 이미지 업로드 시 틀의 비율과 달라 잘리는 부분이 있어 사용자가 이를 조정할 수 있도록 이미지 크롭 기능을 추가했습니다.
 - Vercel로 배포했습니다.
 
 ## ⛳️ 실행
