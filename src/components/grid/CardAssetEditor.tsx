@@ -4,8 +4,8 @@ import { useRef, useState } from 'react'
 import { TbLink, TbCrop, TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
-import uploadImage from '@/lib/uploadImage'
 import useToggle from '@/hooks/useToggle'
+import useImageUpload from '@/hooks/useImageUpload'
 import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 import ImageCropModal from '../common/ImageCropModal'
@@ -61,6 +61,7 @@ function CardAssetEditor({
       })
     })
   const [isCropMode, toggle] = useToggle(false)
+  const { uploadImage } = useImageUpload()
 
   const handleClickInputRef = () => {
     if (!imageRef.current) {

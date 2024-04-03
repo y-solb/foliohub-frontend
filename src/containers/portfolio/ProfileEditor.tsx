@@ -1,4 +1,3 @@
-import uploadImage from '@/lib/uploadImage'
 import { SocialLinks, UserData } from '@/types'
 import { useRef } from 'react'
 import Image from 'next/image'
@@ -12,6 +11,7 @@ import {
 import { AiOutlineGlobal } from 'react-icons/ai'
 import { TbCamera } from 'react-icons/tb'
 import EmptyThumbnail from '@/components/common/EmptyThumbnail'
+import useImageUpload from '@/hooks/useImageUpload'
 
 interface ProfileEditorProps {
   portfolio: UserData
@@ -31,6 +31,7 @@ function ProfileEditor({
   onSocialLinkChange,
 }: ProfileEditorProps) {
   const imageRef = useRef<HTMLInputElement | null>(null)
+  const { uploadImage } = useImageUpload()
 
   const handleClickInputRef = () => {
     if (!imageRef.current) {

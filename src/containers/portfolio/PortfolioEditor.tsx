@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation'
 import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { trimHTML } from '@/lib/utils'
+import ProcessBar from '@/components/common/ProcessBar'
 
 interface PortfolioEditorProps {
   username: string
@@ -201,6 +202,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
 
   return (
     <div className="relative">
+      <ProcessBar />
       <PortfolioWrapper>
         <ProfileEditor
           portfolio={portfolio}

@@ -7,7 +7,7 @@ import useToggle from '@/hooks/useToggle'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
-import uploadImage from '@/lib/uploadImage'
+import useImageUpload from '@/hooks/useImageUpload'
 import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 import ImageCropModal from '../common/ImageCropModal'
@@ -48,6 +48,7 @@ function ImageAssetEditor({
     })
   const imageRef = useRef<HTMLInputElement | null>(null)
   const [isCropMode, toggle] = useToggle(false)
+  const { uploadImage } = useImageUpload()
 
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({

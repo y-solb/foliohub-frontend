@@ -1,6 +1,6 @@
 import { useRef } from 'react'
-import uploadImage from '@/lib/uploadImage'
 import { TbPhotoPlus } from 'react-icons/tb'
+import useImageUpload from '@/hooks/useImageUpload'
 
 interface ImageUploadButtonProps {
   onClick?: () => void
@@ -9,6 +9,7 @@ interface ImageUploadButtonProps {
 
 function ImageUploadButton({ onClick, onUpload }: ImageUploadButtonProps) {
   const imageRef = useRef<HTMLInputElement | null>(null)
+  const { uploadImage } = useImageUpload()
 
   const handleClickInputRef = () => {
     if (onClick) {
