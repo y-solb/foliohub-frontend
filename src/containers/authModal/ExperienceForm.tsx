@@ -36,6 +36,12 @@ function ExperienceForm({ onCloseModal }: ExperienceFormProps) {
     )
   }
 
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
+
   return (
     <div className="flex items-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden max-w-80 w-full h-12 pl-4 pr-2 py-2">
       <input
@@ -43,6 +49,7 @@ function ExperienceForm({ onCloseModal }: ExperienceFormProps) {
         className="body1 w-full"
         ref={codeRef}
         placeholder="체험 CODE를 입력하고 이용해 봐요."
+        onKeyUp={handleEnterKey}
       />
       <button
         type="button"
