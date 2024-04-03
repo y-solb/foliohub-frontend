@@ -2,10 +2,7 @@ import { atom } from 'recoil'
 
 const progressBarState = atom({
   key: 'progressBarState',
-  default: {
-    isLoading: false,
-    percent: 0,
-  },
+  default: false,
 })
 
 export default progressBarState

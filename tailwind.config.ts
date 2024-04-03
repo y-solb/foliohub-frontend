@@ -13,6 +13,7 @@ const config: Config = {
       fadeOut: 'fadeOut 0.2s ease-out',
       pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       heartbeat: 'heartbeat 0.5s ease forwards',
+      loader: 'loader 3s ease infinite',
     },
     keyframes: {
       fadeIn: {
@@ -45,6 +46,16 @@ const config: Config = {
         },
         '50%': {
           transform: 'scale(1.2)',
+        },
+      },
+      loader: {
+        '0%': {
+          left: '0',
+          transform: 'translateX(-100%)',
+        },
+        '100%': {
+          left: '100%',
+          transform: 'translateX(0%)',
         },
       },
     },

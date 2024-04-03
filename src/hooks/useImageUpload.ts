@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil'
 import progressBarState from '@/recoil/atoms/progressBarState'
 
 const useImageUpload = () => {
-  const setProgressBar = useSetRecoilState(progressBarState)
+  const setIsLoading = useSetRecoilState(progressBarState)
 
   const uploadImage = async (
     files: FileList | null,
@@ -15,10 +15,7 @@ const useImageUpload = () => {
     const formData = new FormData()
     formData.append('file', file)
 
-    setProgressBar((prev) => ({
-      ...prev,
-      isLoading: true,
-    }))
+    setIsLoading(true)
 
     try {
       const {
@@ -27,23 +24,11 @@ const useImageUpload = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent
-
-          if (!total) return
-          const percentage = Math.floor((loaded / total) * 100)
-          setProgressBar((prev) => ({
-            ...prev,
-            percent: percentage,
-          }))
-        },
       })
 
-      setProgressBar({
-        percent: 0,
-        isLoading: false,
-      })
-
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 500)
       return imageUrl
     } catch (error) {
       console.error('Image upload failed:', error)
