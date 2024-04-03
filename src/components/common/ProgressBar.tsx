@@ -1,8 +1,8 @@
-import processBarState from '@/recoil/atoms/processBarState'
 import { useRecoilValue } from 'recoil'
+import progressBarState from '@/recoil/atoms/progressBarState'
 
-function ProcessBar() {
-  const progressBar = useRecoilValue(processBarState)
+function ProgressBar() {
+  const progressBar = useRecoilValue(progressBarState)
   const { isLoading, percent } = progressBar
   if (!isLoading) return null
 
@@ -13,4 +13,4 @@ function ProcessBar() {
   )
 }
 
-export default ProcessBar
+export default ProgressBar

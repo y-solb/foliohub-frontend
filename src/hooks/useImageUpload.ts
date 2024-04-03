@@ -1,9 +1,9 @@
 import httpClient from '@/lib/httpClient'
 import { useSetRecoilState } from 'recoil'
-import processBarState from '@/recoil/atoms/processBarState'
+import progressBarState from '@/recoil/atoms/progressBarState'
 
 const useImageUpload = () => {
-  const setProgressBar = useSetRecoilState(processBarState)
+  const setProgressBar = useSetRecoilState(progressBarState)
 
   const uploadImage = async (
     files: FileList | null,
