@@ -9,8 +9,7 @@ const useImageUpload = () => {
     files: FileList | null,
     type: 'thumbnail' | 'asset',
   ) => {
-    if (!files || !files[0])
-      throw new Error('CLOUDINARY environment variable is not set')
+    if (!files || !files[0]) throw new Error('업로드 할 파일이 없습니다.')
 
     const file = files[0]
     const formData = new FormData()
