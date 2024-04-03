@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil'
 import authModalState from '@/recoil/atoms/authModalState'
 import { FcGoogle } from 'react-icons/fc'
 import Image from 'next/image'
+import ExperienceForm from '@/containers/authModal/ExperienceForm'
 import Modal from '../common/Modal'
 
 function AuthModal() {
@@ -27,6 +28,7 @@ function AuthModal() {
             당신의 여정을 기록하고, 성장을 공유해 봐요!
           </span>
         </div>
+        <ExperienceForm onCloseModal={handleClose} />
         <a
           href={`${process.env.NEXT_PUBLIC_API_HOST}/v1/auth/redirect/google`}
           className="flex items-center justify-center gap-4 rounded-full bg-black text-white w-full h-12 px-8"
