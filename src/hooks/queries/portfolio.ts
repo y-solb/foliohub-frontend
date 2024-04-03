@@ -110,7 +110,7 @@ export const useInfinitePortfolioQuery = () => {
 
 export const useInfiniteLikePortfolioQuery = () => {
   return useInfiniteQuery<PortfolioData, Error, InfiniteData<PortfolioData>>({
-    queryKey: ['portfolioList'],
+    queryKey: ['likePortfolioList'],
     queryFn: ({ pageParam }) => getLikePortfolioList(pageParam as number),
     getNextPageParam: (lastPage) => {
       const {
