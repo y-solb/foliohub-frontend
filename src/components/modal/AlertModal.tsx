@@ -9,7 +9,7 @@ function AlertModal() {
 
   return (
     <Modal isOpen={alertModal.isOpen} onClose={closeAlert}>
-      <div className="flex flex-col items-center justify-center gap-4 w-80 p-6">
+      <div className="flex flex-col justify-center gap-4 w-80 p-6">
         <div className="flex flex-col gap-2">
           <p className="subtitle1">{alertModal.title}</p>
           <p className="body2 text-gray-400">{alertModal.content}</p>
