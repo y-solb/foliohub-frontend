@@ -2,7 +2,7 @@
 
 import 'react-grid-layout/css/styles.css'
 import { AssetType, SocialLinks, ToolType, UserData } from '@/types'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Layouts } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
 import {
@@ -16,6 +16,8 @@ import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { trimHTML } from '@/lib/utils'
 import ProgressBar from '@/components/common/ProgressBar'
+import { useSetRecoilState } from 'recoil'
+import progressBarState from '@/recoil/atoms/progressBarState'
 
 interface PortfolioEditorProps {
   username: string
@@ -24,8 +26,6 @@ interface PortfolioEditorProps {
 export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   const { openAlert } = useOpenAlertModal()
   const { data, isLoading } = usePortfolioQuery(username)
-  const displayNameRef = useRef<HTMLHeadingElement | null>(null)
-  const shortBioRef = useRef<HTMLHeadingElement | null>(null)
   const [portfolio, setPortfolio] = useState<UserData | null>(null)
   const [socialLinks, setSocialLinks] = useState<SocialLinks | null>(null)
   const [layouts, setLayouts] = useState<Layouts>({
@@ -34,6 +34,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   })
   const router = useRouter()
   const { mutate } = usePortfolioMutation()
+  const setIsLoading = useSetRecoilState(progressBarState)
 
   const handleBeforeUnload = (event: Event) => {
     event.preventDefault()
@@ -159,8 +160,8 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   }
 
   const handleSavePortfolio = () => {
-    const newDisplayName = trimHTML(displayNameRef.current?.innerHTML ?? '')
-    const newShortBio = trimHTML(shortBioRef.current?.innerHTML ?? '')
+    const newDisplayName = trimHTML(portfolio.displayName ?? '')
+    const newShortBio = trimHTML(portfolio.shortBio ?? '')
 
     if (!newDisplayName) {
       openAlert('이름을 알려주세요!')
@@ -173,14 +174,14 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
       )
       return
     }
-    if (!portfolio.thumbnail) {
-      openAlert(
-        '프로필 사진이 없네요.',
-        '자신을 나타낼 수 있는 멋진 사진을 업로드해주세요.📸',
-      )
-      return
-    }
-
+    // if (!portfolio.thumbnail) {
+    //   openAlert(
+    //     '프로필 사진이 없네요.',
+    //     '자신을 나타낼 수 있는 멋진 사진을 업로드해주세요.📸',
+    //   )
+    //   return
+    // }
+    setIsLoading(true)
     mutate(
       {
         username,
@@ -194,6 +195,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
       },
       {
         onSuccess: (_, variables) => {
+          setIsLoading(false)
           router.push(`/${variables.username}`)
         },
       },
@@ -207,8 +209,6 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
         <ProfileEditor
           portfolio={portfolio}
           socialLinks={socialLinks}
-          displayNameRef={displayNameRef}
-          shortBioRef={shortBioRef}
           onProfileChange={handleProfileChange}
           onSocialLinkChange={handleSocialLinkChange}
         />

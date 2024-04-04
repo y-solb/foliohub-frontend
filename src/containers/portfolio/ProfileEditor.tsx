@@ -16,8 +16,6 @@ import useImageUpload from '@/hooks/useImageUpload'
 interface ProfileEditorProps {
   portfolio: UserData
   socialLinks: SocialLinks
-  displayNameRef: React.RefObject<HTMLHeadingElement>
-  shortBioRef: React.RefObject<HTMLHeadingElement>
   onProfileChange: (name: string, value: string) => void
   onSocialLinkChange: (name: string, value: string) => void
 }
@@ -25,8 +23,6 @@ interface ProfileEditorProps {
 function ProfileEditor({
   portfolio,
   socialLinks,
-  displayNameRef,
-  shortBioRef,
   onProfileChange,
   onSocialLinkChange,
 }: ProfileEditorProps) {
@@ -106,19 +102,24 @@ function ProfileEditor({
         <div className="flex flex-col gap-4">
           <h1
             data-placeholder="이름을 입력해주세요."
-            ref={displayNameRef}
             className="break-all"
             contentEditable="true"
+            onBlur={(event) => {
+              const content = (event.target as HTMLHeadingElement).innerHTML
+              onProfileChange('displayName', content)
+            }}
             onPaste={handlePaste}
             suppressContentEditableWarning
             dangerouslySetInnerHTML={{ __html: portfolio.displayName }}
           />
           <p
-            id="shortBio"
             data-placeholder="간단한 소개글을 작성해주세요."
-            ref={shortBioRef}
             className="subtitle1 text-gray-400 break-all"
             contentEditable="true"
+            onBlur={(event) => {
+              const content = (event.target as HTMLParagraphElement).innerHTML
+              onProfileChange('shortBio', content)
+            }}
             onPaste={handlePaste}
             suppressContentEditableWarning
             dangerouslySetInnerHTML={{ __html: portfolio.shortBio }}
