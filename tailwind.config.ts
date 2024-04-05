@@ -14,6 +14,9 @@ const config: Config = {
       pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       heartbeat: 'heartbeat 0.5s ease forwards',
       loader: 'loader 3s ease infinite',
+      wave1: 'wave 12s infinite linear',
+      wave2: 'wave 6s infinite linear',
+      wave3: 'wave 4s infinite linear',
     },
     keyframes: {
       fadeIn: {
@@ -56,6 +59,14 @@ const config: Config = {
         '100%': {
           left: '100%',
           transform: 'translateX(0%)',
+        },
+      },
+      wave: {
+        '0%': {
+          transform: 'rotate(0deg)',
+        },
+        '100%': {
+          transform: 'rotate(360deg)',
         },
       },
     },
