@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
-// import NotFoundError from '@/components/Error/NotFoundError'
 
 export const metadata: Metadata = {
-  title: 'Foliohub - 404',
+  title: 'Foliohub - NotFound',
   robots: 'noindex',
 }
 
