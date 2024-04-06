@@ -2,6 +2,7 @@ import Portfolio from '@/containers/portfolio/Portfolio'
 import { getPortfolio } from '@/fetch/getPortfolio'
 import { removeTagsText } from '@/lib/utils'
 import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: { username: string }
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? portfolio.thumbnail
       : '/foliohub_logo.svg'
 
-    return {
+    const metadata: Metadata = {
       title,
       description,
       openGraph: {
@@ -43,11 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         icon: thumbnail,
       },
     }
+
+    return metadata
   } catch (error) {
-    return {
-      title: 'Not Found',
-      description: 'The post is not found',
-    }
+    return notFound()
   }
 }
 
