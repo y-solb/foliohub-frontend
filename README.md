@@ -44,6 +44,7 @@
 - useInfiniteQuery와 IntersectionObserver를 활용하여 무한 스크롤을 구현했습니다.
 - [react-github-calendar 라이브러리를 수정하기 위해 patch-package 사용](https://sollogging.tistory.com/78)했습니다.
 - NotFound와 Error 페이지를 커스텀으로 구현하여 사용자의 이탈을 방지하고 올바른 경로를 안내하고자 했습니다.
+- 이미지가 원본 비율을 유지하면서 틀 안에 맞추어 표시되다 보니 일부 부분이 잘리는 경우가 있었습니다. 이를 보완하기 위해 사용자가 이미지를 조절할 수 있는 크롭 기능을 추가했습니다.
 - 반응형으로 구현하여 다양한 화면 크기에서 좋은 사용자 경험을 제공하고자 했습니다.
 - Vercel로 배포했습니다.
 
