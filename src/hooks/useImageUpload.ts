@@ -9,7 +9,7 @@ const useImageUpload = () => {
     files: FileList | null,
     type: 'thumbnail' | 'asset',
   ) => {
-    if (!files || !files[0]) throw new Error('업로드 할 파일이 없습니다.')
+    if (!files || !files[0]) return undefined
 
     const file = files[0]
     const formData = new FormData()
