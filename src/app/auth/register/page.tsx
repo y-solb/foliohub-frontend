@@ -1,3 +1,4 @@
+import Logo from '@/components/common/Logo'
 import RegisterForm from '@/containers/register/RegisterForm'
 import { Metadata } from 'next'
 import Image from 'next/image'
@@ -16,12 +17,7 @@ export default function RegisterPage() {
           width={40}
           height={40}
         />
-        <Image
-          src="/foliohub_text_logo.svg"
-          alt="text_logo"
-          width={120}
-          height={32}
-        />
+        <Logo />
       </div>
       <h1>당신의 여정을 기록하고,</h1>
       <h1>성장을 공유해 봐요!</h1>

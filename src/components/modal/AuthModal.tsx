@@ -3,9 +3,9 @@
 import { useRecoilState } from 'recoil'
 import authModalState from '@/recoil/atoms/authModalState'
 import { FcGoogle } from 'react-icons/fc'
-import Image from 'next/image'
 import ExperienceForm from '@/containers/authModal/ExperienceForm'
 import Modal from '../common/Modal'
+import Logo from '../common/Logo'
 
 function AuthModal() {
   const [authModal, setAuthModal] = useRecoilState(authModalState)
@@ -18,12 +18,7 @@ function AuthModal() {
     <Modal isOpen={authModal} onClose={handleClose}>
       <div className="flex flex-col items-center justify-center gap-8 w-96 p-10">
         <div className="flex flex-col items-center justify-center gap-4">
-          <Image
-            src="/foliohub_text_logo.svg"
-            alt="text_logo"
-            width={120}
-            height={32}
-          />
+          <Logo />
           <span className="body2 text-gray-400">
             당신의 여정을 기록하고, 성장을 공유해 봐요!
           </span>

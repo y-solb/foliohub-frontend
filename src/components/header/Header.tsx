@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuthQuery } from '@/hooks/queries/auth'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import { useEffect, useState } from 'react'
@@ -10,6 +9,7 @@ import authInfoState from '@/recoil/atoms/authInfoState'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 import HeaderSkeleton from './HeaderSkeleton'
 import UserMenu from './UserMenu'
+import Logo from '../common/Logo'
 
 function Header() {
   const [isHeaderVisible, setHeaderVisible] = useState(true)
@@ -51,12 +51,7 @@ function Header() {
     >
       <div className="flex items-center justify-center gap-2">
         <Link href="/">
-          <Image
-            src="/foliohub_text_logo.svg"
-            alt="text_logo"
-            width={120}
-            height={32}
-          />
+          <Logo />
         </Link>
       </div>
       {authInfo ? (
