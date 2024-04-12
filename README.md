@@ -69,4 +69,4 @@ npm run dev
 ## 🗂️ 관련 링크
 
 - [Foliohub Backend Repository](https://github.com/y-solb/foliohub-backend)
-- [1차 완성 회고](https://sollogging.tistory.com/83ㄴ)
+- [1차 완성 회고](https://sollogging.tistory.com/83)
