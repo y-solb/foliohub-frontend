@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import useToggle from '@/hooks/useToggle'
 import useImageUpload from '@/hooks/useImageUpload'
+import Image from 'next/image'
 import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 import ImageCropModal from '../common/ImageCropModal'
@@ -167,13 +168,15 @@ function CardAssetEditor({
             <div className="relative rounded-xl overflow-hidden">
               {cardInputs?.imageUrl ? (
                 <div className="relative w-full h-full">
-                  <img
+                  <Image
                     src={cardInputs?.imageUrl}
+                    className="object-cover"
                     alt={`image_${id}`}
-                    className="object-cover w-full h-full"
                     style={{
                       objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
                     }}
+                    quality={100}
+                    fill
                   />
                 </div>
               ) : (
@@ -222,13 +225,15 @@ function CardAssetEditor({
                 id={`image_${id}`}
                 className="relative w-full h-full rounded-xl overflow-hidden"
               >
-                <img
+                <Image
                   src={value?.imageUrl}
+                  className="object-cover"
                   alt={`image_${id}`}
-                  className="object-cover w-full h-full"
                   style={{
                     objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
                   }}
+                  quality={100}
+                  fill
                 />
                 {value.link && (
                   <div className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1">

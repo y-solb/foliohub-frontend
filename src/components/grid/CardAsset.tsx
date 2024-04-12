@@ -1,4 +1,5 @@
 import { AssetType } from '@/types'
+import Image from 'next/image'
 import Link from 'next/link'
 import { TbLink } from 'react-icons/tb'
 
@@ -36,13 +37,15 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
             <div
               className={`relative w-full rounded-xl overflow-hidden ${width !== height ? 'h-full' : ''}`}
             >
-              <img
+              <Image
                 src={value?.imageUrl}
+                className="object-cover"
                 alt={`image_${id}`}
-                className="object-cover w-full h-full"
                 style={{
                   objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
                 }}
+                quality={100}
+                fill
               />
               <div className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1">
                 <TbLink size={20} />
@@ -77,13 +80,15 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
             <div
               className={`relative w-full rounded-xl overflow-hidden ${width !== height ? 'h-full' : ''}`}
             >
-              <img
+              <Image
                 src={value?.imageUrl}
+                className="object-cover"
                 alt={`image_${id}`}
-                className="object-cover w-full h-full"
                 style={{
                   objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
                 }}
+                quality={100}
+                fill
               />
               {value.link && (
                 <a

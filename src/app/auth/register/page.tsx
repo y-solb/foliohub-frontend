@@ -16,6 +16,7 @@ export default function RegisterPage() {
           alt="text_logo"
           width={40}
           height={40}
+          priority
         />
         <Logo />
       </div>

@@ -7,6 +7,7 @@ function Logo() {
       alt="text_logo"
       width={120}
       height={32}
+      priority
     />
   )
 }

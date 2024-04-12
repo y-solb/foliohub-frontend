@@ -6,6 +6,7 @@ import { useMetadataQuery } from '@/hooks/queries/metadata'
 import { MdError } from 'react-icons/md'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
+import Image from 'next/image'
 import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 
@@ -86,10 +87,11 @@ function LinkAssetEditor({
             <div
               className={`relative w-full overflow-hidden ${width !== height ? 'pb-[100%]' : ''}`}
             >
-              <img
+              <Image
                 src={data?.image}
+                className="object-cover"
                 alt={`image_${id}`}
-                className="absolute top-0 object-cover w-full h-full"
+                fill
               />
             </div>
           )}

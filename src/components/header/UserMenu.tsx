@@ -48,10 +48,11 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
         {thumbnail ? (
           <Image
             src={thumbnail}
-            alt={`image_${id}`}
-            priority
-            fill
             className="object-cover"
+            alt={`image_${id}`}
+            width={40}
+            height={40}
+            priority
           />
         ) : (
           <EmptyThumbnail />

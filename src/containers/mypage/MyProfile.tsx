@@ -24,10 +24,12 @@ function MyProfile() {
               {data?.thumbnail ? (
                 <Image
                   src={data?.thumbnail}
-                  alt={`image_${data?.id}`}
-                  priority
-                  fill
                   className="object-cover"
+                  alt={`image_${data?.id}`}
+                  width={132}
+                  height={132}
+                  quality={100}
+                  priority
                 />
               ) : (
                 <EmptyThumbnail />

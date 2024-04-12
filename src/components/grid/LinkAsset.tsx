@@ -2,6 +2,7 @@ import { AssetType } from '@/types'
 import { MdError } from 'react-icons/md'
 import { useMetadataQuery } from '@/hooks/queries/metadata'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface LinkAssetProps {
   asset: AssetType
@@ -32,10 +33,11 @@ function LinkAsset({ asset, width, height }: LinkAssetProps) {
               <div
                 className={`relative w-full ${width !== height ? 'pb-[100%]' : ''}`}
               >
-                <img
+                <Image
                   src={data?.image}
+                  className="object-cover"
                   alt={`image_${id}`}
-                  className="absolute top-0 object-cover w-full h-full"
+                  fill
                 />
               </div>
             )}

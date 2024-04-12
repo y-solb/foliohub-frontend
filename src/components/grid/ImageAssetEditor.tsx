@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { AssetType } from '@/types'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState, useRef } from 'react'
@@ -8,6 +7,7 @@ import Link from 'next/link'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import useImageUpload from '@/hooks/useImageUpload'
+import Image from 'next/image'
 import DeleteGridItemButton from './DeleteGridItemButton'
 import InputToolbar from '../toolbar/InputToolbar'
 import ImageCropModal from '../common/ImageCropModal'
@@ -121,13 +121,15 @@ function ImageAssetEditor({
       >
         <div className="relative flex flex-1 rounded-2xl overflow-hidden">
           <div className="relative w-full overflow-hidden">
-            <img
-              className="relative w-full h-full object-cover"
+            <Image
               src={value.imageUrl}
+              className="object-cover"
               alt={`image_${id}`}
               style={{
                 objectPosition: `${value.pos?.[breakpoint] ? value.pos[breakpoint].x : 50}% ${value.pos?.[breakpoint] ? value.pos[breakpoint].y : 50}%`,
               }}
+              quality={100}
+              fill
             />
           </div>
           <input

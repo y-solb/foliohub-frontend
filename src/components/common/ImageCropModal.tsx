@@ -8,6 +8,7 @@ import ReactCrop, {
 } from 'react-image-crop'
 import Modal from '@/components/common/Modal'
 import { useState } from 'react'
+import Image from 'next/image'
 
 function centerAspectCrop(
   mediaWidth: number,
@@ -77,11 +78,13 @@ function ImageCropModal({
           aspect={ratio}
           locked
         >
-          <img
+          <Image
             src={imageUrl}
+            className="w-full h-full overflow-hidden object-cover"
             alt="image_crop"
+            width={400}
+            height={400}
             onLoad={onImageLoad}
-            className="w-full h-full overflow-hidden object-cover	"
           />
         </ReactCrop>
       </div>

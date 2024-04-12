@@ -26,14 +26,15 @@ function PortFolioItem({
         href={`/${username}`}
         className="relative flex flex-col items-center px-10 py-8 w-full md:h-[344px] h-[301px]"
       >
-        <div className="relative flex min-w-32 min-h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
+        <div className="relative flex w-32 h-32 rounded-full border border-solid border-gray-100 shadow-md overflow-hidden">
           {thumbnail ? (
             <Image
               src={thumbnail}
-              alt={`image_${id}`}
-              priority
-              fill
               className="object-cover"
+              alt={`image_${id}`}
+              width={132}
+              height={132}
+              quality={100}
             />
           ) : (
             <EmptyThumbnail />

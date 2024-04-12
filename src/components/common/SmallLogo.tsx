@@ -9,6 +9,7 @@ function SmallLogo() {
         alt="text_logo"
         width={72}
         height={32}
+        priority
       />
     </Link>
   )

@@ -78,11 +78,12 @@ function ProfileEditor({
             {portfolio.thumbnail ? (
               <Image
                 src={portfolio.thumbnail}
+                className="rounded-full border border-solid border-gray-100 bg-white w-full h-full object-cover"
                 alt="프로필 이미지"
                 width={192}
                 height={192}
                 priority
-                className="rounded-full border border-solid border-gray-100 bg-white w-full h-full object-cover"
+                quality={100}
               />
             ) : (
               <EmptyThumbnail />
