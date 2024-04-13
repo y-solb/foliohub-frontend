@@ -1,5 +1,5 @@
-import AssetEditor from '@/components/grid/AssetEditor'
-import ResizeHandler from '@/components/grid/ResizeHandler'
+import AssetEditor from '@/components/asset/AssetEditor'
+import ResizeHandler from '@/components/asset/ResizeHandler'
 import Toolbar from '@/components/toolbar/Toolbar'
 import {
   LG_BREAKPOINT,

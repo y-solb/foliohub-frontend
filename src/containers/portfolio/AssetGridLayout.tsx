@@ -1,7 +1,7 @@
 'use client'
 
 import SmallLogo from '@/components/common/SmallLogo'
-import Asset from '@/components/grid/Asset'
+import Asset from '@/components/asset/Asset'
 import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants'
 import { UserData } from '@/types'
 import { useEffect, useMemo, useState } from 'react'
