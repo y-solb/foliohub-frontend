@@ -24,6 +24,7 @@ function ImageAsset({ asset, breakpoint }: ImageAssetProps) {
             quality={100}
             fill
             priority
+            sizes="(max-width: 842px) 100vw, 80vw"
           />
         </div>
         {value.link && (

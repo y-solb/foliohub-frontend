@@ -92,6 +92,7 @@ function LinkAssetEditor({
                 className="object-cover"
                 alt={`image_${id}`}
                 fill
+                sizes="(max-width: 842px) 100vw, 80vw"
               />
             </div>
           )}

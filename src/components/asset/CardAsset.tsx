@@ -47,6 +47,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
                 quality={100}
                 fill
                 priority
+                sizes="(max-width: 842px) 100vw, 80vw"
               />
               <div className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1">
                 <TbLink size={20} />
@@ -91,6 +92,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
                 quality={100}
                 fill
                 priority
+                sizes="(max-width: 842px) 100vw, 80vw"
               />
               {value.link && (
                 <a
