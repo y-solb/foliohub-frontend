@@ -130,6 +130,7 @@ function ImageAssetEditor({
               }}
               quality={100}
               fill
+              priority
             />
           </div>
           <input

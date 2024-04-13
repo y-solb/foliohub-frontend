@@ -177,6 +177,7 @@ function CardAssetEditor({
                     }}
                     quality={100}
                     fill
+                    priority
                   />
                 </div>
               ) : (
@@ -234,6 +235,7 @@ function CardAssetEditor({
                   }}
                   quality={100}
                   fill
+                  priority
                 />
                 {value.link && (
                   <div className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1">
