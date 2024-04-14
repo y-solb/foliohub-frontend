@@ -68,7 +68,7 @@ function ImageCropModal({
     <Modal isOpen={isOpen} isBorder={false} onClose={handleClose}>
       <div
         id="cropImageAsset"
-        className="w-[50vw] max-h-[80vh] overflow-y-auto rounded-2xl"
+        className="max-w-[50vw] max-h-[80vh] overflow-y-auto rounded-2xl"
       >
         <ReactCrop
           crop={crop}
