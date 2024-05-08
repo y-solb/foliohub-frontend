@@ -4,18 +4,18 @@
 
 import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import { PortfolioItemType } from '@/types'
-import PortfolioItemSkeleton from './PortfolioItemSkeleton'
+// import PortfolioItemSkeleton from './PortfolioItemSkeleton'
 
 interface PortfolioListProps {
   // isLoading?: boolean
-  isFetching: boolean
+  // isFetching: boolean
   portfolios: PortfolioItemType[]
   loaderRef: React.RefObject<HTMLDivElement>
 }
 
 function PortfolioList({
   // isLoading,
-  isFetching,
+  // isFetching,
   portfolios,
   loaderRef,
 }: PortfolioListProps) {
@@ -36,10 +36,10 @@ function PortfolioList({
         {portfolios?.map((portfolio) => (
           <PortfolioItem key={portfolio.id} portfolio={portfolio} />
         ))}
-        {isFetching &&
+        {/* {isFetching &&
           Array(12)
             .fill(0)
-            .map((_, index) => <PortfolioItemSkeleton key={index} />)}
+            .map((_, index) => <PortfolioItemSkeleton key={index} />)} */}
       </ul>
       <div ref={loaderRef} className="h-8" />
     </>
