@@ -1,6 +1,6 @@
 'use client'
 
-import PortfolioList from '@/components/portfolio/PortfolioList'
+import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import { useRef } from 'react'
@@ -19,11 +19,14 @@ function RecentPortfolioList() {
   useInfiniteScroll(loaderRef, fetchMorePortfolio)
 
   return (
-    <PortfolioList
-      isFetching={isFetching}
-      loaderRef={loaderRef}
-      portfolios={data?.pages[0].data ?? []}
-    />
+    <>
+      <ul className="grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:px-20 px-10">
+        {data?.pages[0].data.map((portfolio) => (
+          <PortfolioItem key={portfolio.id} portfolio={portfolio} />
+        ))}
+      </ul>
+      <div ref={loaderRef} className="h-8" />
+    </>
   )
 }
 
