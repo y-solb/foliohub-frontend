@@ -48,7 +48,7 @@ export type Activity = {
   level: number
 }
 
-export type PortfolioItem = {
+export type PortfolioItemType = {
   id: string
   displayName: string
   shortBio: string

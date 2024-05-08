@@ -1,15 +1,15 @@
-import { PortfolioItem } from '@/types'
+import { PortfolioItemType } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { IoMdHeart } from 'react-icons/io'
 import { removeTagsText } from '@/lib/utils'
 import EmptyThumbnail from '../common/EmptyThumbnail'
 
-interface PortFolioItemProps {
-  portfolio: PortfolioItem
+interface PortfolioItemProps {
+  portfolio: PortfolioItemType
 }
 
-function PortFolioItem({
+function PortfolioItem({
   portfolio: {
     id,
     username,
@@ -19,7 +19,7 @@ function PortFolioItem({
     shortBio,
     likeCount,
   },
-}: PortFolioItemProps) {
+}: PortfolioItemProps) {
   return (
     <li className="grid-item-wrapper">
       <Link
@@ -60,4 +60,4 @@ function PortFolioItem({
   )
 }
 
-export default PortFolioItem
+export default PortfolioItem

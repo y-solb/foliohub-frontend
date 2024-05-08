@@ -1,5 +1,5 @@
 import httpClient from '@/lib/httpClient'
-import { AssetType, PortfolioItem, SocialLinks } from '@/types'
+import { AssetType, PortfolioItemType, SocialLinks } from '@/types'
 import {
   InfiniteData,
   UseMutationOptions,
@@ -11,7 +11,7 @@ import {
 import { Layouts } from 'react-grid-layout'
 
 type PortfolioData = {
-  data: PortfolioItem[]
+  data: PortfolioItemType[]
   meta: {
     currentPage: number
     hasNextPage: boolean

@@ -2,23 +2,23 @@
 
 'use client'
 
-import PortFolioItem from '@/components/portfolio/PortfolioItem'
-import { PortfolioItem } from '@/types'
+import PortfolioItem from '@/components/portfolio/PortfolioItem'
+import { PortfolioItemType } from '@/types'
 import PortfolioItemSkeleton from './PortfolioItemSkeleton'
 
-interface PortFolioListProps {
+interface PortfolioListProps {
   isLoading: boolean
   isFetching: boolean
-  portfolios: PortfolioItem[]
+  portfolios: PortfolioItemType[]
   loaderRef: React.RefObject<HTMLDivElement>
 }
 
-function PortFolioList({
+function PortfolioList({
   isLoading,
   isFetching,
   portfolios,
   loaderRef,
-}: PortFolioListProps) {
+}: PortfolioListProps) {
   if (isLoading)
     return (
       <ul className="grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:px-20 px-10">
@@ -34,7 +34,7 @@ function PortFolioList({
     <>
       <ul className="grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:px-20 px-10">
         {portfolios?.map((portfolio) => (
-          <PortFolioItem key={portfolio.id} portfolio={portfolio} />
+          <PortfolioItem key={portfolio.id} portfolio={portfolio} />
         ))}
         {isFetching &&
           Array(12)
@@ -46,4 +46,4 @@ function PortFolioList({
   )
 }
 
-export default PortFolioList
+export default PortfolioList

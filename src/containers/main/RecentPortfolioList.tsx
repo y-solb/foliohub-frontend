@@ -1,6 +1,6 @@
 'use client'
 
-import PortFolioList from '@/components/portfolio/PortfolioList'
+import PortfolioList from '@/components/portfolio/PortfolioList'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import { useMemo, useRef } from 'react'
@@ -23,7 +23,7 @@ function RecentPortfolioList() {
   useInfiniteScroll(loaderRef, fetchMorePortfolio)
 
   return (
-    <PortFolioList
+    <PortfolioList
       isLoading={isLoading}
       isFetching={isFetching}
       loaderRef={loaderRef}
