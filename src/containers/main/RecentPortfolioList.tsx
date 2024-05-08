@@ -1,9 +1,9 @@
 'use client'
 
-import PortfolioList from '@/components/portfolio/PortfolioList'
+import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
-import { useRef } from 'react'
+import { Fragment, useRef } from 'react'
 
 function RecentPortfolioList() {
   const { data, fetchNextPage, isFetching, hasNextPage } =
@@ -18,14 +18,19 @@ function RecentPortfolioList() {
 
   useInfiniteScroll(loaderRef, fetchMorePortfolio)
 
-  const portfolios = data?.pages.flatMap((page) => page.data) ?? []
-
   return (
-    <PortfolioList
-      // isFetching={isFetching}
-      loaderRef={loaderRef}
-      portfolios={portfolios}
-    />
+    <>
+      <ul className="grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:px-20 px-10">
+        {data?.pages.map((page, i) => (
+          <Fragment key={i}>
+            {page.data.map((portfolio) => (
+              <PortfolioItem key={portfolio.id} portfolio={portfolio} />
+            ))}
+          </Fragment>
+        ))}
+      </ul>
+      <div ref={loaderRef} className="h-8" />
+    </>
   )
 }
 
