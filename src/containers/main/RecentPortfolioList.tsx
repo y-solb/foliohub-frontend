@@ -18,11 +18,13 @@ function RecentPortfolioList() {
 
   useInfiniteScroll(loaderRef, fetchMorePortfolio)
 
+  const portfolios = data?.pages.flatMap((page) => page.data) ?? []
+
   return (
     <PortfolioList
       // isFetching={isFetching}
       loaderRef={loaderRef}
-      portfolios={data?.pages[0].data ?? []}
+      portfolios={portfolios}
     />
   )
 }
