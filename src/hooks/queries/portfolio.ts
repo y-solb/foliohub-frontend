@@ -45,7 +45,9 @@ type UpdatelikePortfolioVariables = {
   portfolioId: string
 }
 
-const getPortfolioList = async (pageParam: number): Promise<PortfolioData> => {
+export const getPortfolioList = async (
+  pageParam: number,
+): Promise<PortfolioData> => {
   const { data } = await httpClient.get('/v1/portfolio/list', {
     params: {
       page: pageParam,
@@ -93,7 +95,6 @@ const unlikePortfolio = async ({
   const { data } = await httpClient.post(`/v1/portfolio/unlike/${portfolioId}`)
   return data
 }
-
 export const useInfinitePortfolioQuery = () => {
   return useInfiniteQuery<PortfolioData, Error, InfiniteData<PortfolioData>>({
     queryKey: ['portfolioList'],
@@ -105,6 +106,7 @@ export const useInfinitePortfolioQuery = () => {
       return hasNextPage ? currentPage + 1 : undefined
     },
     initialPageParam: 1,
+    staleTime: 60 * 1000,
   })
 }
 
