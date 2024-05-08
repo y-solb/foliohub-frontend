@@ -25,7 +25,7 @@ function LikePortfolioList() {
   return (
     <PortfolioList
       // isLoading={isLoading}
-      isFetching={isFetching}
+      // isFetching={isFetching}
       loaderRef={loaderRef}
       portfolios={portfolios}
     />
