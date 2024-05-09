@@ -3,19 +3,44 @@
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-function ReactQueryProvider({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  const queryClient = new QueryClient({
+function makeQueryClient() {
+  return new QueryClient({
     defaultOptions: {
       queries: {
+        staleTime: 60 * 1000,
         retry: 0,
         refetchOnWindowFocus: false,
       },
     },
   })
+}
+
+let browserQueryClient: QueryClient | undefined
+
+function getQueryClient() {
+  if (typeof window === 'undefined') {
+    return makeQueryClient()
+  }
+
+  if (!browserQueryClient) browserQueryClient = makeQueryClient()
+  return browserQueryClient
+}
+
+function ReactQueryProvider({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  // const queryClient = new QueryClient({
+  //   defaultOptions: {
+  //     queries: {
+  //       retry: 0,
+  //       refetchOnWindowFocus: false,
+  //     },
+  //   },
+  // })
+  const queryClient = getQueryClient()
+
   return (
     <QueryClientProvider client={queryClient}>
       {children}
