@@ -3,15 +3,11 @@
 import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
-import { useMemo, useRef } from 'react'
+import { Fragment, useRef } from 'react'
 
 function RecentPortfolioList() {
   const { data, fetchNextPage, isFetching, hasNextPage } =
     useInfinitePortfolioQuery()
-
-  const portfolios = useMemo(() => {
-    return [...(data?.pages?.flatMap((page) => page.data) || [])]
-  }, [data])
 
   const fetchMorePortfolio = () => {
     if (!isFetching && hasNextPage) {
@@ -25,8 +21,13 @@ function RecentPortfolioList() {
   return (
     <>
       <ul className="grid gap-6 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 lg:px-20 px-10">
-        {portfolios?.map((portfolio) => (
-          <PortfolioItem key={portfolio.id} portfolio={portfolio} />
+        {data?.pages.map((page, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={i}>
+            {page.data.map((portfolio) => (
+              <PortfolioItem key={portfolio.id} portfolio={portfolio} />
+            ))}
+          </Fragment>
         ))}
       </ul>
       <div ref={loaderRef} className="h-8" />
