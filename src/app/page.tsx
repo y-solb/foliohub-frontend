@@ -13,6 +13,7 @@ export default async function Home() {
     queryKey: ['portfolioList'],
     queryFn: ({ pageParam }) => getPortfolioList(pageParam as number),
     initialPageParam: 1,
+    staleTime: 30 * 1000,
   })
   const dehydratedState = dehydrate(queryClient)
   return (
