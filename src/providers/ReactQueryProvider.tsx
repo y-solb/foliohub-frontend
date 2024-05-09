@@ -12,6 +12,7 @@ function ReactQueryProvider({
     defaultOptions: {
       queries: {
         retry: 0,
+        refetchOnWindowFocus: false,
       },
     },
   })
