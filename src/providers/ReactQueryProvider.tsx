@@ -7,7 +7,6 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000,
         retry: 0,
         refetchOnWindowFocus: false,
       },
@@ -31,14 +30,6 @@ function ReactQueryProvider({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // const queryClient = new QueryClient({
-  //   defaultOptions: {
-  //     queries: {
-  //       retry: 0,
-  //       refetchOnWindowFocus: false,
-  //     },
-  //   },
-  // })
   const queryClient = getQueryClient()
 
   return (
