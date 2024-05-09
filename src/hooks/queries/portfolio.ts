@@ -142,6 +142,7 @@ export const usePortfolioMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ['portfolio', variables.username],
       })
+      queryClient.invalidateQueries({ queryKey: ['authInfo'] })
     },
   })
 }
