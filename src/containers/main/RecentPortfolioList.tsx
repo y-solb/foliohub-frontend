@@ -29,7 +29,8 @@ function RecentPortfolioList() {
             ))}
           </Fragment>
         ))}
-        {isFetchingNextPage &&
+        {typeof window !== 'undefined' &&
+          isFetchingNextPage &&
           Array(12)
             .fill(0)
             .map((_, index) => <PortfolioItemSkeleton key={index} />)}
