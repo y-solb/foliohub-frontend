@@ -8,14 +8,14 @@ import PortfolioItemSkeleton from './PortfolioItemSkeleton'
 
 interface PortfolioListProps {
   isLoading: boolean
-  isFetching: boolean
+  isFetchingNextPage: boolean
   portfolios: PortfolioItemType[]
   loaderRef: React.RefObject<HTMLDivElement>
 }
 
 function PortfolioList({
   isLoading,
-  isFetching,
+  isFetchingNextPage,
   portfolios,
   loaderRef,
 }: PortfolioListProps) {
@@ -36,7 +36,7 @@ function PortfolioList({
         {portfolios?.map((portfolio) => (
           <PortfolioItem key={portfolio.id} portfolio={portfolio} />
         ))}
-        {isFetching &&
+        {isFetchingNextPage &&
           Array(12)
             .fill(0)
             .map((_, index) => <PortfolioItemSkeleton key={index} />)}

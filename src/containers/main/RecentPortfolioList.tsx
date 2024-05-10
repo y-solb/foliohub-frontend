@@ -4,25 +4,20 @@ import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import PortfolioItemSkeleton from '@/components/portfolio/PortfolioItemSkeleton'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 
 function RecentPortfolioList() {
-  const [isShowSkeleton, setIsShowSkeleton] = useState(false)
-  const { data, fetchNextPage, isFetching, hasNextPage } =
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useInfinitePortfolioQuery()
 
   const fetchMorePortfolio = () => {
-    if (!isFetching && hasNextPage) {
+    if (!isFetchingNextPage && hasNextPage) {
       fetchNextPage()
     }
   }
   const loaderRef = useRef<HTMLDivElement>(null)
 
   useInfiniteScroll(loaderRef, fetchMorePortfolio)
-
-  useEffect(() => {
-    setIsShowSkeleton(isFetching)
-  }, [isFetching])
 
   return (
     <>
@@ -34,7 +29,7 @@ function RecentPortfolioList() {
             ))}
           </Fragment>
         ))}
-        {isShowSkeleton &&
+        {isFetchingNextPage &&
           Array(12)
             .fill(0)
             .map((_, index) => <PortfolioItemSkeleton key={index} />)}

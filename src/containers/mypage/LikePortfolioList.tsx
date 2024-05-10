@@ -6,7 +6,7 @@ import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import { useMemo, useRef } from 'react'
 
 function LikePortfolioList() {
-  const { data, fetchNextPage, isLoading, isFetching, hasNextPage } =
+  const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } =
     useInfiniteLikePortfolioQuery()
 
   const portfolios = useMemo(() => {
@@ -14,7 +14,7 @@ function LikePortfolioList() {
   }, [data])
 
   const fetchMorePortfolio = () => {
-    if (!isFetching && hasNextPage) {
+    if (!isFetchingNextPage && hasNextPage) {
       fetchNextPage()
     }
   }
@@ -25,7 +25,7 @@ function LikePortfolioList() {
   return (
     <PortfolioList
       isLoading={isLoading}
-      isFetching={isFetching}
+      isFetchingNextPage={isFetchingNextPage}
       loaderRef={loaderRef}
       portfolios={portfolios}
     />
