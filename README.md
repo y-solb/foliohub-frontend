@@ -32,19 +32,37 @@
 
 **accessToken 만료 시 refreshToken으로 재발급**
 
-- axios interceptors를 활용하여 accessToken 만료 시 401 에러를 감지하고 refreshToken으로 accessToken을 재발급 받도록 구현했습니다.
-- 여러 개의 요청이 401 에러를 받는 경우 accessToken을 재발급 받는 동안 다른 요청들이 대기하도록 처리했습니다. 새로운 요청이 들어올 때마다 해당 요청을 대기하는 콜백 함수를 배열에 추가하고, accessToken이 재발급되면 대기 중인 함수들을 호출하여 다시 요청을 보내도록 구현했습니다.
+- axios interceptors를 활용하여 accessToken 만료 시 401 에러를 감지하고, refreshToken으로 accessToken을 재발급 받도록 구현했습니다.
+- 여러 개의 요청이 401 에러를 받는 경우, accessToken을 재발급 받는 동안 다른 요청들이 대기하도록 처리했습니다. 새로운 요청이 들어올 때마다 해당 요청을 대기하는 콜백 함수를 배열에 추가하고, accessToken이 재발급되면 대기 중인 함수들을 호출하여 다시 요청을 보내도록 구현했습니다.
+
+**React-query**
+
+- useInfiniteQuery와 IntersectionObserver를 활용하여 무한 스크롤을 구현했습니다.
+- [React-query를 활용해 서버에서 데이터를 prefetch](https://sollogging.tistory.com/88)하고 완성된 HTML을 생성함으로써 초기 로딩 성능이 향상되었습니다. 클라이언트에서는 추가적인 네트워크 요청없이 바로 렌더링 할 수 있게 되었습니다.
 
 **metadata**
 
 - SEO 최적화를 위해 정적 메타 데이터와 동적 메타 데이터를 추가했습니다. 포트폴리오 상세 페이지에서 각 사용자의 정보를 fetch로 동적으로 가져와 메타 데이터에 적용했습니다.
 
+**next/dynamic**
+
+- react-quill 라이브러리를 dynamic import을 이용하여 필요 시 동적으로 로드하도록 구현하였습니다. 이를 통해 텍스트 편집이 필요할 때만 리소스를 로드함으로써 초기 로딩 시간을 효과적으로 단축하였습니다.
+
+**middleware**
+
+- middleware를 통해 특정 페이지 접근 시 권한을 확인하고, 권한이 없는 경우 홈으로 리다이렉트 처리했습니다.
+
+**next/image**
+
+- [next/image를 활용하여 이미지 최적화](https://sollogging.tistory.com/86)를 진행했습니다. 이를 통해 이미지 형식을 webp로 변환하고 이미지를 캐싱할 수 있었습니다. 또한, 리스트 등에서는 lazy loading을 적용하고, 페이지 로드 시 초기에 화면에 나타나야 하는 이미지에 대해서는 priority를 true로 설정하여 우선적으로 로딩시켰습니다. 이러한 작업으로 인해 Lighthouse의 Performance 점수가 향상되었습니다. (포트폴리오 상세페이지: 69점 -> 99점)
+
+**NotFound와 Error 페이지 커스텀**
+
+- [NotFound와 Error 페이지를 커스텀](https://sollogging.tistory.com/84)으로 구현하여 사용자의 이탈을 방지하고 올바른 경로를 안내하고자 했습니다.
+
 **기타**
 
-- useInfiniteQuery와 IntersectionObserver를 활용하여 무한 스크롤을 구현했습니다.
 - [react-github-calendar 라이브러리를 수정하기 위해 patch-package 사용](https://sollogging.tistory.com/78)했습니다.
-- [NotFound와 Error 페이지를 커스텀](https://sollogging.tistory.com/84)으로 구현하여 사용자의 이탈을 방지하고 올바른 경로를 안내하고자 했습니다.
-- [next/image를 활용하여 이미지 최적화](https://sollogging.tistory.com/86)를 진행했고, 이로 인해 Lighthouse Performance 점수가 향상되었음을 확인했습니다. (포트폴리오 상세페이지: 69점 -> 99점)
 - 이미지가 원본 비율을 유지하면서 틀 안에 맞추어 표시되다 보니 일부 부분이 잘리는 경우가 있었습니다. 이를 보완하기 위해 사용자가 이미지를 조절할 수 있는 크롭 기능을 추가했습니다.
 - 반응형으로 구현하여 다양한 화면 크기에서 좋은 사용자 경험을 제공하고자 했습니다.
 - Vercel로 배포했습니다.
