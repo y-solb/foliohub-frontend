@@ -2,7 +2,6 @@ import httpClient from '@/lib/httpClient'
 import { AssetType, PortfolioItemType, SocialLinks } from '@/types'
 import {
   InfiniteData,
-  UseMutationOptions,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -35,14 +34,9 @@ type UpdatePortfolioVariables = {
   username: string
   updatedPortfolio: PortfolioView
 }
-type UpdatelikePortfolioData = {
-  success: boolean
-  message: string
-  isLike: boolean
-  likeCount: number
-}
 type UpdatelikePortfolioVariables = {
   portfolioId: string
+  username: string
 }
 
 export const getPortfolioList = async (
@@ -84,14 +78,16 @@ const editPortfolio = async ({
   return data
 }
 
-const likePortfolio = async ({ portfolioId }: UpdatelikePortfolioVariables) => {
+const likePortfolio = async (
+  portfolioId: UpdatelikePortfolioVariables['portfolioId'],
+) => {
   const { data } = await httpClient.post(`/v1/portfolio/like/${portfolioId}`)
   return data
 }
 
-const unlikePortfolio = async ({
-  portfolioId,
-}: UpdatelikePortfolioVariables) => {
+const unlikePortfolio = async (
+  portfolioId: UpdatelikePortfolioVariables['portfolioId'],
+) => {
   const { data } = await httpClient.post(`/v1/portfolio/unlike/${portfolioId}`)
   return data
 }
@@ -147,32 +143,82 @@ export const usePortfolioMutation = () => {
   })
 }
 
-export const useLikePorfolioMutation = <TError = unknown, TContext = unknown>(
-  options?: UseMutationOptions<
-    UpdatelikePortfolioData,
-    TError,
-    UpdatelikePortfolioVariables,
-    TContext
-  >,
-) => {
+export const useLikePorfolioMutation = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: (variables: UpdatelikePortfolioVariables) =>
-      likePortfolio(variables),
-    ...options,
+      likePortfolio(variables.portfolioId),
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries({
+        queryKey: ['portfolio', newData.username],
+      })
+
+      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
+        'portfolio',
+        newData.username,
+      ])
+      if (!prevPortfolio) return undefined
+
+      queryClient.setQueryData<PortfolioView>(['portfolio', newData.username], {
+        ...prevPortfolio,
+        isLike: true,
+        likeCount: prevPortfolio.likeCount + 1,
+      })
+
+      return { prevPortfolio, newData }
+    },
+    onError: (_, __, context) => {
+      if (!context) return
+      queryClient.setQueryData(
+        ['portfolio', context.newData.username],
+        context.prevPortfolio,
+      )
+    },
+    onSettled: (newData) => {
+      queryClient.invalidateQueries({
+        queryKey: ['portfolio', newData.username],
+      })
+    },
   })
 }
 
-export const useUnlikePorfolioMutation = <TError = unknown, TContext = unknown>(
-  options?: UseMutationOptions<
-    UpdatelikePortfolioData,
-    TError,
-    UpdatelikePortfolioVariables,
-    TContext
-  >,
-) => {
+export const useUnlikePorfolioMutation = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
     mutationFn: (variables: UpdatelikePortfolioVariables) =>
-      unlikePortfolio(variables),
-    ...options,
+      unlikePortfolio(variables.portfolioId),
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries({
+        queryKey: ['portfolio', newData.username],
+      })
+
+      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
+        'portfolio',
+        newData.username,
+      ])
+      if (!prevPortfolio) return undefined
+
+      queryClient.setQueryData<PortfolioView>(['portfolio', newData.username], {
+        ...prevPortfolio,
+        isLike: false,
+        likeCount: prevPortfolio.likeCount - 1,
+      })
+
+      return { prevPortfolio, newData }
+    },
+    onError: (_, __, context) => {
+      if (!context) return
+      queryClient.setQueryData(
+        ['portfolio', context.newData.username],
+        context.prevPortfolio,
+      )
+    },
+    onSettled: (newData) => {
+      queryClient.invalidateQueries({
+        queryKey: ['portfolio', newData.username],
+      })
+    },
   })
 }

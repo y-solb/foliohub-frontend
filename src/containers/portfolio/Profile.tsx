@@ -5,7 +5,6 @@ import {
   useLikePorfolioMutation,
   useUnlikePorfolioMutation,
 } from '@/hooks/queries/portfolio'
-import { useQueryClient } from '@tanstack/react-query'
 import {
   FaInstagram,
   FaFacebook,
@@ -39,61 +38,8 @@ function Profile({
 }: ProfileProps) {
   const authInfo = useRecoilValue(authInfoState)
   const openModal = useOpenAuthModal()
-  const queryClient = useQueryClient()
-  const { mutate: like } = useLikePorfolioMutation({
-    onMutate() {
-      queryClient.cancelQueries({
-        queryKey: ['portfolio', username],
-      })
-
-      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
-        'portfolio',
-        username,
-      ])
-      if (!prevPortfolio) return
-
-      queryClient.setQueryData<PortfolioView>(['portfolio', username], {
-        ...prevPortfolio,
-        isLike: true,
-        likeCount: prevPortfolio.likeCount + 1,
-      })
-    },
-    onError: () => {
-      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
-        'portfolio',
-        username,
-      ])
-      if (!prevPortfolio) return
-      queryClient.setQueryData(['portfolio', username], prevPortfolio)
-    },
-  })
-  const { mutate: unlike } = useUnlikePorfolioMutation({
-    onMutate() {
-      queryClient.cancelQueries({
-        queryKey: ['portfolio', username],
-      })
-
-      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
-        'portfolio',
-        username,
-      ])
-      if (!prevPortfolio) return
-
-      queryClient.setQueryData<PortfolioView>(['portfolio', username], {
-        ...prevPortfolio,
-        isLike: false,
-        likeCount: prevPortfolio.likeCount - 1,
-      })
-    },
-    onError: () => {
-      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
-        'portfolio',
-        username,
-      ])
-      if (!prevPortfolio) return
-      queryClient.setQueryData(['portfolio', username], prevPortfolio)
-    },
-  })
+  const { mutate: like } = useLikePorfolioMutation()
+  const { mutate: unlike } = useUnlikePorfolioMutation()
 
   const handleLike = () => {
     if (!authInfo) {
@@ -104,10 +50,12 @@ function Profile({
     if (isLike) {
       unlike({
         portfolioId: id,
+        username,
       })
     } else {
       like({
         portfolioId: id,
+        username,
       })
     }
   }
