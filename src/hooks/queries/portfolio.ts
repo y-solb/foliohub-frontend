@@ -102,7 +102,7 @@ export const useInfinitePortfolioQuery = () => {
       return hasNextPage ? currentPage + 1 : undefined
     },
     initialPageParam: 1,
-    staleTime: 60 * 1000,
+    staleTime: 30 * 1000,
   })
 }
 
