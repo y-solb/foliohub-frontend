@@ -2,7 +2,7 @@
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fy-solb%2Ffoliohub-backend&count_bg=%23607AE9&title_bg=%236A6A6A&icon=&icon_color=%23FF0202&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-나만의 포트폴리오 만드는 서비스
+나만의 포트폴리오를 만들고 공유할 수 있는 서비스
 
 ## 💁🏻‍♀️ 소개
 
@@ -37,8 +37,12 @@
 
 **React-query**
 
-- useInfiniteQuery와 IntersectionObserver를 활용하여 무한 스크롤을 구현했습니다.
-- [React-query를 활용해 서버에서 데이터를 prefetch](https://sollogging.tistory.com/88)하고 완성된 HTML을 생성함으로써 초기 로딩 성능이 향상되었습니다. 클라이언트에서는 추가적인 네트워크 요청없이 바로 렌더링 할 수 있게 되었습니다.
+- [서버에서 데이터를 prefetch해서 SSR](https://sollogging.tistory.com/88)으로 구현했습니다. 기존 CSR 페이지를 SSR으로 리팩토링한 후, Lighthouse결과를 비교했을 때 LCP가 6.3초에서 0.7초로 개선되어 Performance 점수가 향상되었습니다. LCP는 페이지의 주요 콘텐츠가 얼마나 빨리 표시되는지를 나타내는 지표로, SSR을 통해 사용자에게 초기 페이지 로드 시 완성된 HTML을 빠르게 전달해 사용자 경험을 개선할 수 있었습니다.
+  왼쪽은 CSR, 오른쪽은 SSR의 Lighthouse 측정 결과입니다. ![SSR](https://github.com/y-solb/foliohub-frontend/assets/59462108/e319729f-dbf0-4817-acfa-f2eaf4dfd0b5)
+
+- 로그인 된 사용자 정보를 관리할 때, <code>staleTime</code>을 <code>Infinity</code>로 설정하여 데이터가 항상 최신 상태로 간주되도록 했습니다. 사용자 정보가 변경되거나 로그아웃 시에는 쿼리를 무효화하여 최신 데이터를 다시 받아오도록 구현했습니다.
+- 낙관적인 업데이트를 통해 좋아요 클릭 시 UI에 바로 반영했습니다. 만약 에러 발생 시 이전 상태로 롤백 시킵니다. 서버 응답 후에는 쿼리를 무효화시켰습니다.
+- useInfiniteQuery와 Intersection Observer를 이용하여 무한 스크롤을 구현했습니다.
 
 **metadata**
 
@@ -60,12 +64,16 @@
 
 - [NotFound와 Error 페이지를 커스텀](https://sollogging.tistory.com/84)으로 구현하여 사용자의 이탈을 방지하고 올바른 경로를 안내하고자 했습니다.
 
+**배포**
+
+- [서버리스와 전통적인 서버 배포 방식을 비교](https://sollogging.tistory.com/93)하면서, 각 방식의 차이점을 공부했습니다. Vercel과 같은 서버리스는 개발과 배포가 간편하다는 장점이 있지만, 사용하지 않다가 다시 요청이 들어올 때 서비스를 활성화하는 데 시간이 걸리는 Cold Start(초기 지연 현상) 문제가 있을 수 있습니다. 반면, EC2 같은 전통적인 서버 방식은 인스턴스가 한 번 시작되면 계속 실행되므로 Cold Start 문제가 발생하지 않습니다. 그러나 EC2는 인스턴스 설정과 관리가 복잡하다는 단점이 있습니다.
+- 개발과 배포의 간편함과 현재 Cold Start 현상이 크게 문제되지 않는 점을 고려해, Vercel에 배포하고 있습니다.
+
 **기타**
 
 - [react-github-calendar 라이브러리를 수정하기 위해 patch-package 사용](https://sollogging.tistory.com/78)했습니다.
 - 이미지가 원본 비율을 유지하면서 틀 안에 맞추어 표시되다 보니 일부 부분이 잘리는 경우가 있었습니다. 이를 보완하기 위해 사용자가 이미지를 조절할 수 있는 크롭 기능을 추가했습니다.
 - 반응형으로 구현하여 다양한 화면 크기에서 좋은 사용자 경험을 제공하고자 했습니다.
-- Vercel로 배포했습니다.
 
 ## ⛳️ 실행
 
