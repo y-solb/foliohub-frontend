@@ -38,6 +38,7 @@
 **React-query**
 
 - [서버에서 데이터를 prefetch해서 SSR](https://sollogging.tistory.com/88)으로 구현했습니다. 기존 CSR 페이지를 SSR으로 리팩토링한 후, Lighthouse결과를 비교했을 때 LCP가 6.3초에서 0.7초로 개선되어 Performance 점수가 향상되었습니다. LCP는 페이지의 주요 콘텐츠가 얼마나 빨리 표시되는지를 나타내는 지표로, SSR을 통해 사용자에게 초기 페이지 로드 시 완성된 HTML을 빠르게 전달해 사용자 경험을 개선할 수 있었습니다.
+
   왼쪽은 CSR, 오른쪽은 SSR의 Lighthouse 측정 결과입니다. ![SSR](https://github.com/y-solb/foliohub-frontend/assets/59462108/e319729f-dbf0-4817-acfa-f2eaf4dfd0b5)
 
 - 로그인 된 사용자 정보를 관리할 때, <code>staleTime</code>을 <code>Infinity</code>로 설정하여 데이터가 항상 최신 상태로 간주되도록 했습니다. 사용자 정보가 변경되거나 로그아웃 시에는 쿼리를 무효화하여 최신 데이터를 다시 받아오도록 구현했습니다.
