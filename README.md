@@ -2,7 +2,7 @@
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fy-solb%2Ffoliohub-backend&count_bg=%23607AE9&title_bg=%236A6A6A&icon=&icon_color=%23FF0202&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
-나만의 포트폴리오를 만들고 공유할 수 있는 서비스
+나만의 포트폴리오를 만들고 다른 사람들과 공유할 수 있는 서비스
 
 ## 💁🏻‍♀️ 소개
 
