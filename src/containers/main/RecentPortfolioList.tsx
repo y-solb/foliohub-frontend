@@ -3,21 +3,20 @@
 import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import PortfolioItemSkeleton from '@/components/portfolio/PortfolioItemSkeleton'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
-import useInfiniteScroll from '@/hooks/useInfiniteScroll'
+// import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import { Fragment, useRef } from 'react'
 
 function RecentPortfolioList() {
-  const { data, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useInfinitePortfolioQuery()
+  const { data, isFetchingNextPage } = useInfinitePortfolioQuery()
 
-  const fetchMorePortfolio = () => {
-    if (!isFetchingNextPage && hasNextPage) {
-      fetchNextPage()
-    }
-  }
+  // const fetchMorePortfolio = () => {
+  //   if (!isFetchingNextPage && hasNextPage) {
+  //     fetchNextPage()
+  //   }
+  // }
   const loaderRef = useRef<HTMLDivElement>(null)
 
-  useInfiniteScroll(loaderRef, fetchMorePortfolio)
+  // useInfiniteScroll(loaderRef, fetchMorePortfolio)
 
   return (
     <>
