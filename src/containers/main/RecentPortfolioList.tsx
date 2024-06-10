@@ -1,7 +1,7 @@
 'use client'
 
 import PortfolioItem from '@/components/portfolio/PortfolioItem'
-import PortfolioItemSkeleton from '@/components/portfolio/PortfolioItemSkeleton'
+// import PortfolioItemSkeleton from '@/components/portfolio/PortfolioItemSkeleton'
 import { useInfinitePortfolioQuery } from '@/hooks/queries/portfolio'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import { Fragment, useRef } from 'react'
@@ -29,13 +29,13 @@ function RecentPortfolioList() {
             ))}
           </Fragment>
         ))}
-        {typeof window !== 'undefined' &&
+        {/* {typeof window !== 'undefined' &&
           isFetchingNextPage &&
           Array(12)
             .fill(0)
-            .map((_, index) => <PortfolioItemSkeleton key={index} />)}
+            .map((_, index) => <PortfolioItemSkeleton key={index} />)} */}
       </ul>
-      <div ref={loaderRef} className="h-8" />
+      {/* <div ref={loaderRef} className="h-8" /> */}
     </>
   )
 }
