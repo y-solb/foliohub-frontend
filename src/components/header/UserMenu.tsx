@@ -6,8 +6,6 @@ import useOutsideClick from '@/hooks/useOutsideClick'
 import { AuthInfo } from '@/types'
 import { useLogoutMutation } from '@/hooks/queries/auth'
 import { BiLogOutCircle, BiUser, BiPencil } from 'react-icons/bi'
-import { useSetRecoilState } from 'recoil'
-import authInfoState from '@/recoil/atoms/authInfoState'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { useRouter } from 'next/navigation'
 import EmptyThumbnail from '../common/EmptyThumbnail'
@@ -18,7 +16,6 @@ interface UserMenuProps {
 
 function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
   const router = useRouter()
-  const setAuthInfo = useSetRecoilState(authInfoState)
   const { mutate } = useLogoutMutation()
   const { openAlert } = useOpenAlertModal()
   const [isOpenNav, setIsOpenNav, outRef] = useOutsideClick<HTMLDivElement>(
@@ -34,7 +31,6 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
   const handleLogout = () => {
     mutate()
     router.push('/')
-    setAuthInfo(null)
     openAlert('로그아웃이 완료되었어요!', '다음에 다시 만나요 👋')
   }
 

@@ -2,10 +2,8 @@
 
 import { useAuthQuery } from '@/hooks/queries/auth'
 import Link from 'next/link'
-import { useRecoilState } from 'recoil'
 import { useEffect, useState } from 'react'
 import { throttle } from 'throttle-debounce'
-import authInfoState from '@/recoil/atoms/authInfoState'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 import HeaderSkeleton from './HeaderSkeleton'
 import UserMenu from './UserMenu'
@@ -14,15 +12,8 @@ import Logo from '../common/Logo'
 function Header() {
   const [isHeaderVisible, setHeaderVisible] = useState(true)
   const [lastScrollTop, setLastScrollTop] = useState(0)
-  const [authInfo, setAuthInfo] = useRecoilState(authInfoState)
-  const { data, isLoading } = useAuthQuery()
+  const { data: currentUser, isLoading: isLoadingCurrentUser } = useAuthQuery()
   const openModal = useOpenAuthModal()
-
-  const currentUser = data ?? null
-
-  useEffect(() => {
-    setAuthInfo(currentUser)
-  }, [setAuthInfo, currentUser])
 
   useEffect(() => {
     const handleScroll = throttle(100, () => {
@@ -40,7 +31,7 @@ function Header() {
     }
   }, [lastScrollTop])
 
-  if (isLoading) return <HeaderSkeleton />
+  if (isLoadingCurrentUser) return <HeaderSkeleton />
 
   return (
     <div
@@ -54,8 +45,8 @@ function Header() {
           <Logo />
         </Link>
       </div>
-      {authInfo ? (
-        <UserMenu authInfo={authInfo} />
+      {currentUser ? (
+        <UserMenu authInfo={currentUser} />
       ) : (
         <button
           type="button"
