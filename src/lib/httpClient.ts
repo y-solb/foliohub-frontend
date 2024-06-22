@@ -9,8 +9,7 @@ let isTokenRefreshing = false
 let refreshSubscribers: (() => void)[] = []
 
 const onTokenRefreshed = () => {
-  refreshSubscribers.map((callback) => callback())
-  refreshSubscribers = []
+  refreshSubscribers.forEach((callback) => callback())
 }
 
 const addRefreshSubscriber = (callback: () => void) => {
@@ -22,25 +21,28 @@ httpClient.interceptors.response.use(
     return response
   },
   async (error) => {
-    const {
-      config,
-      response: { status },
-    } = error
-    const originalRequest = config
-    if (status === 401) {
+    const { config, response } = error
+
+    if (response && response.status === 401) {
       // token이 재발급 되는 동안의 요청은 refreshSubscribers에 저장
       const retryOriginalRequest = new Promise((resolve) => {
         addRefreshSubscriber(() => {
-          resolve(httpClient(originalRequest))
+          resolve(httpClient(config))
         })
       })
+
       if (!isTokenRefreshing) {
         isTokenRefreshing = true
+        try {
+          await httpClient.post('/v1/auth/refresh')
 
-        await httpClient.post('/v1/auth/refresh')
-
-        isTokenRefreshing = false
-        onTokenRefreshed()
+          isTokenRefreshing = false
+          onTokenRefreshed()
+          refreshSubscribers = []
+        } catch (e) {
+          isTokenRefreshing = false
+          refreshSubscribers = []
+        }
       }
 
       return retryOriginalRequest
