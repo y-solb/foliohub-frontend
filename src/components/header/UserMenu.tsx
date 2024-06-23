@@ -10,7 +10,7 @@ import { useSetRecoilState } from 'recoil'
 import authInfoState from '@/recoil/atoms/authInfoState'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { useRouter } from 'next/navigation'
-import EmptyThumbnail from '../common/EmptyThumbnail'
+import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 
 interface UserMenuProps {
   authInfo: AuthInfo

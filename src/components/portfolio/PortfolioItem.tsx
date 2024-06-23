@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { IoMdHeart } from 'react-icons/io'
 import { removeTagsText } from '@/lib/utils'
-import EmptyThumbnail from '../common/EmptyThumbnail'
+import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 
 interface PortfolioItemProps {
   portfolio: PortfolioItemType
