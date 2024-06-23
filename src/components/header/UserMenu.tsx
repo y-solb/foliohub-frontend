@@ -8,7 +8,7 @@ import { useLogoutMutation } from '@/hooks/queries/auth'
 import { BiLogOutCircle, BiUser, BiPencil } from 'react-icons/bi'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { useRouter } from 'next/navigation'
-import EmptyThumbnail from '../common/EmptyThumbnail'
+import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 
 interface UserMenuProps {
   authInfo: AuthInfo
