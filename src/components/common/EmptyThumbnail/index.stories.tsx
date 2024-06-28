@@ -1,9 +1,13 @@
-import type { Meta } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import EmptyThumbnail from '.'
 
 const meta: Meta<typeof EmptyThumbnail> = {
   title: 'Components/EmptyThumbnail',
   component: EmptyThumbnail,
+  parameters: {
+    componentSubtitle:
+      'EmptyThumbnail는 빈 프로필 썸네일을 나타내는 컴포넌트입니다.',
+  },
   decorators: [
     (Story) => (
       <div style={{ width: '48px', height: '48px' }}>
@@ -15,6 +19,6 @@ const meta: Meta<typeof EmptyThumbnail> = {
 
 export default meta
 
-export function Default() {
-  return <EmptyThumbnail />
-}
+type Story = StoryObj<typeof EmptyThumbnail>
+
+export const Default: Story = {}
