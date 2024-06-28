@@ -1,11 +1,12 @@
 'use client'
 
-import SmallLogo from '@/components/common/SmallLogo'
+import Logo from '@/components/common/Logo'
 import Asset from '@/components/asset/Asset'
 import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants'
 import { UserData } from '@/types'
 import { useEffect, useMemo, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
+import Link from 'next/link'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -69,7 +70,9 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
         </ResponsiveGridLayout>
       </div>
       <div className="flex justify-center items-center pb-16 md:hidden">
-        <SmallLogo />
+        <Link href="/">
+          <Logo size="s" />
+        </Link>
       </div>
     </>
   )

@@ -15,7 +15,7 @@ import {
 import { AiOutlineGlobal } from 'react-icons/ai'
 import Link from 'next/link'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
-import SmallLogo from '@/components/common/SmallLogo'
+import Logo from '@/components/common/Logo'
 import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 import { useAuthQuery } from '@/hooks/queries/auth'
 
@@ -169,7 +169,9 @@ function Profile({
             <span className="text-gray-400 body2">{likeCount}</span>
           </div>
           <div className="hidden md:block">
-            <SmallLogo />
+            <Link href="/">
+              <Logo size="s" />
+            </Link>
           </div>
         </div>
       </div>
