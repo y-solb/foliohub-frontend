@@ -4,8 +4,8 @@ import { useRecoilState } from 'recoil'
 import authModalState from '@/recoil/atoms/authModalState'
 import { FcGoogle } from 'react-icons/fc'
 import ExperienceForm from '@/containers/authModal/ExperienceForm'
-import Modal from '../common/Modal'
-import Logo from '../common/Logo'
+import Modal from '@/components/common/Modal'
+import Logo from '@/components/common/Logo'
 
 function AuthModal() {
   const [authModal, setAuthModal] = useRecoilState(authModalState)

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
-import Modal from '../common/Modal'
+import Modal from '@/components/common/Modal'
 
 function AlertModal() {
   const { alertModal, closeAlert } = useOpenAlertModal()
