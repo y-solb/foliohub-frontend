@@ -8,7 +8,9 @@ const meta: Meta<typeof ProgressBar> = {
   title: 'Components/ProgressBar',
   component: ProgressBar,
   parameters: {
-    componentSubtitle: 'ProgressBar는 로딩 컴포넌트입니다.',
+    docs: {
+      subtitle: 'ProgressBar는 로딩 컴포넌트입니다.',
+    },
   },
   decorators: [
     (Story) => (
@@ -20,7 +22,6 @@ const meta: Meta<typeof ProgressBar> = {
 }
 
 export default meta
-
 type Story = StoryObj<typeof ProgressBar>
 
 function ProgressBarWithLoading() {

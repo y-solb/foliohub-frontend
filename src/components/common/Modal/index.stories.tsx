@@ -6,8 +6,9 @@ const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
   component: Modal,
   parameters: {
-    componentSubtitle:
-      'Modal는 바깥 영역을 클릭하면 닫히는 Modal 컴포넌트입니다.',
+    docs: {
+      subtitle: 'Modal는 바깥 영역을 클릭하면 닫히는 Modal 컴포넌트입니다.',
+    },
   },
   argTypes: {
     isOpen: {
@@ -37,7 +38,6 @@ const meta: Meta<typeof Modal> = {
 }
 
 export default meta
-
 type Story = StoryObj<typeof Modal>
 
 function Content({ onClose }: { onClose: () => void }) {

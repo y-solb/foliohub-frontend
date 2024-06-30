@@ -5,7 +5,9 @@ const meta: Meta<typeof SkeletonText> = {
   title: 'Components/SkeletonText',
   component: SkeletonText,
   parameters: {
-    componentSubtitle: 'SkeletonText는 텍스트 로딩 컴포넌트입니다.',
+    docs: {
+      subtitle: 'SkeletonText는 텍스트 로딩 컴포넌트입니다.',
+    },
   },
   argTypes: {
     variant: {
@@ -33,15 +35,13 @@ const meta: Meta<typeof SkeletonText> = {
       description: '기본값은 100%로 width를 설정합니다.',
     },
   },
-}
-
-export default meta
-
-type Story = StoryObj<typeof SkeletonText>
-
-export const Default: Story = {
   args: {
     variant: 'body1',
     width: '100%',
   },
 }
+
+export default meta
+type Story = StoryObj<typeof SkeletonText>
+
+export const Default: Story = {}

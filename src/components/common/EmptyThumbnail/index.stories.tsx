@@ -5,8 +5,9 @@ const meta: Meta<typeof EmptyThumbnail> = {
   title: 'Components/EmptyThumbnail',
   component: EmptyThumbnail,
   parameters: {
-    componentSubtitle:
-      'EmptyThumbnail는 빈 프로필 썸네일을 나타내는 컴포넌트입니다.',
+    docs: {
+      subtitle: 'EmptyThumbnail는 빈 프로필 썸네일을 나타내는 컴포넌트입니다.',
+    },
   },
   decorators: [
     (Story) => (
@@ -18,7 +19,6 @@ const meta: Meta<typeof EmptyThumbnail> = {
 }
 
 export default meta
-
 type Story = StoryObj<typeof EmptyThumbnail>
 
 export const Default: Story = {}

@@ -5,7 +5,9 @@ const meta: Meta<typeof Logo> = {
   title: 'Components/Logo',
   component: Logo,
   parameters: {
-    componentSubtitle: 'Logo는 기본 로고를 나타내는 컴포넌트입니다.',
+    docs: {
+      subtitle: 'Logo는 기본 로고를 나타내는 컴포넌트입니다.',
+    },
   },
   argTypes: {
     size: {
@@ -18,7 +20,6 @@ const meta: Meta<typeof Logo> = {
 }
 
 export default meta
-
 type Story = StoryObj<typeof Logo>
 
 export const Default: Story = {
