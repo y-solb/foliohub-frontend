@@ -1,4 +1,4 @@
-import SkeletonText from '../common/SkeletonText'
+import SkeletonText from '../../common/SkeletonText'
 
 function PortfolioItemSkeleton() {
   return (

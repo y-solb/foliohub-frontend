@@ -1,10 +1,8 @@
-/* eslint-disable react/no-array-index-key */
-
 'use client'
 
 import PortfolioItem from '@/components/portfolio/PortfolioItem'
 import { PortfolioItemType } from '@/types'
-import PortfolioItemSkeleton from './PortfolioItemSkeleton'
+import PortfolioItemSkeleton from '../PortfolioItemSkeleton'
 
 interface PortfolioListProps {
   isLoading: boolean

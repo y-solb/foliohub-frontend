@@ -15,6 +15,10 @@ html {
   }
 }
 
+li {
+  list-style: none;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #6b7280 #fff;
