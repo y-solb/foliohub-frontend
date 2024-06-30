@@ -38,13 +38,13 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
     <div className="relative">
       <button
         type="button"
-        className="relative w-10 h-10 rounded-full border border-solid border-gray-100 overflow-hidden"
+        className="w-10 h-10 rounded-full border border-solid border-gray-100 overflow-hidden"
         onClick={handleOpenNav}
       >
         {thumbnail ? (
           <Image
             src={thumbnail}
-            className="object-cover"
+            className="w-full h-full object-cover"
             alt={`image_${id}`}
             width={40}
             height={40}
@@ -57,7 +57,7 @@ function UserMenu({ authInfo: { id, username, thumbnail } }: UserMenuProps) {
       {isOpenNav && (
         <nav
           ref={outRef}
-          className="absolute right-0 -bottom-[11.5rem] bg-white w-52 border border-solid border-gray-200 rounded-2xl"
+          className="absolute right-0 bg-white w-52 border border-solid border-gray-200 rounded-2xl"
         >
           <ul className="py-2">
             <li className="hover:bg-gray-100">
