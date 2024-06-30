@@ -5,9 +5,9 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { throttle } from 'throttle-debounce'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
-import HeaderSkeleton from './HeaderSkeleton'
-import UserMenu from './UserMenu'
-import Logo from '../common/Logo'
+import HeaderSkeleton from '../HeaderSkeleton'
+import UserMenu from '../UserMenu'
+import Logo from '../../common/Logo'
 
 function Header() {
   const [isHeaderVisible, setHeaderVisible] = useState(true)
