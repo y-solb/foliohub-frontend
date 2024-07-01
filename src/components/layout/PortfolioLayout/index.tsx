@@ -1,8 +1,8 @@
-interface PortfolioWrapperProps {
+interface PortfolioLayoutProps {
   children: React.ReactNode
 }
 
-function PortfolioWrapper({ children }: PortfolioWrapperProps) {
+function PortfolioLayout({ children }: PortfolioLayoutProps) {
   return (
     <div className="flex justify-center">
       <div className="relative flex w-full max-w-[100rem] md:flex-row flex-col">
@@ -12,4 +12,4 @@ function PortfolioWrapper({ children }: PortfolioWrapperProps) {
   )
 }
 
-export default PortfolioWrapper
+export default PortfolioLayout

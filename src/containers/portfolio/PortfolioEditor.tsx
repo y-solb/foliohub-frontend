@@ -12,12 +12,12 @@ import {
 import AssetGridLayoutEditor from '@/containers/portfolio/AssetGridLayoutEditor'
 import ProfileEditor from '@/containers/portfolio/ProfileEditor'
 import { useRouter } from 'next/navigation'
-import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { trimHTML } from '@/lib/utils'
 import ProgressBar from '@/components/common/ProgressBar'
 import { useSetRecoilState } from 'recoil'
 import progressBarState from '@/recoil/atoms/progressBarState'
+import PortfolioLayout from '@/components/layout/PortfolioLayout'
 
 interface PortfolioEditorProps {
   username: string
@@ -205,7 +205,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   return (
     <div className="relative">
       <ProgressBar />
-      <PortfolioWrapper>
+      <PortfolioLayout>
         <ProfileEditor
           portfolio={portfolio}
           socialLinks={socialLinks}
@@ -220,7 +220,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
           onDelete={handleDelete}
           onLayoutChange={handleLayoutChange}
         />
-      </PortfolioWrapper>
+      </PortfolioLayout>
       <button
         type="button"
         className="fixed md:absolute flex items-center bottom-5 md:top-5 right-5 md:right-10 h-10 px-6 rounded-full text-white bg-black"

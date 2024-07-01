@@ -1,11 +1,11 @@
 'use client'
 
-import PortfolioWrapper from '@/components/portfolio/PortfolioWrapper'
 import AssetGridLayout from '@/containers/portfolio/AssetGridLayout'
 import Profile from '@/containers/portfolio/Profile'
 import { useAuthQuery } from '@/hooks/queries/auth'
 import { usePortfolioQuery } from '@/hooks/queries/portfolio'
 import Link from 'next/link'
+import PortfolioLayout from '@/components/layout/PortfolioLayout'
 
 interface PortfolioProps {
   username: string
@@ -20,10 +20,10 @@ export default function Portfolio({ username }: PortfolioProps) {
   }
   return (
     <>
-      <PortfolioWrapper>
+      <PortfolioLayout>
         <Profile portfolio={data} />
         <AssetGridLayout portfolio={data} layouts={data.layout} />
-      </PortfolioWrapper>
+      </PortfolioLayout>
       {currentUser?.username === username && (
         <Link
           href={`/edit/${username}`}

@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import BaseLayout from '.'
+import PortfolioLayout from '.'
 
-const meta: Meta<typeof BaseLayout> = {
-  title: 'Layout/BaseLayout',
-  component: BaseLayout,
+const meta: Meta<typeof PortfolioLayout> = {
+  title: 'Layout/PortfolioLayout',
+  component: PortfolioLayout,
   parameters: {
     docs: {
-      subtitle: 'BaseLayout는 Header가 포함된 기본 Layout입니다.',
+      subtitle: 'PortfolioLayout는 Portfolio 상세페이지 Layout입니다.',
     },
   },
   argTypes: {
@@ -19,7 +19,7 @@ const meta: Meta<typeof BaseLayout> = {
 }
 
 export default meta
-type Story = StoryObj<typeof BaseLayout>
+type Story = StoryObj<typeof PortfolioLayout>
 
 function SampleContent() {
   return (
@@ -31,8 +31,8 @@ function SampleContent() {
 
 export const Default: Story = {
   render: () => (
-    <BaseLayout>
+    <PortfolioLayout>
       <SampleContent />
-    </BaseLayout>
+    </PortfolioLayout>
   ),
 }
