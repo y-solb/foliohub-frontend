@@ -1,9 +1,9 @@
 import { AssetType } from '@/types'
 import { Layout } from 'react-grid-layout'
-import GithubAsset from './GithubAsset'
-import TextAsset from './TextAsset'
-import ImageAsset from './ImageAsset'
-import CardAsset from './CardAsset'
+import GithubAsset from '../GithubAsset'
+import TextAsset from '../TextAsset'
+import ImageAsset from '../ImageAsset'
+import CardAsset from '../CardAsset'
 
 interface AssetProps {
   asset: AssetType

@@ -7,9 +7,9 @@ import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import useToggle from '@/hooks/useToggle'
 import useImageUpload from '@/hooks/useImageUpload'
 import Image from 'next/image'
-import DeleteGridItemButton from './DeleteGridItemButton'
-import InputToolbar from '../toolbar/InputToolbar'
-import ImageCropModal from '../modal/ImageCropModal'
+import DeleteGridItemButton from '../DeleteGridItemButton'
+import InputToolbar from '../../toolbar/InputToolbar'
+import ImageCropModal from '../../modal/ImageCropModal'
 
 interface CardAssetEditorProps {
   asset: AssetType

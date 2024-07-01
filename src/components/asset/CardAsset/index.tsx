@@ -79,9 +79,7 @@ function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {
           }}
         >
           {value?.imageUrl && (
-            <div
-              className={`relative w-full rounded-xl overflow-hidden ${width !== height ? 'h-full' : ''}`}
-            >
+            <div className="relative w-full h-full rounded-xl overflow-hidden">
               <Image
                 src={value?.imageUrl}
                 className="object-cover"
