@@ -2,16 +2,29 @@ import React, { useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
-import { TbEdit, TbSlideshow } from 'react-icons/tb'
+import {
+  TbEdit,
+  TbSlideshow,
+  TbDeviceDesktop,
+  TbDeviceMobile,
+} from 'react-icons/tb'
 import ImageUploadButton from '@/components/common/ImageUploadButton'
 import InputToolbar from '../InputToolbar'
 
 interface ToolbarProps {
+  isMobileMode: boolean
+  breakpoint: string
+  toggleMobileMode: () => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAdd: (name: ToolType, value?: any) => void
 }
 
-function Toolbar({ onAdd }: ToolbarProps) {
+function Toolbar({
+  isMobileMode,
+  breakpoint,
+  toggleMobileMode,
+  onAdd,
+}: ToolbarProps) {
   const [activeTab, setActiveTab] = useState('')
   const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
     useOutsideClick<HTMLDivElement>(() => {
@@ -85,6 +98,24 @@ function Toolbar({ onAdd }: ToolbarProps) {
       >
         <TbSlideshow size={24} />
       </button>
+      {((!isMobileMode && breakpoint === 'lg') ||
+        (isMobileMode && breakpoint === 'md')) && (
+        <button
+          type="button"
+          className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
+          aria-label="device"
+          onClick={() => {
+            toggleMobileMode()
+            resetToolbar()
+          }}
+        >
+          {isMobileMode ? (
+            <TbDeviceDesktop size={24} />
+          ) : (
+            <TbDeviceMobile size={24} />
+          )}
+        </button>
+      )}
       {isOpenInputToolbar && (
         <InputToolbar
           buttonLabel="add-input"
