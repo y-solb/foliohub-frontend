@@ -12,7 +12,7 @@ class SnowThemeFix extends SnowTheme {
 
 Quill.register('themes/snow', SnowThemeFix, true)
 
-export function QuillToolbar() {
+export default function TextEditorToolbar() {
   return (
     <div
       id="toolbar"
@@ -80,5 +80,3 @@ export function QuillToolbar() {
     </div>
   )
 }
-
-export default QuillToolbar

@@ -3,8 +3,8 @@ import { FaGithub } from 'react-icons/fa6'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import { ToolType } from '@/types'
 import { TbEdit, TbSlideshow } from 'react-icons/tb'
-import ImageUploadButton from '../common/ImageUploadButton'
-import InputToolbar from './InputToolbar'
+import ImageUploadButton from '@/components/common/ImageUploadButton'
+import InputToolbar from '../InputToolbar'
 
 interface ToolbarProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
