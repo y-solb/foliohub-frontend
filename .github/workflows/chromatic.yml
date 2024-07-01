@@ -1,7 +1,6 @@
-# Workflow name
 name: 'Chromatic Deployment'
 
-# Event for the workflow
+# main branch에 push하는 경우
 on: push
 
 jobs:
