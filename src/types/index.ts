@@ -7,13 +7,13 @@ export type AssetType = {
   command?: 'save' | 'update' | 'delete'
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any
-  // {
-  //   githubId?: string
-  //   link?: string
-  //   imageUrl?: string
-  //   content?: string
-  // }  TODO: 타입 변경
 }
+// {
+//   githubId?: string
+//   link?: string
+//   imageUrl?: string
+//   content?: string
+// }  TODO: 타입 변경
 
 export type AuthInfo = {
   id: string
@@ -56,5 +56,5 @@ export type PortfolioItemType = {
   username: string
   userJob: string | null
   likeCount: number
-  updatedAt: string
+  userId: string
 }
