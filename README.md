@@ -14,6 +14,8 @@
 
 ### [🚀 서비스 보러가기](https://www.foliohub.me)
 
+### [👩‍🎨 Storybook 보러가기](https://6682172b6c9ea6c19209ec95-zmixyhstdz.chromatic.com/?path=/docs/configure-your-project--docs)
+
 로그인 없이 체험 코드를 입력하고 체험해 볼 수 있어요.
 
 ```
@@ -22,11 +24,12 @@
 
 ## ⚒️ 기술 스택
 
-- Language: Typescript
-- Framework : Next.js
-- Library: Recoil, React-query
-- CSS: Tailwind
-- Deploy: Vercel
+- Language: `Typescript`
+- Framework : `Next.js`
+- Library: `Recoil`,` React-query`
+- CSS: `Tailwind`
+- Deploy: `Vercel`
+- Tools: `Storybook`
 
 ## ✏️ 구현 사항
 
