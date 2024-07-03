@@ -5,7 +5,7 @@ import { PortfolioItemType } from '@/types'
 import PortfolioItemSkeleton from '../PortfolioItemSkeleton'
 
 interface PortfolioListProps {
-  isLoading: boolean
+  isLoading?: boolean
   isFetchingNextPage: boolean
   portfolios: PortfolioItemType[]
   loaderRef: React.RefObject<HTMLDivElement>
