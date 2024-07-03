@@ -1,5 +1,5 @@
 import httpClient from '@/lib/httpClient'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 type MyInfoData = {
   id: string
@@ -11,8 +11,17 @@ type MyInfoData = {
   jobCode: string
 }
 
+type AuthInfo = {
+  message: string
+}
+
 const getMyInfo = async (): Promise<MyInfoData> => {
   const { data } = await httpClient.get('/v1/user/my')
+  return data
+}
+
+const deleteAccount = async (): Promise<AuthInfo> => {
+  const { data } = await httpClient.delete('/v1/user/account')
   return data
 }
 
@@ -23,4 +32,12 @@ export const useMyQuery = () => {
   })
 }
 
-export const abd = 'abd'
+export const useDeleteAccountMutation = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: () => deleteAccount(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['authInfo'] })
+    },
+  })
+}
