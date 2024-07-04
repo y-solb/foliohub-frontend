@@ -18,6 +18,7 @@ import ProgressBar from '@/components/common/ProgressBar'
 import { useSetRecoilState } from 'recoil'
 import progressBarState from '@/recoil/atoms/progressBarState'
 import PortfolioLayout from '@/components/layout/PortfolioLayout'
+import Button from '@/components/common/Button'
 
 interface PortfolioEditorProps {
   username: string
@@ -221,13 +222,12 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
           onLayoutChange={handleLayoutChange}
         />
       </PortfolioLayout>
-      <button
-        type="button"
-        className="fixed md:absolute flex items-center bottom-5 md:top-5 right-5 md:right-10 h-10 px-6 rounded-full text-white bg-black"
+      <Button
+        className="fixed md:absolute md:top-5 bottom-5 right-5 md:right-10"
         onClick={handleSavePortfolio}
       >
         저장하기
-      </button>
+      </Button>
     </div>
   )
 }

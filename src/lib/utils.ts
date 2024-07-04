@@ -1,3 +1,6 @@
+import clsx, { ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
 /**
  * 이미지 URL을 받아와 원 모양 이미지로 변환
  * @param {string} imageUrl - 변환할 이미지의 URL
@@ -24,4 +27,13 @@ export const trimHTML = (str: string) => {
  */
 export const removeTagsText = (str: string) => {
   return str.replace(/<[^>]+>/g, '')
+}
+
+/**
+ * 클래스 이름을 결합하고 병합
+ * @param inputs 클래스 이름 값들의 배열
+ * @returns 병합된 클래스 이름 문자열
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }

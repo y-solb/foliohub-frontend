@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { throttle } from 'throttle-debounce'
 import useOpenAuthModal from '@/hooks/useOpenAuthModal'
+import Button from '@/components/common/Button'
 import HeaderSkeleton from '../HeaderSkeleton'
 import UserMenu from '../UserMenu'
 import Logo from '../../common/Logo'
@@ -48,13 +49,9 @@ function Header() {
       {currentUser ? (
         <UserMenu authInfo={currentUser} />
       ) : (
-        <button
-          type="button"
-          onClick={openModal}
-          className="h-8 px-5 rounded-2xl border border-solid border-gray-600 text-gray-600 bg-white"
-        >
+        <Button size="md" onClick={openModal}>
           로그인
-        </button>
+        </Button>
       )}
     </div>
   )

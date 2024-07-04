@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useRegisterMutation } from '@/hooks/queries/auth'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
+import Button from '@/components/common/Button'
 
 function RegisterForm() {
   const { openAlert } = useOpenAlertModal()
@@ -55,14 +56,7 @@ function RegisterForm() {
           placeholder="ID"
         />
       </div>
-      <button
-        type="button"
-        className="flex items-center justify-center h-10 px-6 rounded-full text-white bg-black min-w-80 mt-8"
-        onClick={handleSubmit}
-        aria-label="회원가입"
-      >
-        회원가입
-      </button>
+      <Button onClick={handleSubmit}>회원가입</Button>
     </div>
   )
 }

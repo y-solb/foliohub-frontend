@@ -3,6 +3,7 @@
 import React from 'react'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import Modal from '@/components/common/Modal'
+import Button from '@/components/common/Button'
 
 function AlertModal() {
   const { alertModal, closeAlert } = useOpenAlertModal()
@@ -15,13 +16,7 @@ function AlertModal() {
           <p className="body2 text-gray-400">{alertModal.content}</p>
         </div>
         <div className="flex justify-end w-full">
-          <button
-            type="button"
-            className="flex items-center h-10 px-6 rounded-full text-white bg-black"
-            onClick={closeAlert}
-          >
-            확인
-          </button>
+          <Button onClick={closeAlert}>확인</Button>
         </div>
       </div>
     </Modal>

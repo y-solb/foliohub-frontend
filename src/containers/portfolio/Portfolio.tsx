@@ -4,8 +4,8 @@ import AssetGridLayout from '@/containers/portfolio/AssetGridLayout'
 import Profile from '@/containers/portfolio/Profile'
 import { useAuthQuery } from '@/hooks/queries/auth'
 import { usePortfolioQuery } from '@/hooks/queries/portfolio'
-import Link from 'next/link'
 import PortfolioLayout from '@/components/layout/PortfolioLayout'
+import ButtonLink from '@/components/common/ButtonLink'
 
 interface PortfolioProps {
   username: string
@@ -25,12 +25,12 @@ export default function Portfolio({ username }: PortfolioProps) {
         <AssetGridLayout portfolio={data} layouts={data.layout} />
       </PortfolioLayout>
       {currentUser?.username === username && (
-        <Link
+        <ButtonLink
           href={`/edit/${username}`}
-          className="absolute flex items-center top-5 right-5 md:right-10 h-10 px-6 rounded-full text-white bg-black"
+          className="absolute flex items-center top-5 right-5 md:right-10"
         >
           편집하기
-        </Link>
+        </ButtonLink>
       )}
     </>
   )

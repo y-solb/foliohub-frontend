@@ -1,11 +1,11 @@
 'use client'
 
-import Link from 'next/link'
 import { MdModeEdit } from 'react-icons/md'
 import { useMyQuery } from '@/hooks/queries/user'
 import useToggle from '@/hooks/useToggle'
 import Image from 'next/image'
 import EmptyThumbnail from '@/components/common/EmptyThumbnail'
+import ButtonLink from '@/components/common/ButtonLink'
 import JobCategoryModal from './JobCategoryModal'
 import MyProfileSkeleton from './MyProfileSkeleton'
 
@@ -50,12 +50,9 @@ function MyProfile() {
                   <MdModeEdit size={16} />
                 </button>
               </div>
-              <Link
-                href={`${data?.username}`}
-                className="flex items-center h-10 px-6 rounded-full text-white bg-black"
-              >
+              <ButtonLink href={`${data?.username}`}>
                 포트폴리오 보러가기
-              </Link>
+              </ButtonLink>
             </div>
           </div>
         </div>

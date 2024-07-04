@@ -3,6 +3,7 @@
 import React from 'react'
 import Modal from '@/components/common/Modal'
 import useOpenConfirmModal from '@/hooks/useOpenConfirmModal'
+import Button from '@/components/common/Button'
 
 function ConfirmModal() {
   const { confirmModal, closeConfirm } = useOpenConfirmModal()
@@ -26,20 +27,10 @@ function ConfirmModal() {
           <p className="body2 text-gray-400">{confirmModal.content}</p>
         </div>
         <div className="flex justify-end w-full gap-4">
-          <button
-            type="button"
-            className="flex items-center h-10 px-6 rounded-full text-black bg-white border border-solid border-black"
-            onClick={handleCancel}
-          >
+          <Button variant="outlined" onClick={handleCancel}>
             취소
-          </button>
-          <button
-            type="button"
-            className="flex items-center h-10 px-6 rounded-full text-white bg-black"
-            onClick={handleConfirm}
-          >
-            확인
-          </button>
+          </Button>
+          <Button onClick={handleConfirm}>확인</Button>
         </div>
       </div>
     </Modal>

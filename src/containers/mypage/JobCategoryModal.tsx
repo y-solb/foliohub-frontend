@@ -7,6 +7,7 @@ import {
 } from '@/hooks/queries/jobCategory'
 import { useEffect, useState } from 'react'
 import Modal from '@/components/common/Modal'
+import Button from '@/components/common/Button'
 
 interface JobCategoryModalProps {
   jobCode: string | null
@@ -70,24 +71,24 @@ function JobCategoryModal({ jobCode, isOpen, onClose }: JobCategoryModalProps) {
           <ul className="flex flex-wrap	justify-center gap-2">
             {selectedCategory?.sub.map((subcategory) => (
               <li key={subcategory.code}>
-                <button
-                  type="button"
-                  className={`h-10 px-4 rounded-3xl border border-solid  hover:border-gray-400 bg-white body2 ${selectedSubCategory === subcategory.code ? 'text-black font-medium border-black border-[1.5px]' : 'text-gray-400 border-gray-200'}`}
+                <Button
+                  variant={
+                    selectedSubCategory === subcategory.code
+                      ? 'selected'
+                      : 'inactive'
+                  }
+                  size="md"
                   onClick={() => handleSubCategorySelect(subcategory.code)}
                 >
                   {subcategory.name}
-                </button>
+                </Button>
               </li>
             ))}
           </ul>
         </div>
-        <button
-          type="button"
-          className="w-full h-10 rounded-2xl text-white bg-black"
-          onClick={handleUpdateJob}
-        >
+        <Button className="w-full" onClick={handleUpdateJob}>
           변경하기
-        </button>
+        </Button>
       </div>
     </Modal>
   )

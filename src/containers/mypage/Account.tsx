@@ -1,5 +1,6 @@
 'use client'
 
+import Button from '@/components/common/Button'
 import { useDeleteAccountMutation } from '@/hooks/queries/user'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import useOpenConfirmModal from '@/hooks/useOpenConfirmModal'
@@ -27,13 +28,9 @@ function AccountContainer() {
 
   return (
     <div className="flex justify-end">
-      <button
-        type="button"
-        className="flex items-center h-10 px-6 rounded-full text-black bg-white border border-solid border-black"
-        onClick={handleDeleteAccount}
-      >
+      <Button variant="outlined" onClick={handleDeleteAccount}>
         탈퇴하기
-      </button>
+      </Button>
     </div>
   )
 }
