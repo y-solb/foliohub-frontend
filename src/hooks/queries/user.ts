@@ -1,4 +1,5 @@
 import httpClient from '@/lib/httpClient'
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 type MyInfoData = {
@@ -16,12 +17,12 @@ type AuthInfo = {
 }
 
 const getMyInfo = async (): Promise<MyInfoData> => {
-  const { data } = await httpClient.get('/v1/user/my')
+  const { data } = await httpClient.get(API_ENDPOINTS.USER.MY)
   return data
 }
 
 const deleteAccount = async (): Promise<AuthInfo> => {
-  const { data } = await httpClient.delete('/v1/user/account')
+  const { data } = await httpClient.delete(API_ENDPOINTS.USER.ACCOUNT)
   return data
 }
 

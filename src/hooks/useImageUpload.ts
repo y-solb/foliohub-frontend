@@ -1,6 +1,7 @@
 import httpClient from '@/lib/httpClient'
 import { useSetRecoilState } from 'recoil'
 import progressBarState from '@/recoil/atoms/progressBarState'
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 
 const useImageUpload = () => {
   const setIsLoading = useSetRecoilState(progressBarState)
@@ -20,7 +21,7 @@ const useImageUpload = () => {
     try {
       const {
         data: { imageUrl },
-      } = await httpClient.post(`/v1/image/upload/${type}`, formData, {
+      } = await httpClient.post(API_ENDPOINTS.IMAGEUPLOAD(type), formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

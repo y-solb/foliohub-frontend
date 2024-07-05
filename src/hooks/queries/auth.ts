@@ -1,4 +1,5 @@
 import httpClient from '@/lib/httpClient'
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 import { AuthInfo } from '@/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
@@ -14,24 +15,27 @@ type ExperienceLoginVariables = {
 }
 
 const getAuthInfo = async (): Promise<AuthInfo> => {
-  const { data } = await httpClient.get('/v1/auth')
+  const { data } = await httpClient.get(API_ENDPOINTS.AUTH.USER)
   return data
 }
 
 const register = async (
   registerVariables: RegisterVariables,
 ): Promise<AuthData> => {
-  const { data } = await httpClient.post('/v1/auth/register', registerVariables)
+  const { data } = await httpClient.post(
+    API_ENDPOINTS.AUTH.REGISTER,
+    registerVariables,
+  )
   return data
 }
 
 const logout = async (): Promise<AuthData> => {
-  const { data } = await httpClient.post('/v1/auth/logout')
+  const { data } = await httpClient.post(API_ENDPOINTS.AUTH.LOGOUT)
   return data
 }
 
 const experienceLogin = async ({ code }: ExperienceLoginVariables) => {
-  const { data } = await httpClient.post('/v1/auth/experience', {
+  const { data } = await httpClient.post(API_ENDPOINTS.AUTH.EXPERIENCE, {
     code,
   })
   return data

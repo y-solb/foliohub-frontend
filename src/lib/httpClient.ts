@@ -1,3 +1,4 @@
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 import axios from 'axios'
 
 const httpClient = axios.create({
@@ -34,7 +35,7 @@ httpClient.interceptors.response.use(
       if (!isTokenRefreshing) {
         isTokenRefreshing = true
         try {
-          await httpClient.post('/v1/auth/refresh')
+          await httpClient.post(API_ENDPOINTS.AUTH.REFRESH)
 
           isTokenRefreshing = false
           onTokenRefreshed()

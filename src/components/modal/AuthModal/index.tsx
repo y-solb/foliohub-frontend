@@ -6,6 +6,7 @@ import { FcGoogle } from 'react-icons/fc'
 import ExperienceForm from '@/containers/authModal/ExperienceForm'
 import Modal from '@/components/common/Modal'
 import Logo from '@/components/common/Logo'
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 
 function AuthModal() {
   const [authModal, setAuthModal] = useRecoilState(authModalState)
@@ -25,7 +26,7 @@ function AuthModal() {
         </div>
         <ExperienceForm onCloseModal={handleClose} />
         <a
-          href={`${process.env.NEXT_PUBLIC_API_HOST}/v1/auth/redirect/google`}
+          href={`${process.env.NEXT_PUBLIC_API_HOST}${API_ENDPOINTS.AUTH.GOOGLE}`}
           className="flex items-center justify-center gap-4 rounded-full bg-black text-white w-full h-12 px-8"
         >
           <FcGoogle size={16} />

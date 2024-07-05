@@ -1,4 +1,5 @@
 import httpClient from '@/lib/httpClient'
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 export type JobCategoryData = {
@@ -11,12 +12,12 @@ type UpdateJobCodeVariables = {
 }
 
 const getJobCategoryList = async (): Promise<JobCategoryData[]> => {
-  const { data } = await httpClient.get('/v1/job-category/list')
+  const { data } = await httpClient.get(API_ENDPOINTS.JOBCATEGORY.ALL)
   return data
 }
 
 const editJobCategory = async ({ jobCode }: UpdateJobCodeVariables) => {
-  const { data } = await httpClient.put('/v1/job-category', {
+  const { data } = await httpClient.put(API_ENDPOINTS.USER.JOBCATEGORY, {
     jobCode,
   })
   return data

@@ -1,4 +1,5 @@
 import httpClient from '@/lib/httpClient'
+import API_ENDPOINTS from '@/constants/apiEndpoints'
 import { AssetType, PortfolioItemType, SocialLinks } from '@/types'
 import {
   InfiniteData,
@@ -42,7 +43,7 @@ type UpdatelikePortfolioVariables = {
 export const getPortfolioList = async (
   pageParam: number,
 ): Promise<PortfolioData> => {
-  const { data } = await httpClient.get('/v1/portfolio/list', {
+  const { data } = await httpClient.get(API_ENDPOINTS.PORTFOLIO.LIST, {
     params: {
       page: pageParam,
       count: 12,
@@ -54,7 +55,7 @@ export const getPortfolioList = async (
 const getLikePortfolioList = async (
   pageParam: number,
 ): Promise<PortfolioData> => {
-  const { data } = await httpClient.get('/v1/portfolio/like/list', {
+  const { data } = await httpClient.get(API_ENDPOINTS.PORTFOLIO.LIKELIST, {
     params: {
       page: pageParam,
       count: 12,
@@ -64,7 +65,9 @@ const getLikePortfolioList = async (
 }
 
 const getPortfolio = async (username: string): Promise<PortfolioView> => {
-  const { data } = await httpClient.get(`/v1/portfolio/${username}`)
+  const { data } = await httpClient.get(
+    API_ENDPOINTS.PORTFOLIO.DETAIL(username),
+  )
   return data
 }
 
@@ -72,23 +75,30 @@ const editPortfolio = async ({
   username,
   updatedPortfolio,
 }: UpdatePortfolioVariables) => {
-  const { data } = await httpClient.put(`/v1/portfolio/${username}`, {
-    ...updatedPortfolio,
-  })
+  const { data } = await httpClient.put(
+    API_ENDPOINTS.PORTFOLIO.DETAIL(username),
+    {
+      ...updatedPortfolio,
+    },
+  )
   return data
 }
 
 const likePortfolio = async (
   portfolioId: UpdatelikePortfolioVariables['portfolioId'],
 ) => {
-  const { data } = await httpClient.post(`/v1/portfolio/like/${portfolioId}`)
+  const { data } = await httpClient.post(
+    API_ENDPOINTS.PORTFOLIO.LIKE(portfolioId),
+  )
   return data
 }
 
 const unlikePortfolio = async (
   portfolioId: UpdatelikePortfolioVariables['portfolioId'],
 ) => {
-  const { data } = await httpClient.post(`/v1/portfolio/unlike/${portfolioId}`)
+  const { data } = await httpClient.post(
+    API_ENDPOINTS.PORTFOLIO.UNLIKE(portfolioId),
+  )
   return data
 }
 export const useInfinitePortfolioQuery = () => {
