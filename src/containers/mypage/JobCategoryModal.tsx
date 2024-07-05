@@ -1,13 +1,11 @@
 'use client'
 
-import {
-  JobCategoryData,
-  useJobCategoryListQuery,
-  useJobCategoryMutation,
-} from '@/hooks/queries/jobCategory'
+import { useJobCategoryListQuery } from '@/hooks/queries/jobCategory'
 import { useEffect, useState } from 'react'
 import Modal from '@/components/common/Modal'
 import Button from '@/components/common/Button'
+import { useJobCategoryMutation } from '@/hooks/queries/user'
+import { JobCategoryResponse } from '@/services/jobCategory/type'
 
 interface JobCategoryModalProps {
   jobCode: string | null
@@ -19,12 +17,13 @@ function JobCategoryModal({ jobCode, isOpen, onClose }: JobCategoryModalProps) {
   const { data: categoryList } = useJobCategoryListQuery()
   const { mutate } = useJobCategoryMutation()
 
-  const [selectedCategory, setSelectedCategory] = useState<JobCategoryData>()
+  const [selectedCategory, setSelectedCategory] =
+    useState<JobCategoryResponse>()
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(
     '',
   )
 
-  const handleSelectCategory = (mainCategory: JobCategoryData) => {
+  const handleSelectCategory = (mainCategory: JobCategoryResponse) => {
     setSelectedCategory(mainCategory)
   }
 

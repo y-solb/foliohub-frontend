@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io'
 import {
-  PortfolioView,
   useLikePorfolioMutation,
   useUnlikePorfolioMutation,
 } from '@/hooks/queries/portfolio'
@@ -18,9 +17,10 @@ import useOpenAuthModal from '@/hooks/useOpenAuthModal'
 import Logo from '@/components/common/Logo'
 import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 import { useAuthQuery } from '@/hooks/queries/auth'
+import { PortfolioDetailResponse } from '@/services/portfolio/type'
 
 interface ProfileProps {
-  portfolio: PortfolioView
+  portfolio: PortfolioDetailResponse
 }
 
 function Profile({

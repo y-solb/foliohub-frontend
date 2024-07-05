@@ -1,108 +1,24 @@
-import httpClient from '@/lib/httpClient'
-import API_ENDPOINTS from '@/constants/apiEndpoints'
-import { AssetType, PortfolioItemType, SocialLinks } from '@/types'
 import {
-  InfiniteData,
+  editPortfolio,
+  getLikePortfolioList,
+  getPortfolio,
+  getPortfolioList,
+  likePortfolio,
+  unlikePortfolio,
+} from '@/services/portfolio'
+import {
+  PortfolioDetailResponse,
+  UpdatelikePortfolioPayload,
+} from '@/services/portfolio/type'
+import {
   useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { Layouts } from 'react-grid-layout'
 
-type PortfolioData = {
-  data: PortfolioItemType[]
-  meta: {
-    currentPage: number
-    hasNextPage: boolean
-    lastPage: number
-    total: number
-  }
-}
-export type PortfolioView = {
-  id: string
-  username: string
-  displayName: string
-  shortBio: string
-  thumbnail: string
-  isLike: boolean
-  likeCount: number
-  assets: AssetType[]
-  layout: Layouts
-  socialLink: SocialLinks
-}
-type UpdatePortfolioVariables = {
-  username: string
-  updatedPortfolio: PortfolioView
-}
-type UpdatelikePortfolioVariables = {
-  portfolioId: string
-  username: string
-}
-
-export const getPortfolioList = async (
-  pageParam: number,
-): Promise<PortfolioData> => {
-  const { data } = await httpClient.get(API_ENDPOINTS.PORTFOLIO.LIST, {
-    params: {
-      page: pageParam,
-      count: 12,
-    },
-  })
-  return data
-}
-
-const getLikePortfolioList = async (
-  pageParam: number,
-): Promise<PortfolioData> => {
-  const { data } = await httpClient.get(API_ENDPOINTS.PORTFOLIO.LIKELIST, {
-    params: {
-      page: pageParam,
-      count: 12,
-    },
-  })
-  return data
-}
-
-const getPortfolio = async (username: string): Promise<PortfolioView> => {
-  const { data } = await httpClient.get(
-    API_ENDPOINTS.PORTFOLIO.DETAIL(username),
-  )
-  return data
-}
-
-const editPortfolio = async ({
-  username,
-  updatedPortfolio,
-}: UpdatePortfolioVariables) => {
-  const { data } = await httpClient.put(
-    API_ENDPOINTS.PORTFOLIO.DETAIL(username),
-    {
-      ...updatedPortfolio,
-    },
-  )
-  return data
-}
-
-const likePortfolio = async (
-  portfolioId: UpdatelikePortfolioVariables['portfolioId'],
-) => {
-  const { data } = await httpClient.post(
-    API_ENDPOINTS.PORTFOLIO.LIKE(portfolioId),
-  )
-  return data
-}
-
-const unlikePortfolio = async (
-  portfolioId: UpdatelikePortfolioVariables['portfolioId'],
-) => {
-  const { data } = await httpClient.post(
-    API_ENDPOINTS.PORTFOLIO.UNLIKE(portfolioId),
-  )
-  return data
-}
 export const useInfinitePortfolioQuery = () => {
-  return useInfiniteQuery<PortfolioData, Error, InfiniteData<PortfolioData>>({
+  return useInfiniteQuery({
     queryKey: ['portfolioList'],
     queryFn: ({ pageParam }) => getPortfolioList(pageParam as number),
     getNextPageParam: (lastPage) => {
@@ -117,7 +33,7 @@ export const useInfinitePortfolioQuery = () => {
 }
 
 export const useInfiniteLikePortfolioQuery = () => {
-  return useInfiniteQuery<PortfolioData, Error, InfiniteData<PortfolioData>>({
+  return useInfiniteQuery({
     queryKey: ['likePortfolioList'],
     queryFn: ({ pageParam }) => getLikePortfolioList(pageParam as number),
     getNextPageParam: (lastPage) => {
@@ -131,7 +47,7 @@ export const useInfiniteLikePortfolioQuery = () => {
 }
 
 export const usePortfolioQuery = (username: string) => {
-  return useQuery<PortfolioView>({
+  return useQuery({
     queryKey: ['portfolio', username],
     queryFn: () => getPortfolio(username),
     enabled: !!username,
@@ -140,10 +56,8 @@ export const usePortfolioQuery = (username: string) => {
 
 export const usePortfolioMutation = () => {
   const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: (variables: UpdatePortfolioVariables) =>
-      editPortfolio(variables),
+    mutationFn: editPortfolio,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: ['portfolio', variables.username],
@@ -155,26 +69,28 @@ export const usePortfolioMutation = () => {
 
 export const useLikePorfolioMutation = () => {
   const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: (variables: UpdatelikePortfolioVariables) =>
+    mutationFn: (variables: UpdatelikePortfolioPayload) =>
       likePortfolio(variables.portfolioId),
     onMutate: async (newData) => {
       await queryClient.cancelQueries({
         queryKey: ['portfolio', newData.username],
       })
 
-      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
+      const prevPortfolio = queryClient.getQueryData<PortfolioDetailResponse>([
         'portfolio',
         newData.username,
       ])
       if (!prevPortfolio) return undefined
 
-      queryClient.setQueryData<PortfolioView>(['portfolio', newData.username], {
-        ...prevPortfolio,
-        isLike: true,
-        likeCount: prevPortfolio.likeCount + 1,
-      })
+      queryClient.setQueryData<PortfolioDetailResponse>(
+        ['portfolio', newData.username],
+        {
+          ...prevPortfolio,
+          isLike: true,
+          likeCount: prevPortfolio.likeCount + 1,
+        },
+      )
 
       return { prevPortfolio, newData }
     },
@@ -185,9 +101,9 @@ export const useLikePorfolioMutation = () => {
         context.prevPortfolio,
       )
     },
-    onSettled: (newData) => {
+    onSettled: (_, __, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['portfolio', newData.username],
+        queryKey: ['portfolio', variables.username],
       })
     },
   })
@@ -195,26 +111,28 @@ export const useLikePorfolioMutation = () => {
 
 export const useUnlikePorfolioMutation = () => {
   const queryClient = useQueryClient()
-
   return useMutation({
-    mutationFn: (variables: UpdatelikePortfolioVariables) =>
+    mutationFn: (variables: UpdatelikePortfolioPayload) =>
       unlikePortfolio(variables.portfolioId),
     onMutate: async (newData) => {
       await queryClient.cancelQueries({
         queryKey: ['portfolio', newData.username],
       })
 
-      const prevPortfolio = queryClient.getQueryData<PortfolioView>([
+      const prevPortfolio = queryClient.getQueryData<PortfolioDetailResponse>([
         'portfolio',
         newData.username,
       ])
       if (!prevPortfolio) return undefined
 
-      queryClient.setQueryData<PortfolioView>(['portfolio', newData.username], {
-        ...prevPortfolio,
-        isLike: false,
-        likeCount: prevPortfolio.likeCount - 1,
-      })
+      queryClient.setQueryData<PortfolioDetailResponse>(
+        ['portfolio', newData.username],
+        {
+          ...prevPortfolio,
+          isLike: false,
+          likeCount: prevPortfolio.likeCount - 1,
+        },
+      )
 
       return { prevPortfolio, newData }
     },
@@ -225,9 +143,9 @@ export const useUnlikePorfolioMutation = () => {
         context.prevPortfolio,
       )
     },
-    onSettled: (newData) => {
+    onSettled: (_, __, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['portfolio', newData.username],
+        queryKey: ['portfolio', variables.username],
       })
     },
   })

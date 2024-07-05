@@ -1,6 +1,6 @@
 import BaseLayout from '@/components/layout/BaseLayout'
 import RecentPortfolioList from '@/containers/main/RecentPortfolioList'
-import { getPortfolioList } from '@/hooks/queries/portfolio'
+import { getPortfolioList } from '@/services/portfolio'
 import {
   HydrationBoundary,
   QueryClient,
