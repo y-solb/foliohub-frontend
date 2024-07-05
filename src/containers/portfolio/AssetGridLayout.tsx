@@ -2,7 +2,7 @@
 
 import Logo from '@/components/common/Logo'
 import Asset from '@/components/asset/Asset'
-import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants'
+import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants/layout'
 import { UserData } from '@/types'
 import { useEffect, useMemo, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'

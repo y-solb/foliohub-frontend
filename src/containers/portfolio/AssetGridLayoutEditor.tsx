@@ -2,10 +2,10 @@ import AssetEditor from '@/components/asset/AssetEditor'
 import ResizeHandler from '@/components/asset/ResizeHandler'
 import Toolbar from '@/components/toolbar/Toolbar'
 import {
-  LG_BREAKPOINT,
   MD_BREAKPOINT,
+  LG_BREAKPOINT,
   PREVENT_DRAG_DEFAULTS,
-} from '@/constants'
+} from '@/constants/layout'
 import useToggle from '@/hooks/useToggle'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import { AssetType, ToolType, UserData } from '@/types'
