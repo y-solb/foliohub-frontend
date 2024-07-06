@@ -1,8 +1,8 @@
 import Portfolio from '@/containers/portfolio/Portfolio'
-import { fetchPortfolio } from '@/fetch/fetchPortfolio'
+// import { fetchPortfolio } from '@/fetch/fetchPortfolio'
 import { removeTagsText } from '@/lib/utils'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+// import { notFound } from 'next/navigation'
 
 type Props = {
   params: { username: string }
