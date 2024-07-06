@@ -1,8 +1,8 @@
 import Portfolio from '@/containers/portfolio/Portfolio'
-// import { fetchPortfolio } from '@/fetch/fetchPortfolio'
+import { fetchPortfolio } from '@/fetch/fetchPortfolio'
 import { removeTagsText } from '@/lib/utils'
 import { Metadata } from 'next'
-// import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: { username: string }
@@ -10,10 +10,9 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = params
-  const portfolio = {
-    thumbnail: '',
-    displayName: 'displayName',
-    shortBio: 'shortBio',
+  const portfolio = await fetchPortfolio(username)
+  if (!portfolio) {
+    return notFound()
   }
 
   const title = removeTagsText(portfolio?.displayName)

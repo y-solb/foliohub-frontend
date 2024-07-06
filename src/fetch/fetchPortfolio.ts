@@ -17,9 +17,5 @@ export const fetchPortfolio = async (
   if (res.status !== 200) {
     return null
   }
-  return {
-    thumbnail: '',
-    displayName: 'displayName',
-    shortBio: 'shortBio',
-  }
+  return res.json()
 }
