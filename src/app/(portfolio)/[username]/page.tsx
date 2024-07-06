@@ -10,9 +10,10 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = params
-  const portfolio = await fetchPortfolio(username)
-  if (!portfolio) {
-    return notFound()
+  const portfolio = {
+    thumbnail: '',
+    displayName: 'displayName',
+    shortBio: 'shortBio',
   }
 
   const title = removeTagsText(portfolio?.displayName)
