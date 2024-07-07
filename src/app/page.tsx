@@ -13,9 +13,8 @@ export default async function Home() {
   const queryClient = new QueryClient()
   await queryClient.prefetchInfiniteQuery({
     queryKey: ['portfolioList'],
-    queryFn: ({ pageParam }) => getPortfolioList(pageParam as number),
+    queryFn: ({ pageParam }) => getPortfolioList(pageParam),
     initialPageParam: 1,
-    staleTime: 30 * 1000,
   })
   const dehydratedState = dehydrate(queryClient)
   return (

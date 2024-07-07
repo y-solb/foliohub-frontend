@@ -20,7 +20,7 @@ import {
 export const useInfinitePortfolioQuery = () => {
   return useInfiniteQuery({
     queryKey: ['portfolioList'],
-    queryFn: ({ pageParam }) => getPortfolioList(pageParam as number),
+    queryFn: ({ pageParam }) => getPortfolioList(pageParam),
     getNextPageParam: (lastPage) => {
       const {
         meta: { currentPage, hasNextPage },
@@ -28,14 +28,14 @@ export const useInfinitePortfolioQuery = () => {
       return hasNextPage ? currentPage + 1 : undefined
     },
     initialPageParam: 1,
-    staleTime: 30 * 1000,
+    staleTime: 60 * 1000,
   })
 }
 
 export const useInfiniteLikePortfolioQuery = () => {
   return useInfiniteQuery({
     queryKey: ['likePortfolioList'],
-    queryFn: ({ pageParam }) => getLikePortfolioList(pageParam as number),
+    queryFn: ({ pageParam }) => getLikePortfolioList(pageParam),
     getNextPageParam: (lastPage) => {
       const {
         meta: { currentPage, hasNextPage },
