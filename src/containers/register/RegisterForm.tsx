@@ -1,63 +1,162 @@
 'use client'
 
-import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useRegisterMutation } from '@/hooks/queries/auth'
-import useOpenAlertModal from '@/hooks/useOpenAlertModal'
+import Checkbox from '@/components/common/Checkbox'
 import Button from '@/components/common/Button'
+import Link from 'next/link'
+import { z } from 'zod'
+import { Controller, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useOpenAlertModal from '@/hooks/useOpenAlertModal'
+
+interface Form {
+  displayName: string
+  username: string
+  isAgreement: boolean
+}
 
 function RegisterForm() {
-  const { openAlert } = useOpenAlertModal()
-  const displayNameRef = useRef<HTMLInputElement | null>(null)
-  const usernameRef = useRef<HTMLInputElement | null>(null)
-
   const router = useRouter()
   const { mutate } = useRegisterMutation()
+  const { openAlert } = useOpenAlertModal()
 
-  const handleSubmit = async () => {
-    if (!displayNameRef.current || !displayNameRef.current.value) {
-      openAlert('이름을 입력주세요.') // TODO: 쿠키에 registerToken이 없는 경우 return
-      return
-    }
-    if (!usernameRef.current || !usernameRef.current.value) {
-      openAlert('ID을 입력주세요.') // TODO: 쿠키에 registerToken이 없는 경우 return
-      return
-    }
+  const schema = z.object({
+    displayName: z
+      .string()
+      .min(2, '최소 2자 이상 입력해 주세요.')
+      .max(10, '최대 10자 이하 입력해 주세요.')
+      .regex(
+        /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9]+$/,
+        '한글, 영문 그리고 숫자만 가능해요.',
+      ),
+    username: z
+      .string()
+      .min(2, '최소 2자 이상 입력해 주세요.')
+      .max(10, '최대 10자 이하 입력해 주세요.')
+      .regex(/^[a-z|A-Z|0-9]+$/, '영문 그리고 숫자만 가능해요.'),
+    isAgreement: z
+      .boolean()
+      .refine(
+        (value) => value === true,
+        '개인정보 처리방침과 이용약관에 동의가 필요해요.',
+      ),
+  })
+
+  const {
+    register,
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<Form>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      displayName: '',
+      username: '',
+      isAgreement: false,
+    },
+  })
+
+  const onSubmit = (data: Form) => {
+    const { displayName, username } = data
 
     mutate(
       {
-        displayName: displayNameRef.current.value,
-        username: usernameRef.current.value,
+        displayName,
+        username,
       },
       {
         onSuccess: (_, variables) => {
-          router.push(`/edit/${variables.username}`)
+          router.replace(`/edit/${variables.username}`)
+        },
+        onError: () => {
+          openAlert(
+            '문제가 발생했어요.',
+            '회원가입을 처음부터 다시 시도해 주세요.',
+          )
+          router.replace(`/`)
         },
       },
     )
   }
 
   return (
-    <div className="flex flex-col items-start">
-      <div className="flex items-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden max-w-80 w-full h-12 pl-4 pr-2 py-2 mb-4">
-        <input
-          type="text"
-          className="body1 w-full"
-          ref={displayNameRef}
-          placeholder="이름"
-        />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-start w-full"
+    >
+      <div className="flex flex-col w-full mb-4">
+        <div
+          className={`flex items-center rounded-full border bg-white overflow-hidden w-full h-12 px-4 py-2 ${errors.displayName ? 'border-red-500' : 'border-gray-300'}`}
+        >
+          <input
+            type="text"
+            className="body1 w-full"
+            placeholder="이름"
+            {...register('displayName')}
+          />
+        </div>
+        {errors.displayName && (
+          <p className="text-red-500 mt-1 pl-1">
+            {errors.displayName?.message}
+          </p>
+        )}
       </div>
-      <div className="flex items-center rounded-full border border-solid border-gray-300 bg-white overflow-hidden max-w-80 w-full h-12 pl-4 pr-2 py-2">
-        <p className="body1">www.foliohub.me/</p>
-        <input
-          type="text"
-          className="body1 w-full"
-          ref={usernameRef}
-          placeholder="ID"
-        />
+      <div className="flex flex-col w-full mb-4">
+        <div
+          className={`flex items-center rounded-full border bg-white overflow-hidden w-full h-12 px-4 py-2 ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
+        >
+          <p className="body1">www.foliohub.me/</p>
+          <input
+            type="text"
+            className="body1 w-full"
+            placeholder="ID"
+            {...register('username')}
+          />
+        </div>
+        {errors.username && (
+          <p className="text-red-500 mt-1 pl-1">{errors.username?.message}</p>
+        )}
       </div>
-      <Button onClick={handleSubmit}>회원가입</Button>
-    </div>
+      <div className="mb-8">
+        <div className="flex">
+          <Controller
+            name="isAgreement"
+            control={control}
+            render={({ field }) => (
+              <Checkbox id="agreement" {...field}>
+                <p className="body2">
+                  <Link
+                    href="/policy/privacy"
+                    className="text-gray-400 underline decoration-gray-400 underline-offset-4"
+                    target="_blank"
+                  >
+                    개인정보 처리방침
+                  </Link>
+                  과
+                  <Link
+                    href="/policy/term"
+                    className="text-gray-400 underline decoration-gray-400 underline-offset-4 ml-1"
+                    target="_blank"
+                  >
+                    이용약관
+                  </Link>
+                  에 동의해요.
+                </p>
+              </Checkbox>
+            )}
+          />
+        </div>
+        {errors.isAgreement && (
+          <p className="text-red-500 mt-1 pl-1">
+            {errors.isAgreement?.message}
+          </p>
+        )}
+      </div>
+      <Button type="submit" className="w-full">
+        회원가입
+      </Button>
+    </form>
   )
 }
 
