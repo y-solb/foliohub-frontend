@@ -9,6 +9,7 @@ import { z } from 'zod'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
+import { AxiosError } from 'axios'
 
 interface Form {
   displayName: string
@@ -69,11 +70,10 @@ function RegisterForm() {
         onSuccess: (_, variables) => {
           router.replace(`/edit/${variables.username}`)
         },
-        onError: () => {
-          openAlert(
-            '문제가 발생했어요.',
-            '회원가입을 처음부터 다시 시도해 주세요.',
-          )
+        onError: (error) => {
+          if (error instanceof AxiosError) {
+            openAlert('문제가 발생했어요.', error.response?.data.errorMessage)
+          }
           router.replace(`/`)
         },
       },
