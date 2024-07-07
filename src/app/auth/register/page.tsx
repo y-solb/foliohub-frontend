@@ -9,23 +9,25 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen p-10">
-      <div className="flex flex-col items-center gap-4 mb-16">
-        <Image
-          src="/foliohub_logo.svg"
-          alt="text_logo"
-          width={40}
-          height={40}
-          priority
-        />
-        <Logo />
+    <div className="flex flex-col items-center justify-center h-screen p-6 brand-gradient">
+      <div className="flex flex-col items-center justify-center p-8 border border-solid rounded-3xl bg-white shadow-lg">
+        <div className="flex flex-col items-center gap-4 mb-16">
+          <Image
+            src="/foliohub_logo.svg"
+            alt="text_logo"
+            width={40}
+            height={40}
+            priority
+          />
+          <Logo />
+        </div>
+        <h1>당신의 여정을 기록하고,</h1>
+        <h1>성장을 공유해 봐요!</h1>
+        <p className="body2 text-gray-400 mt-8 mb-8">
+          반가워요.👋 사용할 이름과 ID를 입력하면 회원가입이 완료돼요.
+        </p>
+        <RegisterForm />
       </div>
-      <h1>당신의 여정을 기록하고,</h1>
-      <h1>성장을 공유해 봐요!</h1>
-      <p className="body2 text-gray-400 mt-8 mb-8">
-        반가워요.👋 사용할 이름과 ID를 입력하면 회원가입이 완료돼요.
-      </p>
-      <RegisterForm />
     </div>
   )
 }
