@@ -26,6 +26,7 @@ interface ButtonLinkProps
   extends Omit<LinkProps, 'href'>,
     VariantProps<typeof ButtonLinkVariants> {
   href: string
+  target?: string
   className?: string
   children: React.ReactNode
 }
@@ -34,6 +35,7 @@ function ButtonLink({
   variant = 'contained',
   size = 'lg',
   href,
+  target,
   className,
   children,
   ...props
@@ -41,6 +43,7 @@ function ButtonLink({
   return (
     <Link
       href={href}
+      target={target}
       className={cn(ButtonLinkVariants({ variant, size }), className)}
       {...props}
     >
