@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { AssetType } from '@/types'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
-import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import { TbEdit } from 'react-icons/tb'
+import { useLongPress } from '@/hooks/useLongPress'
+import useOutsideClickRef from '@/hooks/useOutsideClickRef'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
@@ -56,32 +57,42 @@ function TextAssetEditor({
   const { value, id, layoutId, command } = asset
 
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
-  const [isOpenControl, setIsOpenControl] = useState(false)
   const [content, setValue] = useState(value.content)
-  const [isOpenTextEditorToolbar, setIsOpenTextEditorToolbar, outRef] =
-    useOutsideClick<HTMLDivElement>(() => {
+  const [isOpenControl, setIsOpenControl] = useState(false)
+  const [isOpenTextEditorToolbar, setIsOpenTextEditorToolbar] = useState(false)
+  const outRef = useOutsideClickRef<HTMLDivElement>(() => {
+    if (isOpenControl) {
+      setIsOpenControl(false)
+    }
+    if (isOpenTextEditorToolbar) {
+      setIsOpenTextEditorToolbar(false)
       setActiveAssetId('')
       onChangeEditMode()
       onUpdate({
         ...asset,
         value: { content },
       })
-    })
+    }
+  })
 
-  const handleChangeEdit = () => {
-    setIsOpenControl(false)
-    setIsOpenTextEditorToolbar(!isOpenTextEditorToolbar)
-    setActiveAssetId(id)
-    onChangeEditMode()
-  }
-
-  const handleMouseEnter = () => {
+  const handleOpenControl = () => {
     if (
       isOpenTextEditorToolbar ||
       (activeAssetId.length && activeAssetId !== id)
     )
       return
     setIsOpenControl(true)
+  }
+
+  const longPressEvent = useLongPress({
+    onLongPress: handleOpenControl,
+  })
+
+  const handleChangeEdit = () => {
+    setIsOpenControl(false)
+    setIsOpenTextEditorToolbar(!isOpenTextEditorToolbar)
+    setActiveAssetId(id)
+    onChangeEditMode()
   }
 
   const handleMouseLeave = () => {
@@ -92,8 +103,9 @@ function TextAssetEditor({
     <div
       ref={outRef}
       className="relative flex flex-1 max-w-full"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={handleOpenControl}
       onMouseLeave={handleMouseLeave}
+      {...longPressEvent}
     >
       <div className="relative flex flex-1 overflow-y-auto grid-item-wrapper max-w-full">
         {isOpenTextEditorToolbar ? (

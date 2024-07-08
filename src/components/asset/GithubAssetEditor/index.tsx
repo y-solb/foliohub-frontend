@@ -1,10 +1,11 @@
 import { Activity, AssetType } from '@/types'
 import { useMemo, useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
-import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import { TbLink } from 'react-icons/tb'
+import { useLongPress } from '@/hooks/useLongPress'
+import useOutsideClickRef from '@/hooks/useOutsideClickRef'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../../toolbar/InputToolbar'
 
@@ -28,14 +29,29 @@ function GithubAssetEditor({
   const { value, id, layoutId, command } = asset
 
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
-  const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
-  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
-    useOutsideClick<HTMLDivElement>(() => {
+  const [isOpenControl, setIsOpenControl] = useState(false)
+  const [isOpenInputToolbar, setIsOpenInputToolbar] = useState(false)
+
+  const outRef = useOutsideClickRef<HTMLDivElement>(() => {
+    if (isOpenControl) {
       setIsOpenControl(false)
+    }
+    if (isOpenInputToolbar) {
+      setIsOpenInputToolbar(false)
       setActiveAssetId('')
       setActiveTool('')
-    })
+    }
+  })
+
+  const handleOpenControl = () => {
+    if (activeAssetId.length && activeAssetId !== id) return
+    setIsOpenControl(true)
+  }
+
+  const longPressEvent = useLongPress({
+    onLongPress: handleOpenControl,
+  })
 
   const calculateContributions = useMemo(() => {
     return (contributions: Activity[]) => {
@@ -67,11 +83,6 @@ function GithubAssetEditor({
     setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
-  const handleMouseEnter = () => {
-    if (activeAssetId.length && activeAssetId !== id) return
-    setIsOpenControl(true)
-  }
-
   const handleMouseLeave = () => {
     if (isOpenInputToolbar) return
     setIsOpenControl(false)
@@ -83,8 +94,9 @@ function GithubAssetEditor({
     <div
       ref={outRef}
       className="relative flex flex-1 max-w-full"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={handleOpenControl}
       onMouseLeave={handleMouseLeave}
+      {...longPressEvent}
     >
       <div className="github-calendar-wrapper relative flex flex-1 grid-item-wrapper overflow-hidden p-4 justify-center items-center">
         <GitHubCalendar

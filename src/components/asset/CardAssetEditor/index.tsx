@@ -1,5 +1,4 @@
 import { AssetType } from '@/types'
-import useOutsideClick from '@/hooks/useOutsideClick'
 import { useRef, useState } from 'react'
 import { TbLink, TbCrop, TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 import { useRecoilState } from 'recoil'
@@ -7,6 +6,8 @@ import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import useToggle from '@/hooks/useToggle'
 import useImageUpload from '@/hooks/useImageUpload'
 import Image from 'next/image'
+import useOutsideClickRef from '@/hooks/useOutsideClickRef'
+import { useLongPress } from '@/hooks/useLongPress'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../../toolbar/InputToolbar'
 import ImageCropModal from '../../modal/ImageCropModal'
@@ -39,28 +40,47 @@ function CardAssetEditor({
   const [ratio, setRatio] = useState(0)
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
+  const [isOpenInputToolbar, setIsOpenInputToolbar] = useState(false)
   const [activeTool, setActiveTool] = useState('')
-  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
-    useOutsideClick<HTMLDivElement>(() => {
-      setIsOpenControl(false)
-      setActiveAssetId('')
-      setActiveTool('')
-    })
   const [cardInputs, setCardInputs] = useState({
     imageUrl: value.imageUrl,
     title: value.title,
     description: value.description,
   })
   const imageRef = useRef<HTMLInputElement | null>(null)
-  const [isOpenCardEditor, setIsOpenCardEditor, outCardRef] =
-    useOutsideClick<HTMLDivElement>(() => {
+  const [isOpenCardEditor, setIsOpenCardEditor] = useState(false)
+  const outRef = useOutsideClickRef<HTMLDivElement>(() => {
+    if (isOpenControl) {
+      setIsOpenControl(false)
+      setActiveAssetId('')
+      setActiveTool('')
+    }
+    if (isOpenInputToolbar) {
+      setIsOpenControl(false)
+      setIsOpenInputToolbar(false)
+      setActiveTool('')
+    }
+    if (isOpenCardEditor) {
+      setIsOpenCardEditor(false)
       setActiveAssetId('')
       onChangeEditMode()
       onUpdate({
         ...asset,
         value: { ...asset.value, ...cardInputs },
       })
-    })
+    }
+  })
+
+  const handleOpenControl = () => {
+    if (isOpenCardEditor || (activeAssetId.length && activeAssetId !== id))
+      return
+    setIsOpenControl(true)
+  }
+
+  const longPressEvent = useLongPress({
+    onLongPress: handleOpenControl,
+  })
+
   const [isCropMode, toggle] = useToggle(false)
   const { uploadImage } = useImageUpload()
 
@@ -107,11 +127,6 @@ function CardAssetEditor({
       [e.target.name]: e.target.value,
     }))
   }
-  const handleMouseEnter = () => {
-    if (isOpenCardEditor || (activeAssetId.length && activeAssetId !== id))
-      return
-    setIsOpenControl(true)
-  }
 
   const handleMouseLeave = () => {
     if (isOpenInputToolbar) return
@@ -144,10 +159,11 @@ function CardAssetEditor({
   }
   return (
     <div
-      ref={outCardRef}
+      ref={outRef}
       className="relative flex flex-1 w-full max-width-full"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={handleOpenControl}
       onMouseLeave={handleMouseLeave}
+      {...longPressEvent}
     >
       <div
         className={`relative flex-1 ${value?.imageUrl || isOpenCardEditor ? 'grid' : ''}  grid-item-wrapper overflow-hidden p-3 gap-2`}
@@ -258,7 +274,7 @@ function CardAssetEditor({
         )}
       </div>
       {isOpenControl && !isCropMode && (
-        <div className="control-wrapper" ref={outRef}>
+        <div className="control-wrapper">
           <DeleteGridItemButton
             onDelete={() => {
               onDelete(id, layoutId, command)
