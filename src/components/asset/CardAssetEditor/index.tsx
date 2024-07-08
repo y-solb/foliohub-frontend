@@ -222,14 +222,14 @@ function CardAssetEditor({
               <input
                 type="text"
                 name="title"
-                className="body2 rounded-lg border border-solid border-gray-300 bg-white w-full h-6 p-2"
+                className="body2 rounded-lg bg-gray-100 w-full h-6 p-2"
                 value={cardInputs?.title}
                 onChange={handleInputChange}
                 placeholder="제목"
               />
               <textarea
                 name="description"
-                className="body3 h-full rounded-lg border border-solid border-gray-300 bg-white text-gray-400 w-full p-2"
+                className="body3 h-full rounded-lg bg-gray-100 text-gray-400 w-full p-2"
                 value={cardInputs?.description}
                 onChange={handleInputChange}
                 placeholder="내용"
@@ -290,15 +290,17 @@ function CardAssetEditor({
             >
               <TbPhotoEdit size={24} />
             </button>
-            <button
-              type="button"
-              name="crop"
-              aria-label="crop-image"
-              className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
-              onClick={handleCropModalOpen}
-            >
-              <TbCrop size={24} />
-            </button>
+            {value?.imageUrl && (
+              <button
+                type="button"
+                name="crop"
+                aria-label="crop-image"
+                className={`p-1 rounded-lg hover:bg-gray-200 ${activeTool === 'crop' ? 'bg-gray-200' : ''}`}
+                onClick={handleCropModalOpen}
+              >
+                <TbCrop size={24} />
+              </button>
+            )}
             <button
               type="button"
               name="link"
