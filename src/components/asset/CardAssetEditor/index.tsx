@@ -36,7 +36,7 @@ function CardAssetEditor({
   onChangeEditMode,
 }: CardAssetEditorProps) {
   const { value, id, layoutId, command } = asset
-  console.log(asset)
+
   const [ratio, setRatio] = useState(0)
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
   const [isOpenControl, setIsOpenControl] = useState(false)
