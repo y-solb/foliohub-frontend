@@ -1,5 +1,4 @@
 import { AssetType } from '@/types'
-import useOutsideClick from '@/hooks/useOutsideClick'
 import { useState, useRef } from 'react'
 import { TbLink, TbCrop, TbPhotoPlus } from 'react-icons/tb'
 import useToggle from '@/hooks/useToggle'
@@ -8,6 +7,8 @@ import { useRecoilState } from 'recoil'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
 import useImageUpload from '@/hooks/useImageUpload'
 import Image from 'next/image'
+import { useLongPress } from '@/hooks/useLongPress'
+import useOutsideClickRef from '@/hooks/useOutsideClickRef'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../../toolbar/InputToolbar'
 import ImageCropModal from '../../modal/ImageCropModal'
@@ -38,17 +39,31 @@ function ImageAssetEditor({
   const { value, id, layoutId, command } = asset
 
   const [activeAssetId, setActiveAssetId] = useRecoilState(activeAssetIdState)
-  const [isOpenControl, setIsOpenControl] = useState(false)
   const [activeTool, setActiveTool] = useState('')
-  const [isOpenInputToolbar, setIsOpenInputToolbar, outRef] =
-    useOutsideClick<HTMLDivElement>(() => {
+  const [isOpenControl, setIsOpenControl] = useState(false)
+  const [isOpenInputToolbar, setIsOpenInputToolbar] = useState(false)
+  const outRef = useOutsideClickRef<HTMLDivElement>(() => {
+    if (isOpenControl) {
       setIsOpenControl(false)
+    }
+    if (isOpenInputToolbar) {
+      setIsOpenInputToolbar(false)
       setActiveAssetId('')
       setActiveTool('')
-    })
+    }
+  })
   const imageRef = useRef<HTMLInputElement | null>(null)
   const [isCropMode, toggle] = useToggle(false)
   const { uploadImage } = useImageUpload()
+
+  const handleOpenControl = () => {
+    if (activeAssetId.length && activeAssetId !== id) return
+    setIsOpenControl(true)
+  }
+
+  const longPressEvent = useLongPress({
+    onLongPress: handleOpenControl,
+  })
 
   const handleUpdateImageLink = (inputValue: string) => {
     onUpdate({
@@ -81,11 +96,6 @@ function ImageAssetEditor({
     setActiveTool((e.currentTarget as HTMLButtonElement).name)
   }
 
-  const handleMouseEnter = () => {
-    if (activeAssetId.length && activeAssetId !== id) return
-    setIsOpenControl(true)
-  }
-
   const handleMouseLeave = () => {
     if (isOpenInputToolbar) return
     setIsOpenControl(false)
@@ -116,8 +126,9 @@ function ImageAssetEditor({
       <div
         ref={outRef}
         className="relative flex flex-1"
-        onMouseEnter={handleMouseEnter}
+        onMouseEnter={handleOpenControl}
         onMouseLeave={handleMouseLeave}
+        {...longPressEvent}
       >
         <div className="relative flex flex-1 rounded-2xl overflow-hidden">
           <div className="relative w-full overflow-hidden">
