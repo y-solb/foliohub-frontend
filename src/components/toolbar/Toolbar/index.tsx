@@ -90,7 +90,7 @@ function Toolbar({
           onAdd('card', {
             imageUrl: '',
             title: '',
-            content: '',
+            description: '',
             link: '',
           })
           resetToolbar()
