@@ -82,8 +82,8 @@ function AssetGridLayoutEditor({
           cols={{ lg: 6, md: 2 }}
           rowHeight={rowHeight}
           layouts={layouts || undefined}
-          verticalCompact
           compactType={null}
+          preventCollision
           isDraggable={!isEditMode}
           draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
           resizeHandle={<ResizeHandler handleAxis="se" />}
