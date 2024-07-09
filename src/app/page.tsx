@@ -11,11 +11,14 @@ import ButtonLink from '@/components/common/ButtonLink'
 
 export default async function Home() {
   const queryClient = new QueryClient()
+
   await queryClient.prefetchInfiniteQuery({
     queryKey: ['portfolioList'],
     queryFn: ({ pageParam }) => getPortfolioList(pageParam),
     initialPageParam: 1,
+    staleTime: 60 * 1000,
   })
+
   const dehydratedState = dehydrate(queryClient)
   return (
     <BaseLayout>
