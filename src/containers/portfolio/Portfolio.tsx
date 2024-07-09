@@ -12,12 +12,13 @@ interface PortfolioProps {
 }
 
 export default function Portfolio({ username }: PortfolioProps) {
-  const { data, isLoading } = usePortfolioQuery(username)
-  const { data: currentUser, isLoading: isLoadingCurrentUser } = useAuthQuery()
+  const { data } = usePortfolioQuery(username)
+  const { data: currentUser } = useAuthQuery()
 
-  if (isLoading || isLoadingCurrentUser || !data) {
+  if (!data) {
     return null
   }
+
   return (
     <>
       <PortfolioLayout>

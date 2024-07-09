@@ -51,6 +51,7 @@ export const usePortfolioQuery = (username: string) => {
     queryKey: ['portfolio', username],
     queryFn: () => getPortfolio(username),
     enabled: !!username,
+    staleTime: 60 * 1000,
   })
 }
 

@@ -1,6 +1,12 @@
 import Portfolio from '@/containers/portfolio/Portfolio'
 import { fetchPortfolio } from '@/fetch/fetchPortfolio'
 import { removeTagsText } from '@/lib/utils'
+import { getPortfolio } from '@/services/portfolio'
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -51,6 +57,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return metadata
 }
 
-export default function UserPage({ params }: { params: { username: string } }) {
-  return <Portfolio username={params.username} />
+export default async function UserPage({
+  params,
+}: {
+  params: { username: string }
+}) {
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['portfolio', params.username],
+    queryFn: () => getPortfolio(params.username),
+    staleTime: 60 * 1000,
+  })
+
+  const dehydratedState = dehydrate(queryClient)
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <Portfolio username={params.username} />
+    </HydrationBoundary>
+  )
 }
