@@ -93,6 +93,7 @@ function CardAssetEditor({
 
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageUrl = await uploadImage(e.target.files, 'asset')
+    if (!imageUrl) return
     setCardInputs((prevInputs) => ({
       ...prevInputs,
       imageUrl,

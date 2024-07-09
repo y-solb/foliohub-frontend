@@ -1,7 +1,6 @@
-import httpClient from '@/lib/httpClient'
 import { useSetRecoilState } from 'recoil'
 import progressBarState from '@/recoil/atoms/progressBarState'
-import API_ENDPOINTS from '@/constants/apiEndpoints'
+import { uploaderImage } from '@/services/image'
 
 const useImageUpload = () => {
   const setIsLoading = useSetRecoilState(progressBarState)
@@ -19,21 +18,13 @@ const useImageUpload = () => {
     setIsLoading(true)
 
     try {
-      const {
-        data: { imageUrl },
-      } = await httpClient.post(API_ENDPOINTS.IMAGEUPLOAD(type), formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-
-      setTimeout(() => {
-        setIsLoading(false)
-      }, 500)
-      return imageUrl
+      const result = await uploaderImage({ type, formData })
+      return result
     } catch (error) {
       console.error('Image upload failed:', error)
       throw error
+    } finally {
+      setIsLoading(false)
     }
   }
 

@@ -38,6 +38,7 @@ function ProfileEditor({
 
   const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const imageUrl = await uploadImage(e.target.files, 'thumbnail')
+    if (!imageUrl) return
     onProfileChange('thumbnail', imageUrl)
   }
 
