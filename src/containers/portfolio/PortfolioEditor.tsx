@@ -19,6 +19,7 @@ import { useSetRecoilState } from 'recoil'
 import progressBarState from '@/recoil/atoms/progressBarState'
 import PortfolioLayout from '@/components/layout/PortfolioLayout'
 import Button from '@/components/common/Button'
+import { useAuthQuery } from '@/hooks/queries/auth'
 
 interface PortfolioEditorProps {
   username: string
@@ -26,20 +27,30 @@ interface PortfolioEditorProps {
 
 export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   const { openAlert } = useOpenAlertModal()
-  const { data, isLoading } = usePortfolioQuery(username)
+  const router = useRouter()
+  const { data: currentUser, isLoading: isLoadingCurrentUser } = useAuthQuery()
+  const { data, isLoading } = usePortfolioQuery(username, {
+    enabled: currentUser?.username === username,
+  })
   const [portfolio, setPortfolio] = useState<UserData | null>(null)
   const [socialLinks, setSocialLinks] = useState<SocialLinks | null>(null)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],
     md: [],
   })
-  const router = useRouter()
   const { mutate } = usePortfolioMutation()
   const setIsLoading = useSetRecoilState(progressBarState)
 
   const handleBeforeUnload = (event: Event) => {
     event.preventDefault()
   }
+
+  useEffect(() => {
+    if (!isLoadingCurrentUser && currentUser?.username !== username) {
+      router.push('/')
+    }
+  }, [currentUser?.username, isLoadingCurrentUser, router, username])
+
   useEffect(() => {
     window.addEventListener('beforeunload', handleBeforeUnload)
     return () => {

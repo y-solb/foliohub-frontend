@@ -11,6 +11,7 @@ import {
   UpdatelikePortfolioPayload,
 } from '@/services/portfolio/type'
 import {
+  UseQueryOptions,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -46,12 +47,22 @@ export const useInfiniteLikePortfolioQuery = () => {
   })
 }
 
-export const usePortfolioQuery = (username: string) => {
+export const usePortfolioQuery = <
+  TData = PortfolioDetailResponse,
+  TError = unknown,
+>(
+  username: string,
+  options?: Omit<
+    UseQueryOptions<PortfolioDetailResponse, TError, TData>,
+    'queryKey'
+  >,
+) => {
   return useQuery({
     queryKey: ['portfolio', username],
     queryFn: () => getPortfolio(username),
-    enabled: !!username,
     staleTime: 60 * 1000,
+    enabled: !!username && options?.enabled,
+    ...options,
   })
 }
 

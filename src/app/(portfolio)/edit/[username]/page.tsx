@@ -1,9 +1,8 @@
 import PortfolioEditor from '@/containers/portfolio/PortfolioEditor'
-import { fetchAuthInfo } from '@/fetch/fetchAuthInfo'
 import { fetchPortfolio } from '@/fetch/fetchPortfolio'
 import { removeTagsText } from '@/lib/utils'
 import { Metadata } from 'next'
-import { notFound, redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
 type Props = {
   params: { username: string }
@@ -51,15 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return metadata
 }
 
-export default async function EditPage({
-  params,
-}: {
-  params: { username: string }
-}) {
+export default function EditPage({ params }: { params: { username: string } }) {
   const { username } = params
-  const authInfo = await fetchAuthInfo()
-  if (!authInfo || authInfo.username !== username) {
-    redirect('/')
-  }
   return <PortfolioEditor username={username} />
 }
