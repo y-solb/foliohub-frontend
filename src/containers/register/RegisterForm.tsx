@@ -19,7 +19,7 @@ interface Form {
 
 function RegisterForm() {
   const router = useRouter()
-  const { mutate } = useRegisterMutation()
+  const { mutate, isPending } = useRegisterMutation()
   const { openAlert } = useOpenAlertModal()
 
   const schema = z.object({
@@ -153,7 +153,7 @@ function RegisterForm() {
           </p>
         )}
       </div>
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full" disabled={isPending}>
         회원가입
       </Button>
     </form>
