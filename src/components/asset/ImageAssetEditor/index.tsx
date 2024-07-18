@@ -1,4 +1,4 @@
-import { AssetType } from '@/types'
+import { BreakpointType, CommandType, ImageAssetType } from '@/types'
 import { useState, useRef } from 'react'
 import { TbLink, TbCrop, TbPhotoPlus } from 'react-icons/tb'
 import useToggle from '@/hooks/useToggle'
@@ -14,16 +14,12 @@ import InputToolbar from '../../toolbar/InputToolbar'
 import ImageCropModal from '../../modal/ImageCropModal'
 
 interface ImageAssetEditorProps {
-  asset: AssetType
+  asset: ImageAssetType
   w: number
   h: number
-  breakpoint: string
-  onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (
-    id: string,
-    layoutId: string,
-    command?: 'save' | 'update' | 'delete',
-  ) => void
+  breakpoint: BreakpointType
+  onUpdate: (updatedAsset: ImageAssetType) => void
+  onDelete: (id: string, layoutId: string, command?: CommandType) => void
   onChangeEditMode: () => void
 }
 

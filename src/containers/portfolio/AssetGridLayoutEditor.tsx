@@ -8,7 +8,13 @@ import {
 } from '@/constants/layout'
 import useToggle from '@/hooks/useToggle'
 import activeAssetIdState from '@/recoil/atoms/activeAssetState'
-import { AssetType, ToolType, UserData } from '@/types'
+import {
+  AssetType,
+  BreakpointType,
+  CommandType,
+  ToolType,
+  UserData,
+} from '@/types'
 import { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import { useRecoilValue } from 'recoil'
@@ -18,13 +24,9 @@ const ResponsiveGridLayout = WidthProvider(Responsive)
 interface AssetGridLayoutEditorProps {
   portfolio: UserData
   layouts?: Layouts
-  onAdd: (name: ToolType, value?: string) => void
+  onAdd: (name: ToolType, value: AssetType['value']) => void
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (
-    id: string,
-    layoutId: string,
-    command?: 'save' | 'update' | 'delete',
-  ) => void
+  onDelete: (id: string, layoutId: string, command?: CommandType) => void
   onLayoutChange: (currentLayout: Layouts) => void
 }
 
@@ -36,7 +38,7 @@ function AssetGridLayoutEditor({
   onDelete,
   onLayoutChange,
 }: AssetGridLayoutEditorProps) {
-  const [breakpoint, setBreakpoint] = useState('')
+  const [breakpoint, setBreakpoint] = useState<BreakpointType | null>(null)
   const [rowHeight, setRowHeight] = useState(168)
   const [isEditMode, toggle] = useToggle(false)
   const [isMobileMode, setIsMobileMode] = useState(false)
@@ -65,6 +67,8 @@ function AssetGridLayoutEditor({
     }
   }, [isMobileMode])
 
+  if (!breakpoint) return null
+
   return (
     <div className="w-full md:ml-80">
       <div
@@ -88,7 +92,7 @@ function AssetGridLayoutEditor({
           draggableCancel={PREVENT_DRAG_DEFAULTS.join(',')}
           resizeHandle={<ResizeHandler handleAxis="se" />}
           onBreakpointChange={(newBreakpoint) => {
-            setBreakpoint(newBreakpoint)
+            setBreakpoint(newBreakpoint as BreakpointType)
           }}
           onLayoutChange={(_, currentLayout) => {
             onLayoutChange(currentLayout)

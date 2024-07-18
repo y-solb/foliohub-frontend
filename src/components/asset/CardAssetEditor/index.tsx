@@ -1,4 +1,4 @@
-import { AssetType } from '@/types'
+import { BreakpointType, CardAssetType, CommandType } from '@/types'
 import { useRef, useState } from 'react'
 import { TbLink, TbCrop, TbPhotoEdit, TbPhotoPlus } from 'react-icons/tb'
 import { useRecoilState } from 'recoil'
@@ -13,16 +13,12 @@ import InputToolbar from '../../toolbar/InputToolbar'
 import ImageCropModal from '../../modal/ImageCropModal'
 
 interface CardAssetEditorProps {
-  asset: AssetType
+  asset: CardAssetType
   width: number
   height: number
-  breakpoint: string
-  onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (
-    id: string,
-    layoutId: string,
-    command?: 'save' | 'update' | 'delete',
-  ) => void
+  breakpoint: BreakpointType
+  onUpdate: (updatedAsset: CardAssetType) => void
+  onDelete: (id: string, layoutId: string, command?: CommandType) => void
   onChangeEditMode: () => void
 }
 

@@ -1,8 +1,8 @@
-import { AssetType } from '@/types'
+import { TextAssetType } from '@/types'
 import 'react-quill/dist/quill.snow.css'
 
 interface TextAssetProps {
-  asset: AssetType
+  asset: TextAssetType
 }
 
 function TextAsset({ asset }: TextAssetProps) {

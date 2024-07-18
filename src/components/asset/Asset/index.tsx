@@ -1,4 +1,4 @@
-import { AssetType } from '@/types'
+import { AssetType, BreakpointType } from '@/types'
 import { Layout } from 'react-grid-layout'
 import GithubAsset from '../GithubAsset'
 import TextAsset from '../TextAsset'
@@ -7,7 +7,7 @@ import CardAsset from '../CardAsset'
 
 interface AssetProps {
   asset: AssetType
-  breakpoint: string
+  breakpoint: BreakpointType
   layout: Layout | undefined
 }
 

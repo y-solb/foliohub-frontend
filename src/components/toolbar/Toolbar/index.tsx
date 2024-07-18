@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FaGithub } from 'react-icons/fa6'
 import useOutsideClick from '@/hooks/useOutsideClick'
-import { ToolType } from '@/types'
+import { AssetType, BreakpointType, ToolType } from '@/types'
 import {
   TbEdit,
   TbSlideshow,
@@ -13,10 +13,9 @@ import InputToolbar from '../InputToolbar'
 
 interface ToolbarProps {
   isMobileMode: boolean
-  breakpoint: string
+  breakpoint: BreakpointType
   toggleMobileMode: () => void
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onAdd: (name: ToolType, value?: any) => void
+  onAdd: (name: ToolType, value: AssetType['value']) => void
 }
 
 function Toolbar({
@@ -75,7 +74,7 @@ function Toolbar({
         className="p-1 rounded-lg hover:bg-gray-200 active:bg-gray-200"
         aria-label="content"
         onClick={() => {
-          onAdd('content', { content: null })
+          onAdd('content', { content: '' })
           resetToolbar()
         }}
       >
@@ -89,9 +88,10 @@ function Toolbar({
         onClick={() => {
           onAdd('card', {
             imageUrl: '',
+            link: '',
+            pos: { md: { x: 50, y: 50 }, lg: { x: 50, y: 50 } },
             title: '',
             description: '',
-            link: '',
           })
           resetToolbar()
         }}

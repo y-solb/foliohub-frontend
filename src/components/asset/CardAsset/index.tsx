@@ -1,13 +1,13 @@
-import { AssetType } from '@/types'
+import { BreakpointType, CardAssetType } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { TbLink } from 'react-icons/tb'
 
 interface CardAssetProps {
-  asset: AssetType
+  asset: CardAssetType
   width: number
   height: number
-  breakpoint: string
+  breakpoint: BreakpointType
 }
 
 function CardAsset({ asset, width, height, breakpoint }: CardAssetProps) {

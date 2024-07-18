@@ -1,4 +1,4 @@
-import { AssetType } from '@/types'
+import { AssetType, BreakpointType, CommandType } from '@/types'
 import { Layout } from 'react-grid-layout'
 import ImageAssetEditor from '../ImageAssetEditor'
 import GithubAssetEditor from '../GithubAssetEditor'
@@ -7,14 +7,10 @@ import CardAssetEditor from '../CardAssetEditor'
 
 interface AssetEditorProps {
   asset: AssetType
-  breakpoint: string
+  breakpoint: BreakpointType
   layout?: Layout
   onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (
-    id: string,
-    layoutId: string,
-    command?: 'save' | 'update' | 'delete',
-  ) => void
+  onDelete: (id: string, layoutId: string, command?: CommandType) => void
   onChangeEditMode: () => void
 }
 

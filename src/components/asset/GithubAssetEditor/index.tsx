@@ -1,4 +1,4 @@
-import { Activity, AssetType } from '@/types'
+import { Activity, CommandType, GithubAssetType } from '@/types'
 import { useMemo, useState } from 'react'
 import GitHubCalendar from 'react-github-calendar'
 import { useRecoilState } from 'recoil'
@@ -10,14 +10,10 @@ import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../../toolbar/InputToolbar'
 
 interface GithubAssetEditorProps {
-  asset: AssetType
+  asset: GithubAssetType
   width: number
-  onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (
-    id: string,
-    layoutId: string,
-    command?: 'save' | 'update' | 'delete',
-  ) => void
+  onUpdate: (updatedAsset: GithubAssetType) => void
+  onDelete: (id: string, layoutId: string, command?: CommandType) => void
 }
 
 function GithubAssetEditor({

@@ -1,9 +1,9 @@
-import { Activity, AssetType } from '@/types'
+import { Activity, GithubAssetType } from '@/types'
 import GitHubCalendar from 'react-github-calendar'
 import Link from 'next/link'
 
 interface GithubAssetProps {
-  asset: AssetType
+  asset: GithubAssetType
   width: number
 }
 

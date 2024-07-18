@@ -1,10 +1,10 @@
-import { AssetType } from '@/types'
+import { BreakpointType, ImageAssetType } from '@/types'
 import { TbLink } from 'react-icons/tb'
 import Image from 'next/image'
 
 interface ImageAssetProps {
-  breakpoint: string
-  asset: AssetType
+  breakpoint: BreakpointType
+  asset: ImageAssetType
 }
 
 function ImageAsset({ asset, breakpoint }: ImageAssetProps) {

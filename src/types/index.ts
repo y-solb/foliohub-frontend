@@ -1,19 +1,51 @@
 export type ToolType = 'github' | 'content' | 'image' | 'card'
 
-export type AssetType = {
+export type CommandType = 'save' | 'update' | 'delete'
+
+export interface BaseAsset<T extends ToolType, V> {
   id: string
   layoutId: string
-  type: ToolType
-  command?: 'save' | 'update' | 'delete'
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any
+  type: T
+  command?: CommandType
+  value: V
 }
-// {
-//   githubId?: string
-//   link?: string
-//   imageUrl?: string
-//   content?: string
-// }  TODO: 타입 변경
+
+interface GithubValue {
+  githubId: string
+}
+
+interface ContentValue {
+  content: string
+}
+
+interface ImageValue {
+  imageUrl: string
+  link: string
+  pos: { md: { x: number; y: number }; lg: { x: number; y: number } }
+}
+
+interface CardValue {
+  imageUrl: string
+  link: string
+  pos: { md: { x: number; y: number }; lg: { x: number; y: number } }
+  title: string
+  description: string
+}
+
+export type GithubAssetType = BaseAsset<'github', GithubValue>
+export type TextAssetType = BaseAsset<'content', ContentValue>
+export type ImageAssetType = BaseAsset<'image', ImageValue>
+export type CardAssetType = BaseAsset<'card', CardValue>
+
+export type AssetType =
+  | GithubAssetType
+  | TextAssetType
+  | ImageAssetType
+  | CardAssetType
+
+export type AssetValueType = GithubValue | ContentValue | ImageValue | CardValue
+
+export type BreakpointType = 'md' | 'lg'
 
 export type AuthInfo = {
   id: string

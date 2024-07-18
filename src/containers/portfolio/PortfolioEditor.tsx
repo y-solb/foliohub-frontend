@@ -1,7 +1,14 @@
 'use client'
 
 import 'react-grid-layout/css/styles.css'
-import { AssetType, SocialLinks, ToolType, UserData } from '@/types'
+import {
+  AssetType,
+  AssetValueType,
+  CommandType,
+  SocialLinks,
+  ToolType,
+  UserData,
+} from '@/types'
 import React, { useEffect, useState } from 'react'
 import { Layouts } from 'react-grid-layout'
 import { v4 as uuidv4 } from 'uuid'
@@ -90,21 +97,18 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
     return null
   }
 
-  const handleAdd = (name: ToolType, value?: string) => {
-    const id = uuidv4()
-    const layoutId = uuidv4()
+  const handleAdd = (name: ToolType, value: AssetValueType) => {
+    const newAsset = {
+      id: uuidv4(),
+      layoutId: uuidv4(),
+      type: name,
+      command: 'save',
+      value,
+    } as AssetType
+
     setPortfolio({
       ...portfolio,
-      assets: [
-        ...portfolio.assets,
-        {
-          id,
-          layoutId,
-          type: name,
-          command: 'save',
-          value,
-        },
-      ],
+      assets: [...portfolio.assets, newAsset],
     })
   }
 
@@ -138,7 +142,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   const handleDelete = (
     id: string,
     layoutId: string,
-    command?: 'save' | 'update' | 'delete',
+    command?: CommandType,
   ) => {
     if (command === 'save') {
       // 새로 저장된 경우 filter로 삭제

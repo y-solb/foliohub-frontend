@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AssetType } from '@/types'
+import { CommandType, TextAssetType } from '@/types'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
 import { useRecoilState } from 'recoil'
@@ -38,13 +38,9 @@ const formats = [
 ]
 
 interface TextAssetEditorProps {
-  asset: AssetType
-  onUpdate: (updatedAsset: AssetType) => void
-  onDelete: (
-    id: string,
-    layoutId: string,
-    command?: 'save' | 'update' | 'delete',
-  ) => void
+  asset: TextAssetType
+  onUpdate: (updatedAsset: TextAssetType) => void
+  onDelete: (id: string, layoutId: string, command?: CommandType) => void
   onChangeEditMode: () => void
 }
 
