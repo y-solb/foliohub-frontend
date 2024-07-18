@@ -11,46 +11,42 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useOpenAlertModal from '@/hooks/useOpenAlertModal'
 import { AxiosError } from 'axios'
 
-interface Form {
-  displayName: string
-  username: string
-  isAgreement: boolean
-}
+const userSchema = z.object({
+  displayName: z
+    .string()
+    .min(2, '최소 2자 이상 입력해 주세요.')
+    .max(10, '최대 10자 이하 입력해 주세요.')
+    .regex(
+      /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9]+$/,
+      '한글, 영문 그리고 숫자만 가능해요.',
+    ),
+  username: z
+    .string()
+    .min(2, '최소 2자 이상 입력해 주세요.')
+    .max(10, '최대 10자 이하 입력해 주세요.')
+    .regex(/^[a-z|A-Z|0-9]+$/, '영문 그리고 숫자만 가능해요.'),
+  isAgreement: z
+    .boolean()
+    .refine(
+      (value) => value === true,
+      '개인정보 처리방침과 이용약관에 동의가 필요해요.',
+    ),
+})
+
+type FormUser = z.infer<typeof userSchema>
 
 function RegisterForm() {
   const router = useRouter()
-  const { mutate, isPending } = useRegisterMutation()
+  const { mutate } = useRegisterMutation()
   const { openAlert } = useOpenAlertModal()
-
-  const schema = z.object({
-    displayName: z
-      .string()
-      .min(2, '최소 2자 이상 입력해 주세요.')
-      .max(10, '최대 10자 이하 입력해 주세요.')
-      .regex(
-        /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9]+$/,
-        '한글, 영문 그리고 숫자만 가능해요.',
-      ),
-    username: z
-      .string()
-      .min(2, '최소 2자 이상 입력해 주세요.')
-      .max(10, '최대 10자 이하 입력해 주세요.')
-      .regex(/^[a-z|A-Z|0-9]+$/, '영문 그리고 숫자만 가능해요.'),
-    isAgreement: z
-      .boolean()
-      .refine(
-        (value) => value === true,
-        '개인정보 처리방침과 이용약관에 동의가 필요해요.',
-      ),
-  })
 
   const {
     register,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitted },
     handleSubmit,
-  } = useForm<Form>({
-    resolver: zodResolver(schema),
+  } = useForm<FormUser>({
+    resolver: zodResolver(userSchema),
     defaultValues: {
       displayName: '',
       username: '',
@@ -58,7 +54,7 @@ function RegisterForm() {
     },
   })
 
-  const onSubmit = (data: Form) => {
+  const onSubmit = (data: FormUser) => {
     const { displayName, username } = data
 
     mutate(
@@ -153,7 +149,7 @@ function RegisterForm() {
           </p>
         )}
       </div>
-      <Button type="submit" className="w-full" disabled={isPending}>
+      <Button type="submit" className="w-full" disabled={isSubmitted}>
         회원가입
       </Button>
     </form>
