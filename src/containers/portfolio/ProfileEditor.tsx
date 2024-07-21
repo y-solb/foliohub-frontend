@@ -1,4 +1,4 @@
-import { SocialLinks, UserData } from '@/types'
+import { SocialLinks, Portfolio } from '@/types'
 import { useRef } from 'react'
 import Image from 'next/image'
 import {
@@ -14,7 +14,7 @@ import EmptyThumbnail from '@/components/common/EmptyThumbnail'
 import useImageUpload from '@/hooks/useImageUpload'
 
 interface ProfileEditorProps {
-  portfolio: UserData
+  portfolio: Portfolio
   socialLinks: SocialLinks
   onProfileChange: (name: string, value: string) => void
   onSocialLinkChange: (name: string, value: string) => void

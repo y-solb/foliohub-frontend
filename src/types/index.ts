@@ -1,3 +1,5 @@
+export type BreakpointType = 'md' | 'lg'
+
 export type ToolType = 'github' | 'content' | 'image' | 'card'
 
 export type CommandType = 'save' | 'update' | 'delete'
@@ -9,6 +11,19 @@ export interface BaseAsset<T extends ToolType, V> {
   command?: CommandType
   value: V
 }
+
+export type AssetType =
+  | GithubAssetType
+  | TextAssetType
+  | ImageAssetType
+  | CardAssetType
+
+export type GithubAssetType = BaseAsset<'github', GithubValue>
+export type TextAssetType = BaseAsset<'content', ContentValue>
+export type ImageAssetType = BaseAsset<'image', ImageValue>
+export type CardAssetType = BaseAsset<'card', CardValue>
+
+export type AssetValueType = GithubValue | ContentValue | ImageValue | CardValue
 
 interface GithubValue {
   githubId: string
@@ -32,28 +47,13 @@ interface CardValue {
   description: string
 }
 
-export type GithubAssetType = BaseAsset<'github', GithubValue>
-export type TextAssetType = BaseAsset<'content', ContentValue>
-export type ImageAssetType = BaseAsset<'image', ImageValue>
-export type CardAssetType = BaseAsset<'card', CardValue>
-
-export type AssetType =
-  | GithubAssetType
-  | TextAssetType
-  | ImageAssetType
-  | CardAssetType
-
-export type AssetValueType = GithubValue | ContentValue | ImageValue | CardValue
-
-export type BreakpointType = 'md' | 'lg'
-
-export type AuthInfo = {
+export interface AuthInfo {
   id: string
   username: string
   thumbnail: string | null
 }
 
-export type SocialLinks = {
+export interface SocialLinks {
   blogLink: string | null
   facebookLink: string | null
   githubLink: string | null
@@ -63,7 +63,7 @@ export type SocialLinks = {
   youtubeLink: string | null
 }
 
-export type UserData = {
+export interface Portfolio {
   id: string
   username: string
   displayName: string
@@ -74,13 +74,13 @@ export type UserData = {
   assets: AssetType[]
 }
 
-export type Activity = {
+export interface Activity {
   date: string
   count: number
   level: number
 }
 
-export type PortfolioItemType = {
+export interface PortfolioItemType {
   id: string
   displayName: string
   shortBio: string

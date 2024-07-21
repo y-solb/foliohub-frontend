@@ -7,7 +7,7 @@ import {
   CommandType,
   SocialLinks,
   ToolType,
-  UserData,
+  Portfolio,
 } from '@/types'
 import React, { useEffect, useState } from 'react'
 import { Layouts } from 'react-grid-layout'
@@ -39,7 +39,7 @@ export default function PortfolioEditor({ username }: PortfolioEditorProps) {
   const { data, isLoading } = usePortfolioQuery(username, {
     enabled: currentUser?.username === username,
   })
-  const [portfolio, setPortfolio] = useState<UserData | null>(null)
+  const [portfolio, setPortfolio] = useState<Portfolio | null>(null)
   const [socialLinks, setSocialLinks] = useState<SocialLinks | null>(null)
   const [layouts, setLayouts] = useState<Layouts>({
     lg: [],

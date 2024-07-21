@@ -3,7 +3,7 @@
 import Logo from '@/components/common/Logo'
 import Asset from '@/components/asset/Asset'
 import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants/layout'
-import { BreakpointType, UserData } from '@/types'
+import { BreakpointType, Portfolio } from '@/types'
 import { useEffect, useMemo, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import Link from 'next/link'
@@ -11,7 +11,7 @@ import Link from 'next/link'
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
 interface AssetGridLayoutProps {
-  portfolio: UserData
+  portfolio: Portfolio
   layouts?: Layouts
 }
 

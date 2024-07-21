@@ -13,7 +13,7 @@ import {
   BreakpointType,
   CommandType,
   ToolType,
-  UserData,
+  Portfolio,
 } from '@/types'
 import { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
@@ -22,7 +22,7 @@ import { useRecoilValue } from 'recoil'
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
 interface AssetGridLayoutEditorProps {
-  portfolio: UserData
+  portfolio: Portfolio
   layouts?: Layouts
   onAdd: (name: ToolType, value: AssetType['value']) => void
   onUpdate: (updatedAsset: AssetType) => void
