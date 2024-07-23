@@ -7,7 +7,7 @@ const meta: Meta<typeof CardAsset> = {
   component: CardAsset,
   parameters: {
     docs: {
-      subtitle: 'CardAsset은 이미지, 제목, 내용을 추가할 수 있는 Asset입니다.',
+      subtitle: 'CardAsset은 이미지, 제목, 내용을 보여주는 Asset입니다.',
     },
   },
   argTypes: {
