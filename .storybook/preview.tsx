@@ -3,6 +3,7 @@ import type { Preview } from '@storybook/react'
 import { RecoilRoot } from 'recoil'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '../src/app/globals.css'
+import 'react-image-crop/dist/ReactCrop.css'
 
 const queryClient = new QueryClient()
 

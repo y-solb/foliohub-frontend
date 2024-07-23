@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import Image from 'next/image'
 import ImageCropModal from '.'
-import 'react-image-crop/dist/ReactCrop.css'
 
 const meta: Meta<typeof ImageCropModal> = {
   title: 'Modal/ImageCropModal',
