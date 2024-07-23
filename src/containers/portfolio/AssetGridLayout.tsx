@@ -4,7 +4,7 @@ import Logo from '@/components/common/Logo'
 import Asset from '@/components/asset/Asset'
 import { LG_BREAKPOINT, MD_BREAKPOINT } from '@/constants/layout'
 import { BreakpointType, Portfolio } from '@/types'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Layouts, Responsive, WidthProvider } from 'react-grid-layout'
 import Link from 'next/link'
 
@@ -16,7 +16,7 @@ interface AssetGridLayoutProps {
 }
 
 function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
-  const [breakpoint, setBreakpoint] = useState<BreakpointType | null>(null)
+  const [breakpoint, setBreakpoint] = useState<BreakpointType>()
   const [rowHeight, setRowHeight] = useState(168)
 
   useEffect(() => {
@@ -29,23 +29,7 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
     }
   }, [])
 
-  const assetsGrid = useMemo(
-    () =>
-      breakpoint &&
-      portfolio.assets.map((asset) => (
-        <div key={asset.layoutId} className="flex">
-          <Asset
-            asset={asset}
-            breakpoint={breakpoint}
-            layout={
-              layouts &&
-              layouts[breakpoint]?.find((layout) => layout.i === asset.layoutId)
-            }
-          />
-        </div>
-      )),
-    [breakpoint, layouts, portfolio.assets],
-  )
+  if (!breakpoint) return null
 
   return (
     <>
@@ -67,7 +51,20 @@ function AssetGridLayout({ portfolio, layouts }: AssetGridLayoutProps) {
             setRowHeight((width - (cols + 1) * margin[0]) / cols)
           }}
         >
-          {assetsGrid}
+          {portfolio.assets.map((asset) => (
+            <div key={asset.layoutId} className="flex">
+              <Asset
+                asset={asset}
+                breakpoint={breakpoint}
+                layout={
+                  layouts &&
+                  layouts[breakpoint]?.find(
+                    (layout) => layout.i === asset.layoutId,
+                  )
+                }
+              />
+            </div>
+          ))}
         </ResponsiveGridLayout>
       </div>
       <div className="flex justify-center items-center pb-16 md:hidden">
