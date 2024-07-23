@@ -1,3 +1,4 @@
+import { getGridTemplate } from '@/lib/asset'
 import { BreakpointType, CardAssetType } from '@/types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,17 +10,6 @@ interface CardAssetProps {
   height: number
   breakpoint: BreakpointType
 }
-
-const getGridTemplate = (width: number, height: number) => ({
-  gridTemplateColumns: width > height ? `${height}fr ${width - height}fr` : '',
-  gridTemplateRows:
-    // eslint-disable-next-line no-nested-ternary
-    width < height
-      ? `${height}fr ${height - width}fr`
-      : width === height
-        ? '1fr 1fr'
-        : '',
-})
 
 function CardContent({ asset, width, height, breakpoint }: CardAssetProps) {
   const { id, value } = asset

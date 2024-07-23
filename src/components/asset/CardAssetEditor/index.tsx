@@ -8,6 +8,7 @@ import useImageUpload from '@/hooks/useImageUpload'
 import Image from 'next/image'
 import useOutsideClickRef from '@/hooks/useOutsideClickRef'
 import { useLongPress } from '@/hooks/useLongPress'
+import { getGridTemplate } from '@/lib/asset'
 import DeleteGridItemButton from '../DeleteGridItemButton'
 import InputToolbar from '../../toolbar/InputToolbar'
 import ImageCropModal from '../../modal/ImageCropModal'
@@ -164,17 +165,7 @@ function CardAssetEditor({
     >
       <div
         className={`relative flex-1 ${value?.imageUrl || isOpenCardEditor ? 'grid' : ''}  grid-item-wrapper overflow-hidden p-3 gap-2`}
-        style={{
-          gridTemplateColumns:
-            width > height ? `${height}fr ${width - height}fr` : '',
-          gridTemplateRows:
-            // eslint-disable-next-line no-nested-ternary
-            width < height
-              ? `${height}fr ${height - width}fr`
-              : width === height
-                ? '1fr 1fr'
-                : '',
-        }}
+        style={getGridTemplate(width, height)}
       >
         {isOpenCardEditor ? (
           <>
