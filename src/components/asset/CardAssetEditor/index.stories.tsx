@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { CardAssetType } from '@/types'
 import { useState } from 'react'
+import { fn } from '@storybook/test'
 import CardAssetEditor from '.'
 
 const meta: Meta<typeof CardAssetEditor> = {
@@ -69,6 +70,8 @@ export const Default: Story = {
     width: 4,
     height: 4,
     breakpoint: 'lg',
+    onDelete: fn(),
+    onChangeEditMode: fn(),
   },
   render: (args) => {
     const [asset, setAsset] = useState<CardAssetType>(args.asset)
@@ -77,22 +80,6 @@ export const Default: Story = {
       setAsset(updatedAsset)
     }
 
-    const handleDelete = () => {
-      alert('CardAsset을 삭제합니다.')
-    }
-
-    const handleChangeEditMode = () => {
-      console.log('편집모드 toggle입니다.')
-    }
-
-    return (
-      <CardAssetEditor
-        {...args}
-        asset={asset}
-        onUpdate={handleUpdate}
-        onDelete={handleDelete}
-        onChangeEditMode={handleChangeEditMode}
-      />
-    )
+    return <CardAssetEditor {...args} asset={asset} onUpdate={handleUpdate} />
   },
 }
