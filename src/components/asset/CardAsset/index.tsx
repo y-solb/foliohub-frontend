@@ -35,7 +35,7 @@ function CardContent({ asset, width, height, breakpoint }: CardAssetProps) {
           {value.link && (
             <div
               aria-label="related-image-link"
-              className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1 transition-all group-hover:rotate-90 group-hover:scale-110"
+              className="image-link absolute bottom-2 left-2 flex rounded-full border border-solid border-gray-100 bg-white shadow-md p-1 transition-all group-hover:rotate-90 group-hover:scale-105"
             >
               <TbLink size={20} />
             </div>
