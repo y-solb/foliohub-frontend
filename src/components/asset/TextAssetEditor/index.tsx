@@ -11,7 +11,7 @@ import DeleteGridItemButton from '../DeleteGridItemButton'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const TextEditorToolbar = dynamic(
-  () => import('../../toolbar/TextEditorToolbar'),
+  () => import('@/components/toolbar/TextEditorToolbar'),
   {
     ssr: false,
   },
