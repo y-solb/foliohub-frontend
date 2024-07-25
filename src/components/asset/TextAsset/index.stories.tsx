@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { TextAssetType } from '@/types'
 import TextAsset from '.'
+import 'react-quill/dist/quill.snow.css'
 
 const meta: Meta<typeof TextAsset> = {
   title: 'Asset/TextAsset',

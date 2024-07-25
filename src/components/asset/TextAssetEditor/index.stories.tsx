@@ -5,6 +5,7 @@ import { fn } from '@storybook/test'
 import ReactQuill from 'react-quill'
 import TextEditorToolbar from '@/components/toolbar/TextEditorToolbar'
 import TextAssetEditor from '.'
+import 'react-quill/dist/quill.snow.css'
 
 const meta: Meta<typeof TextAssetEditor> = {
   title: 'Asset/TextAssetEditor',
