@@ -45,8 +45,8 @@ function AssetEditor({
       return (
         <ImageAssetEditor
           asset={asset}
-          w={layout?.w ?? 1}
-          h={layout?.h ?? 1}
+          width={layout?.w ?? 1}
+          height={layout?.h ?? 1}
           breakpoint={breakpoint}
           onUpdate={onUpdate}
           onDelete={onDelete}

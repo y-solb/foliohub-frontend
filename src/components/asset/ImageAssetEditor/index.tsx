@@ -15,8 +15,8 @@ import ImageCropModal from '../../modal/ImageCropModal'
 
 interface ImageAssetEditorProps {
   asset: ImageAssetType
-  w: number
-  h: number
+  width: number
+  height: number
   breakpoint: BreakpointType
   onUpdate: (updatedAsset: ImageAssetType) => void
   onDelete: (id: string, layoutId: string, command?: CommandType) => void
@@ -25,8 +25,8 @@ interface ImageAssetEditorProps {
 
 function ImageAssetEditor({
   asset,
-  w,
-  h,
+  width,
+  height,
   breakpoint,
   onUpdate,
   onDelete,
@@ -211,7 +211,7 @@ function ImageAssetEditor({
       <ImageCropModal
         isOpen={isCropMode}
         imageUrl={value.imageUrl}
-        ratio={w / h}
+        ratio={width / height}
         onCropModalClose={(newX, newY) => {
           handleCropModalClose(newX, newY)
         }}
